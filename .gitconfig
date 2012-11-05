@@ -1,0 +1,7 @@
+[diff]
+	external = git_diff_wrapper
+[pager]
+	diff =
+[user]
+	email = awkravchuk@gmail.com
+	name = Andrew Kravchuk

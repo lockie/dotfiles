@@ -1,0 +1,412 @@
+#!/bin/bash
+# Copyright 2006 S a m u e l  L e  T h i e c ( truc , samlt ) <s a m u e l e t h i e c a t h o t m a i l d o t c o m>
+# Distributed under the terms of the GNU General Public License v2
+#
+# The aim of this script is to launch program(s) on other DISPLAY(S), it is IMO well-
+# commented so you should be able to easily use it.
+# See forum thread http://forums.gentoo.org/viewtopic-t-483004.html for more explanation.
+# 
+VERSION=20070607
+
+#########
+# ======= configuration ======= #
+#################################
+
+DISPLAY_TO_USE=0 
+xinitdir=/etc/X11
+Xresources="${HOME}/.Xresources ${HOME}/.Xdefaults ${xinitdir}/Xresources ${xinitdir}/Xdefault"
+Xmodmap_files="${HOME}/.Xmodmap ${xinitdir}/Xmodmap"
+userxbindkeysrc=${HOME}/.xbindkeysrc
+Xserver="/usr/bin/Xorg"
+Xserverargs="-nolisten tcp -br -deferglyphs 16 -xinerama"
+# Uncomment this line if you plan to use the XPLAYER feature
+#XPLAYER="xplayer"
+# Uncomment this line if you use xset(and modify it to your needs)
+#XSET_ARGS="m 7/10 1"
+
+
+
+##########
+# ======= functions ======= #
+#############################
+
+show_help(){
+   PROG_NAME="${0##*/}"
+   cat<<EOF
+
+   ${PROG_NAME} is a small utility to launch program on an other Xserver/DISPLAY.
+It will also try to load your specific keyboard mapping (if you have one),
+your X ressources, and, if configured, it will launch the xbindkeys daemon.
+
+There are several ways of using it:
+
+
+   ${PROG_NAME} [path/to/]program [program_args]
+   will launch 'program', on an other DISPLAY, with 'program_args' as options
+to 'program'.
+Note: you can specify directly the path/to/the/program, if it doesn't appear
+in your PATH.(works with relative or absolute path)
+
+
+   ${PROG_NAME} {--path|-p} path/to/program [program_args]
+   will do the same as the previous command but it won't search in your path
+(usefull to test other version of an already installed program), so it needs
+the path/to/the/program,(works with relative or absolute path).
+
+
+   ${PROG_NAME} {--addlink|-a} [directory] [path/to/]program1 [[path/to/]program2 [...]]
+   will create link(s) xprogram1 (xprogram2 ...), in the directory where
+${PROG_NAME} is (in your case it's in ${0%/*} ). Once created, running e.g.:
+'xprogram1' will have the same effect as running 'xlaunch program1'.
+If you don't have write acces to ${0%/*}, then you can specify a 'directory'
+where you want the links to be created. 
+You can even create link for a program that is not in your path, to do so, you
+just need to specify the path (relative or absolute) with you program. xlaunch
+will then create necessary links, and will inform you if you need to do something
+else.
+
+
+   ${PROG_NAME} [-h|--help]
+   print this help message:)
+
+
+This help, is really short, if you want more then you should have a look
+here at the thread: http://forums.gentoo.org/viewtopic-t-483004.html
+
+
+
+You using version = ${VERSION}
+EOF
+
+}
+
+usage_error(){
+    PROG_NAME=${0##*/}
+    cat <<EOF
+You don't have write access to ${LINK_DIR}, don't forget that using
+${PROG_NAME} --addlink prog_name1 prog_name2 will try to create links
+xprog_name1 and xprog_name2 in the same directory where ${PROG_NAME}
+is (in your case it's in ${0%/*} ).
+
+If you don't have write access, then you can still tell ${PROG_NAME}
+where you want these links to be created, with the form of the same
+command:
+${PROG_NAME} --addlink path/to/writable/directory prog_name1 prog_name2
+
+For more information, issue ${PROG_NAME} --help
+EOF
+}
+
+add_links () {
+    for arg in "${@}"
+    do
+        ######
+        # if ${arg} contains a '/' then I consider the user want to add a 
+        # link for a program which is not in his PATH, for this, we do create
+        # two links,(both in ${LINK_DIR}), one is a link to the program itself
+        # (with the full path of the program), while the other is a link named
+        # xprogram to the previous just created link
+        if [ "${arg/\/}" != "${arg}" ]; then
+            if [ -x "${arg}" ]; then
+                name=${arg##*/}
+                if [ "x${name}" == "x" ] ; then
+                    echo "Wrong argument: ${arg}, is it a directory? skipping"
+                    continue
+                fi
+
+                ######
+                # if it's a relative path, then we make it absolute
+                if [ "${arg:0:1}" != "/" ]; then
+                    arg="$(pwd)/${arg}"
+                fi
+
+                ######
+                # We now ask if the user wants to choose a name for that program
+                # or if he wants to use the default ${name}
+                echo "We are now going to create 2 links for ${arg}, the first will be :"
+                echo 
+                echo "${LINK_DIR}/${name} --> ${arg}"
+                echo "And the second will be:"
+                echo "${LINK_DIR}/x${name} --> ${0}"
+                echo
+                echo "But you can change '${name}' to be whatever you want, just enter the name"
+                echo "you would like to use to launch your program (${arg} )."
+                echo "Leave blank to use default one"
+                read temp_name
+                echo
+
+                ######
+                # we first get rid of space(s), the users can still use '-' or '_' instead..
+                # if a non empty string is read, then it will be used instead of the default
+                # ${name}
+                temp_name="${temp_name// }"
+                if [ "x${temp_name}" != "x" ]; then
+                    name="${temp_name}"
+                fi
+                
+                ######
+                # We now can create to first link
+                create_link "${arg}" "${LINK_DIR}/${name}"
+                
+                ######
+                # creating the 'magic link' ;)
+                create_link "${0}" "${LINK_DIR}/x${name}"
+                if [ "${PATH/${LINK_DIR}}" == "${PATH}" ]; then
+                    echo
+                    echo "If you want the link 'x${name}' to work as expected, you need to have ${LINK_DIR}"
+                    echo "in you PATH, and it looks like you don't, see forum thread (link given in"
+                    echo "xlaunch --help ) to learn how to add it to your PATH."
+                    echo
+                fi
+            else
+                echo "you don't have enough right to execute ${arg}, skipping."
+                continue
+            fi
+        else
+            command -v "${arg}" &> /dev/null
+            if [ "$?" -eq 0 ]; then
+                create_link "${0}" "${LINK_DIR}/x${arg}"    
+            else
+                echo "Error: can't find ${arg} in you PATH, skipping"
+                continue
+            fi
+        fi
+    done
+}
+
+
+######
+# create_link argument1 argument2
+# will create a link ${2} --> ${1}
+create_link () {
+    if [[ $# -eq 2 ]] ; then
+        ln -s ${1} ${2} && echo "Created link ${2} --> ${1}" || \
+            echo "There was an error while trying to create the link for ${2##*/}"
+    else
+        echo "create_link: error, not enough or too many parameters (you shouldn't see this message!)"
+    fi
+}
+
+
+
+
+######
+# since xinit need the full path of the program to run, we now search for it
+# in the PATH, if it is not found then it exits
+get_full_path () {
+    arg="${1}"
+    FULL_PROG_NAME=`command -v "${arg}" 2> /dev/null`
+    if [ "x${FULL_PROG_NAME}" == "x" ]; then
+        echo 
+        echo "Error: can't find ${arg}:"
+        echo "   - Is it in you PATH?"
+        echo " or"
+        echo "   - Do you have enough right to execute it?"
+        return 1
+    else
+        ######
+        # Is it a full path or a relative path?
+        if [ "${FULL_PROG_NAME:0:1}" != "/" ]; then
+            FULL_PROG_NAME="$(pwd)/${FULL_PROG_NAME}"                
+        fi                                                
+    fi
+    return 0
+}
+
+
+
+##########
+# ======= the script itself ======= #
+#####################################
+
+
+######
+# The following is actually needed only if you enable XPLAYER, and under *VERY
+# SPECIAL CIRCUMSTANCES*: suppose you're launching a games, then, XPLAYER will 
+# be used, and suppose now, you modified xlaunch so that it also launch a WM,
+# or simplier a terminal, if you try to use xlaunch from the DISPLAY where the
+# games is launched, then FULL_PROG_NAME is already set in your env, which
+# makes xlaunch unuseable ON THIS DISPLAY(for XPLAYER), to avoid this we 
+# unset it
+tmp="${FULL_PROG_NAME}"
+unset FULL_PROG_NAME
+FULL_PROG_NAME="${tmp}"
+
+
+######
+# Since this script can call itself, FULL_PROG_NAME can already be set
+if [ "${FULL_PROG_NAME:-unset}" == "unset" ]; then
+    ######
+    # To use this script, you have to make a (symbolic) link, e.g.: for the game quake3
+    # you can have a link xquake3 --> xlaunch, then the PROG_NAME is quake3
+    PROG_NAME="${0##*/x}"
+    
+    ######
+    # if the user issue xlaunch, then he may want to get some help, or want to add
+    # some new links, or simply to launch something
+    unset LINK_DIR
+    if [ "x${PROG_NAME}" == "xlaunch" ]; then
+        # this when the user run xlaunch directly
+        case "${1}" in                                   
+            ''|-h|--help) 
+                show_help ; exit 0 ;;    
+                                                       
+            -a|--addlink) 
+                ######
+                # If the next argument is a writable directory, then the links will be 
+                # created in this directory, otherwise it will try to create them where
+                # the scripts xlauunch is stored
+                if [ -d "${2}" ]; then                                   
+                    if [ "${2:${#2}-1}" == "/" ]; then
+                        LINK_DIR="${2:0:${#2}-1}"
+                    else
+                        LINK_DIR="${2}"
+                    fi
+                    shift 2
+                    ######
+                    # if LINK_DIR is a relative path, then we make it full path
+                    # (with the current working directory)
+                    if [ "${LINK_DIR:0:1}" != "/" ]; then
+                        LINK_DIR="$(pwd)/${LINK_DIR}"
+                    fi
+                else                                   
+                    LINK_DIR="${0%/*}"                      
+                    shift
+                fi                                   
+                if [ ! -w "${LINK_DIR}" ]; then
+                    usage_error "${LINK_DIR}"
+                    exit 1
+                else
+                    add_links "${@}"
+                    exit 0
+                fi;;
+    
+            -p|--path) 
+                if get_full_path "${2}" ; then
+                    shift 2
+                else
+                    exit 2
+                fi;;
+
+            *)  
+                if get_full_path "${1}" ; then
+                    shift
+                else
+                    exit 2
+                fi;;
+        esac                                           
+    else
+       # this is when the user use a link to launch the program
+       # see thread mentioned in header
+       if ! get_full_path "${PROG_NAME}" ; then
+           exit 2
+       fi
+    fi
+    
+fi
+
+
+
+######
+# If ${XPLAYER} is define and if we're trying to launch a game, then we launch the same 
+# script, being ${XPLAYER} (if it's not already the case)
+if [ "x${XPLAYER}" != "x" ]; then 
+    if [ "${USER}" != "${XPLAYER}" ]; then
+        PROG_GROUP=`stat -Lc %G "${FULL_PROG_NAME}" 2> /dev/null` || PROG_GROUP="error"
+        case "${PROG_GROUP}" in
+            games) 
+                if [ -h "${0}" ]; then
+                    XLAUNCH_PATH=`readlink ${0}` || echo "Error: could not read the \"${0}\" link"
+                fi
+
+                echo "Launching ${FULL_PROG_NAME##*/} as user: ${XPLAYER}"
+                sudo su - ${XPLAYER} -l -c "FULL_PROG_NAME=\"${FULL_PROG_NAME}\" ${XLAUNCH_PATH:-${0}} \"${@}\""
+                exit $?;;
+                
+            error) 
+                echo "Could not determine group of ${FULL_PROG_NAME}. (Do you have 'stat' on your system?)"
+                echo "Launching ${FULL_PROG_NAME} on DISPLAY=${DISPLAY_TO_USE} as user: ${USER}"
+                ;;
+
+            *)  
+                ;;
+        esac
+    fi
+fi
+
+######
+# Thanks to LXj I added the following lines, which allows you launch several programs
+# each one on its own DISPLAY
+while [ -f /tmp/.X${DISPLAY_TO_USE}-lock ]
+do
+    let DISPLAY_TO_USE+=1
+done
+
+
+######
+# We now check if there is already a cookie set for this display in ~/.Xauthority
+# and we create it if necessairy(the idea is taken, and adapted from startx)
+something=`xauth list ":${DISPLAY_TO_USE}" ` 2>/dev/null;
+if [ "z${something}" == "z" ] ; then
+    mcookie=`/usr/bin/mcookie`
+    xauth -q << EOF
+add :${DISPLAY_TO_USE} . ${mcookie}
+EOF
+fi
+
+######
+# Now we launch the program on an other DISPLAY
+case "${FULL_PROG_NAME##*/}" in
+    # It's in a case, since you could want to launch other stuffs for a specific program
+    # e.g.: you're a XGL user, and want to start googleearth on an other DISPLAY, then
+    # you could want to start it with a minimal window manager:
+    # googleearth)    xinit "${FULL_PROG_NAME}" ${*} -- :${DISPLAY_TO_USE} ${Xserverargs} &
+    #                 DISPLAY:${DISPLAY_TO_USE} minimal_WM &
+    
+    xlaunch) 
+        echo "The program can't call itself. Exiting!" 
+        # Well, actually it can, but it will exit later, so exiting now..
+        exit 2;;
+    
+    *)  
+        echo "Starting ${FULL_PROG_NAME} on DISPLAY ${DISPLAY_TO_USE}"
+#		xinit "${FULL_PROG_NAME}" "${@}" -- ${Xserver} :${DISPLAY_TO_USE} ${Xserverargs} # &>/dev/null &
+		xinit "${FULL_PROG_NAME}" "${@}" -- :${DISPLAY_TO_USE} ${Xserverargs} &>/dev/null &
+        ;;
+esac
+
+
+######
+# Now we set/start some usefull stuffs
+if [ "${XSET_ARGS:-unset}" != "unset" ]; then
+    DISPLAY=:${DISPLAY_TO_USE} xset ${XSET_ARGS}
+fi
+
+# actually this is only necessary if you want specific ressources on the other display
+for xresources in ${Xresources}
+do
+    if [ -f ${xresources} ]; then
+        DISPLAY=:${DISPLAY_TO_USE} xrdb -merge ${xresources}
+    fi
+done
+ 
+for xmodmap_file in ${Xmodmap_files}
+do
+    if [ -f ${xmodmap_file} ]; then
+        DISPLAY=:${DISPLAY_TO_USE} xmodmap ${xmodmap_file} 
+    fi
+done
+
+if [ -f ${userxbindkeysrc} ]; then
+    DISPLAY=:${DISPLAY_TO_USE} xbindkeys -f ${userxbindkeysrc} 
+fi
+
+######
+# Turns on numlock if possible
+which numlockx &> /dev/null
+if [ $? -eq 0 ]; then
+    DISPLAY=:${DISPLAY_TO_USE} numlockx off
+    DISPLAY=:${DISPLAY_TO_USE} numlockx on
+fi
+
+exit 0
