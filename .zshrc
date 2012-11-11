@@ -15,6 +15,7 @@ zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt %SScrolling active: %l matches, current selection at %p%s
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' verbose true
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle :compinstall filename '~/.zshrc'
 autoload -Uz compinit promptinit
 compinit -D
