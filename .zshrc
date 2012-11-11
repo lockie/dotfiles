@@ -124,7 +124,7 @@ if [ -f /usr/bin/emerge ]; then
 	alias cave='nocorrect cave'
 	alias eselect='nocorrect eselect'
 	alias equery='nocorrect equery'
-	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y -uDNvat @world && sudo revdep-rebuild'
+	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y -uDNvat @world && sudo emerge --depclean -a && sudo revdep-rebuild'
 #	alias upd='sudo emerge -uDNva world'
 fi
 
