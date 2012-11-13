@@ -24,8 +24,7 @@ endif
 filetype plugin indent on
 
 " Внешний вид {
-	syntax on " подсветка синтаксиса 
-	
+	syntax on " подсветка синтаксиса
 	set shortmess+=I " отключаем детей Уганды
 	" отключаем звуковой и визуальный сигналы
 	if has("gui_running")
@@ -34,9 +33,9 @@ filetype plugin indent on
 		set visualbell
 	endif
 
-	set ruler		" всегда показывать курсор 
-	set showcmd		" показывать недописанные команды 
-	set cursorline " подсвечивать текущую строку 
+	set ruler		" всегда показывать курсор
+	set showcmd		" показывать недописанные команды
+	set cursorline " подсвечивать текущую строку
 	
 	set nu " нумерация строк
 
@@ -52,30 +51,27 @@ filetype plugin indent on
 	set formatoptions-=tc
 
 	set nowrap " не переносить длинные строки
-
 	set wildmenu " дикое меню :3
 	set foldmethod=indent " включаем фолдинг (сворачивание участков кода)
 	set nofoldenable
 	set fdm=indent " Сворачивание по отступам
-	
 	set gfn=Monofur\ 14,Monaco\ 10,DejaVu\ Sans\ Mono\ 10
 
 	set stal=2 " постоянно выводим строку с табами
 	
 	" Отображаем табуляции и хвостовые пробелы
-	set list 
+	set list
 	set listchars=tab:→→,trail:⋅
 
 	" Cтрока состояния
 	set laststatus=2
 
-	set statusline=%<%f%h%m%r\ \[%{&encoding}]\ \|\ Buf:\ %2n[%M%R%W]\ \|\ Line:\ %3l/%L[%3p%%]\ Col:\ %2c\ \|\ %{Tlist_Get_Tagname_By_Line()}
+	set statusline=%<%f%h%m%r\ \[%{&encoding}]\ \|\ Line:\ %3l/%L[%3p%%]\ Col:\ %2c\ \|\ %{Tlist_Get_Tagname_By_Line()}
 
 	" Plugin minibufexpl {
 		let g:miniBufExplorerMoreThanOne=2
 		let g:miniBufExplUseSingleClick=1
 	" }
-
 
 	if has ("gui_running")
 		"антиалиасинг для шревтоф
@@ -102,11 +98,8 @@ filetype plugin indent on
 	" Это позволяет редактировать несколько файлов в один и тот же момент без
 	" необходимости сохранения каждый раз когда переключаешься между ними
 	set hidden
-
 	set confirm " спрашивать подтверждение, вместо ругани при закрытии несохранённого буфера
-
 	set splitright " новое окно появляется справа
-
 	set autowrite " автоматом записывать изменения в файл при переходе к другому файлу
 
 	" разрешить мышку
@@ -121,16 +114,16 @@ filetype plugin indent on
 	" использовать иксовый буфер как основной, если vim собран с подержкой
 	" clipboard
 	set clipboard=unnamed
-	" При копировании добавить в иксовый буфер
+	" При копировании добавить в иксовый буфер (итак добавляется)
 "	nmap yy yy:silent .w !xclip<CR>
 "	vmap y y:silent '<,'> w !xclip<CR>
 
 	set autochdir " переходить в текущую директорию файла
-	set nobackup		" не делать богомерзкие *~ бэкапы 
+	set nobackup		" не делать богомерзкие *~ бэкапы
 	set directory=~/.vim/swap " хранить swap в отдельном каталоге
 	set sessionoptions=curdir,buffers,tabpages " что сохранять в сесссии
 	set noex " не читаем файл конфигурации из текущей директории
-	set history=50		" хранить 50 строк истории 
+	set history=50		" хранить 50 строк истории
 	set backspace=indent,eol,start " бэкспейс стирает всё
 
 	" таб
@@ -144,7 +137,7 @@ filetype plugin indent on
 	set scrolljump=7
 	" Теперь нет необходимости передвигать курсор к краю экрана, чтобы опуститься в режиме редактирования
 	set scrolloff=7
-	
+
 	function! UPDATE_TAGS()
 		let _f_ = expand("%:p")
 		let _cmd_ = '"ctags -a --c++-kinds=+pl --fields=+iaS --extra=+q " ' . '"' . _f_ . '"'
@@ -155,7 +148,7 @@ filetype plugin indent on
 	endfunction
 	autocmd BufWritePost *.cpp,*.hpp,*.c,*.h,*.cxx,*.hxx call UPDATE_TAGS() " автоматически обновляем ctags при сохранении буфера
 
-	" делаем из vim "редактор реального времени"
+	" делаем из vim 'редактор реального времени'
 	set updatetime=0 " Время обновления окна = 0 миллисекунд
 	set lz " ленивая перерисовка экрана при выполнении скриптов
 	set ttyfast " коннект с терминалом быстрый
@@ -182,10 +175,10 @@ filetype plugin indent on
 	let Tlist_Compact_Format = 1 " компактное меню
 	let Tlist_Enable_Fold_Column = 0 " фолдить дерево?
 	let Tlist_Exist_OnlyWindow = 1 " if you are the last, kill yourself
-	let Tlist_File_Fold_Auto_Close = 0 
+	let Tlist_File_Fold_Auto_Close = 0
 	let Tlist_Sort_Type = "order" " сотрировка - по порядку появления
-	let Tlist_Use_Right_Window = 1 " справа? 
-	let Tlist_WinWidth = 40 " ширина 
+	let Tlist_Use_Right_Window = 1 " справа?
+	let Tlist_WinWidth = 40 " ширина
 " }
 
 " Plugin OmniCppComplete {
