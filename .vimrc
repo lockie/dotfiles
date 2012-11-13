@@ -68,18 +68,16 @@ filetype plugin indent on
 
 	" Cтрока состояния
 	set laststatus=2
-" Plugin buftabs {
-	let g:buftabs_in_statusline=1
-"	let g:buftabs_active_highlight_group="StatusLine"
-"	let g:buftabs_inactive_highlight_group="StatusLineNC"
-	let g:buftabs_separator=":"
-" }
-	set statusline=%<%f%h%m%r\ \[%{&encoding}]\ \|\ Buf:\ %2n[%M%R%W]\ \|\ Line:\ %3l/%L[%3p%%]\ Col:\ %2c\ \|\ %{Tlist_Get_Tagname_By_Line()}\ \|\ %{buftabs#statusline()}
+
+	set statusline=%<%f%h%m%r\ \[%{&encoding}]\ \|\ Buf:\ %2n[%M%R%W]\ \|\ Line:\ %3l/%L[%3p%%]\ Col:\ %2c\ \|\ %{Tlist_Get_Tagname_By_Line()}
+
+	" Plugin minibufexpl {
+		let g:miniBufExplorerMoreThanOne=2
+		let g:miniBufExplUseSingleClick=1
+	" }
+
 
 	if has ("gui_running")
-		"убираем скроллбары
-		set guioptions-=r
-		set guioptions-=l
 		"антиалиасинг для шревтоф
 		set antialias
 		"прячем курсор
@@ -124,8 +122,8 @@ filetype plugin indent on
 	" clipboard
 	set clipboard=unnamed
 	" При копировании добавить в иксовый буфер
-	nmap yy yy:silent .w !xclip<CR>
-	vmap y y:silent '<,'> w !xclip<CR>
+"	nmap yy yy:silent .w !xclip<CR>
+"	vmap y y:silent '<,'> w !xclip<CR>
 
 	set autochdir " переходить в текущую директорию файла
 	set nobackup		" не делать богомерзкие *~ бэкапы 

@@ -16,7 +16,7 @@
     * tag list
     * Super Tab
     * NERD tree
-    * buftabs
+    * minibufexpl
     * a.vim
     * ManPageView
     * Scratch
