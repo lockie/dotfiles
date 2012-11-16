@@ -183,11 +183,11 @@ mytasklist.buttons = awful.util.table.join(
 f = io.popen('cat /proc/cpuinfo | grep processor | wc -l')
 core_count = f:read()
 have_cpufreq=0
-if os.execute("ls /sys/devices/system/cpu/cpu0/cpufreq 2&>1 /dev/null") == 0 then
+if os.execute("ls /sys/devices/system/cpu/cpu0/cpufreq &> /dev/null") == 0 then
     have_cpufreq=1
 end
 have_fan=0
-if os.execute("ls /sys/devices/platform/it87.656/fan 2&>1 /dev/null") == 0 then
+if os.execute("ls /sys/devices/platform/it87.656/fan1_input &> /dev/null") == 0 then
     have_fan=1
 end
 
@@ -207,7 +207,7 @@ vicious.cache(vicious.widgets.cpu)
 ind_cpu1.width = 25
 ind_cpu1.align = 'right'
 ind_cpuf1 = widget({ type = "textbox" })
-if has_cpufreq==1 then
+if have_cpufreq==1 then
     vicious.register(ind_cpuf1, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu0")
     ind_cpuf1.width = 40
 else
@@ -218,7 +218,7 @@ vicious.register(ind_cpu2, vicious.widgets.cpu, "$2%", 1)
 ind_cpu2.width = 25
 ind_cpu2.align = 'right'
 ind_cpuf2 = widget({ type = "textbox" })
-if has_cpufreq==1 then
+if have_cpufreq==1 then
     vicious.register(ind_cpuf2, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu1")
     ind_cpuf2.width = 40
 else
@@ -230,7 +230,7 @@ if core_count == '4' then
     ind_cpu3.width = 25
     ind_cpu3.align = 'right'
     ind_cpuf3 = widget({ type = "textbox" })
-    if has_cpufreq==1 then
+    if have_cpufreq==1 then
         vicious.register(ind_cpuf3, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu2")
         ind_cpuf3.width = 40
     end
@@ -239,7 +239,7 @@ if core_count == '4' then
     ind_cpu4.width = 25
     ind_cpu4.align = 'right'
     ind_cpuf4 = widget({ type = "textbox" })
-    if has_cpufreq==1 then
+    if have_cpufreq==1 then
         vicious.register(ind_cpuf4, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu3")
         ind_cpuf4.width = 40
     end
