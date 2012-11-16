@@ -187,6 +187,8 @@ bindkey "^[[6~" down-line-or-history
 #zstyle ':completion:*:(ssh|scp):*' hosts $hosts
 zstyle ':completion:*:(ssh|scp):*' tag-order '! users'
 
+# git flow
+source /etc/zsh/git-flow-completion.zsh
 
 # Распаковка любого архива (http://muhas.ru/?p=55)
 unpack() {
