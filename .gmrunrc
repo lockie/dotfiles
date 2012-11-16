@@ -5,7 +5,7 @@
 # Set terminal
 Terminal = sakura
 TermExec = ${Terminal} -e
-AlwaysInTerm = python ipython perl ssh telnet ftp lynx mc vi vim pine centericq perldoc man traceroute tracert less ping
+AlwaysInTerm = mc python ipython perl ssh telnet ftp lynx mc vi vim pine centericq perldoc man traceroute tracert less ping
 
 # Set window geometry (except height)
 Width = 400
@@ -43,8 +43,9 @@ URL_info = ${TermExec} 'info %s'
 URL_sh = sh -c '%s'
 
 # extension handlers
-EXT:doc,rtf = oowriter %s
-EXT:txt,cc,cpp,h,java,html,htm,epl,tex,latex,js,css,xml,xsl,am = gvim %s
+EXT:doc,rtf = lowriter %s
+EXT:txt,c,cc,cpp,h,java,html,htm,epl,tex,latex,js,css,xml,xsl,am = gvim %s
 EXT:ps = evince %s
 EXT:pdf = evince %s
+EXT:djvu = evince %s
 
