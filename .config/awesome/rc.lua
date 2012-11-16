@@ -65,6 +65,7 @@ terminal = "sakura"
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = "gvim"
 browser = "firefox"
+filemanager = "pcmanfm"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -179,6 +180,17 @@ mytasklist.buttons = awful.util.table.join(
                                               if client.focus then client.focus:raise() end
                                           end))
 
+f = io.popen('cat /proc/cpuinfo | grep processor | wc -l')
+core_count = f:read()
+have_cpufreq=0
+if os.execute("ls /sys/devices/system/cpu/cpu0/cpufreq 2&>1 /dev/null") == 0 then
+    have_cpufreq=1
+end
+have_fan=0
+if os.execute("ls /sys/devices/platform/it87.656/fan 2&>1 /dev/null") == 0 then
+    have_fan=1
+end
+
 weatherwidget = widget({ type = "textbox" })
 weather.addWeather(weatherwidget, city, 600)
 
@@ -195,34 +207,52 @@ vicious.cache(vicious.widgets.cpu)
 ind_cpu1.width = 25
 ind_cpu1.align = 'right'
 ind_cpuf1 = widget({ type = "textbox" })
-vicious.register(ind_cpuf1, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu0")
-ind_cpuf1.width = 40
+if has_cpufreq==1 then
+    vicious.register(ind_cpuf1, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu0")
+    ind_cpuf1.width = 40
+else
+    ind_cpuf1.width = 10
+end
 ind_cpu2 = widget({ type = "textbox" })
 vicious.register(ind_cpu2, vicious.widgets.cpu, "$2%", 1)
 ind_cpu2.width = 25
 ind_cpu2.align = 'right'
 ind_cpuf2 = widget({ type = "textbox" })
-vicious.register(ind_cpuf2, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu1")
-ind_cpuf2.width = 40
-ind_cpu3 = widget({ type = "textbox" })
-vicious.register(ind_cpu3, vicious.widgets.cpu, "$3%", 1)
-ind_cpu3.width = 25
-ind_cpu3.align = 'right'
-ind_cpuf3 = widget({ type = "textbox" })
-vicious.register(ind_cpuf3, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu2")
-ind_cpuf3.width = 40
-ind_cpu4 = widget({ type = "textbox" })
-vicious.register(ind_cpu4, vicious.widgets.cpu, "$4%", 1)
-ind_cpu4.width = 25
-ind_cpu4.align = 'right'
-ind_cpuf4 = widget({ type = "textbox" })
-vicious.register(ind_cpuf4, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu3")
-ind_cpuf4.width = 40
+if has_cpufreq==1 then
+    vicious.register(ind_cpuf2, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu1")
+    ind_cpuf2.width = 40
+else
+    ind_cpuf1.width = 10
+end
+if core_count == '4' then
+    ind_cpu3 = widget({ type = "textbox" })
+    vicious.register(ind_cpu3, vicious.widgets.cpu, "$3%", 1)
+    ind_cpu3.width = 25
+    ind_cpu3.align = 'right'
+    ind_cpuf3 = widget({ type = "textbox" })
+    if has_cpufreq==1 then
+        vicious.register(ind_cpuf3, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu2")
+        ind_cpuf3.width = 40
+    end
+    ind_cpu4 = widget({ type = "textbox" })
+    vicious.register(ind_cpu4, vicious.widgets.cpu, "$4%", 1)
+    ind_cpu4.width = 25
+    ind_cpu4.align = 'right'
+    ind_cpuf4 = widget({ type = "textbox" })
+    if has_cpufreq==1 then
+        vicious.register(ind_cpuf4, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu3")
+        ind_cpuf4.width = 40
+    end
+end
 ind_cputemp = widget({ type = "textbox" })
 vicious.register(ind_cputemp, vicious.widgets.thermal, "$1°C", 2, {"coretemp.0", "core", "3"})
 ind_fan = widget({ type = "textbox" })
-vicious.register(ind_fan, vicious.widgets.fan, "<b><span color='#7F9F7F'>☢</span></b>$1 ", 2)
-ind_fan.width = 45
+if have_fan==1 then
+    vicious.register(ind_fan, vicious.widgets.fan, "<b><span color='#7F9F7F'>☢</span></b>$1 ", 2)
+    ind_fan.width = 45
+else
+    ind_fan.width = 10
+end
 ind_vtemp = widget({ type = "textbox" })
 vicious.register(ind_vtemp, vicious.widgets.nvidiatemp, "<span color='#7f7f7f'>$1°C</span>", 2)
 ind_vtemp.width = 40
@@ -335,6 +365,7 @@ s=1
 
     -- Create indicators
     myindicators[s] = awful.wibox({ position = "top", screen = s, height = 16 })
+    if core_count == '4' then
     myindicators[s].widgets = {
         {
             ind_os, ind_uptime,
@@ -349,6 +380,25 @@ s=1
         },
         layout = awful.widget.layout.horizontal.rightleft
     }
+    else -- 2 cores
+    myindicators[s].widgets = {
+        {
+            ind_os, ind_uptime,
+            separator, cpuicon, ind_cputemp, ind_fan, ind_vtemp, ind_cpu1, ind_cpuf1, ind_cpu2, ind_cpuf2,
+            separator, topicon, ind_top,
+            separator, memicon, ind_mem, membar,
+            separator, fsicon, ind_hddtemp, dnicon, ind_dio, upicon,
+            separator, ind_fsr, fs.r.widget, ind_fsh, fs.h.widget,
+            separator, neticon, dnicon, netwidget, upicon,
+            separator, mailicon, ind_mail,
+            separator, layout = awful.widget.layout.horizontal.leftright
+        },
+        layout = awful.widget.layout.horizontal.rightleft
+    }
+    end
+
+
+
 --end
 -- }}}
 
@@ -376,7 +426,7 @@ globalkeys = awful.util.table.join(
         end),
     --awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
     awful.key({ modkey,           }, "w", function () awful.util.spawn("firefox") end),
-    awful.key({ modkey,           }, "e", function () awful.util.spawn("pcmanfm") end),
+    awful.key({ modkey,           }, "e", function () awful.util.spawn(filemanager) end),
     awful.key({                   }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'") end),
 
     -- Layout manipulation
