@@ -20,6 +20,7 @@
     * a.vim
     * ManPageView
     * Scratch
+    * Syntastic (доставить htmltidy, clang, pylint)
 
 ## Скрипты
  - git\_diff\_wrapper - vimdiff-ная обёртка для git diff

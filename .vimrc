@@ -168,6 +168,23 @@ filetype plugin indent on
 	"autocmd VimEnter * wincmd p
 " }
 
+" Plugin Syntastic {
+	if has("gui_running")
+		let g:syntastic_check_on_open=1
+		let g:syntastic_echo_current_error=0
+		map <C-y> :SyntasticToggleMode<cr>
+		imap <C-y> <esc>:SyntasticToggleMode<cr>a
+	else
+		let g:syntastic_check_on_open=0
+		let g:syntastic_echo_current_error=1
+		map <C-y> :SyntasticCheck<cr>
+		imap <C-y> <esc>:SyntasticCheck<cr>a
+	endif
+	let g:syntastic_enable_signs=1
+	let g:syntastic_enable_highlighting=1
+	let g:syntastic_cpp_compiler = 'clang++'
+" }
+
 
 " Plugin TagList {
 	let g:Tlist_Show_One_File=1 " показывать информацию только по одному файлу
