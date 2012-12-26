@@ -38,7 +38,6 @@ export HISTFILE=~/.histfile
 export HISTSIZE=10000
 export SAVEHIST=10000
 setopt appendhistory beep extendedglob nomatch notify
-bindkey -v
 # End of lines configured by zsh-newuser-install
 
 ###########################################################################
@@ -46,6 +45,18 @@ bindkey -v
 setopt HIST_IGNORE_DUPS
 setopt autocd
 setopt PROMPT_SUBST
+
+#
+# vim-режим
+#
+bindkey -v
+function zle-line-init zle-keymap-select {
+	RPS1="${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')} %U[%T %D]%u"
+	RPS2=$RPS1
+	zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 # Исправлять ошибки
 setopt correctall
@@ -164,23 +175,35 @@ function gitdiff() {
 #
 case "$TERM" in
 	xterm)
- 		bindkey "^[OH" beginning-of-line
-		bindkey "^[OF" end-of-line
-		bindkey "^[[H" beginning-of-line
-		bindkey "^[[F" end-of-line
+		bindkey -M viins "^[OH" beginning-of-line
+		bindkey -M vicmd "^[OH" vi-beginning-of-line
+		bindkey -M viins "^[OF" end-of-line
+		bindkey -M vicmd "^[OF" vi-end-of-line
+		bindkey -M viins "^[[H" beginning-of-line
+		bindkey -M vicmd "^[[H" vi-beginning-of-line
+		bindkey -M viins "^[[F" end-of-line
+		bindkey -M vicmd "^[[F" vi-end-of-line
 		;;
 	rxvt-unicode)
-		bindkey "^[[7~" beginning-of-line
-		bindkey "^[[8~" end-of-line	
+		bindkey -M viins "^[[7~" beginning-of-line
+		bindkey -M vicmd "^[[7~" vi-beginning-of-line
+		bindkey -M viins "^[[8~" end-of-line
+		bindkey -M vicmd "^[[8~" vi-end-of-line
 		;;
 	*)
-		bindkey "^[[1~" beginning-of-line
-		bindkey "^[[4~" end-of-line
+		bindkey -M viins "^[[1~" beginning-of-line
+		bindkey -M vicmd "^[[1~" vi-beginning-of-line
+		bindkey -M viins "^[[4~" end-of-line
+		bindkey -M vicmd "^[[4~" vi-end-of-line
 esac
-bindkey "^[[3~" delete-char
-bindkey "^[[2~" yank
-bindkey "^[[5~" up-line-or-history
-bindkey "^[[6~" down-line-or-history
+bindkey -M viins "^[[3~" delete-char
+bindkey -M vicmd "^[[3~" delete-char
+bindkey -M viins "^[[2~" yank
+bindkey -M vicmd "^[[2~" vi-insert
+bindkey -M viins "^[[5~" up-line-or-history
+bindkey -M vicmd "^[[5~" up-line-or-history
+bindkey -M viins "^[[6~" down-line-or-history
+bindkey -M vicmd "^[[6~" down-line-or-history
 
 # Автодополнение хостов для ssh/scp
 #hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}% % *}% %,*})
