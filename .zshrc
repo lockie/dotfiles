@@ -211,6 +211,7 @@ bindkey -M vicmd "^[[6~" down-line-or-history
 zstyle ':completion:*:(ssh|scp):*' tag-order '! users'
 
 # git flow
+# оверлей для Gentoo - flora
 source /etc/zsh/git-flow-completion.zsh
 
 # Распаковка любого архива (http://muhas.ru/?p=55)
@@ -257,6 +258,10 @@ alias -s {avi,mpeg,mpg,mov,m2v,flv}=mplayer
 alias -s txt=vi
 alias -s {ogg,mp3,wav}=mplayer
 alias -s {jpg,jpeg,png,gif}=display
+
+# подсветка
+# оверлей для Gentoo называется mv
+source /usr/share/zsh/site-contrib/zsh-syntax-highlighting.zsh
 
 # Печенюшка на дорожку ^_^
 if [ -f /usr/bin/fortune ] || [ -f /usr/games/fortune ]; then
