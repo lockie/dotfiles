@@ -272,6 +272,7 @@ membar:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 vicious.register(membar, vicious.widgets.mem, "$1", 2)
 ind_mem = widget({ type = "textbox" })
 vicious.register(ind_mem, vicious.widgets.mem, "$2M<span color='#7F9F7F'>/</span>$6M ", 1)
+ind_mem.width=75
 dnicon = widget({ type = "imagebox" })
 upicon = widget({ type = "imagebox" })
 dnicon.image = image(beautiful.widget_net)
