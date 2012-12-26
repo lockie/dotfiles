@@ -43,9 +43,9 @@ filetype plugin indent on
 	" символы начиная с 81-го
 	autocmd FileType text setlocal textwidth=80
 	if exists('+colorcolumn')
-		au FileType c,cc,cpp,cxx,h,hpp,hxx,sh,py au BufWinEnter * setlocal colorcolumn=80
+		au FileType c,cc,cpp,cxx,h,hpp,hxx,sh,python au BufWinEnter * setlocal colorcolumn=80
 	else
-		au FileType c,cc,cpp,cxx,h,hpp,hxx,sh,py au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1)
+		au FileType c,cc,cpp,cxx,h,hpp,hxx,sh,python au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1)
 	endif
 	" отключить автоматический перенос строк
 	set formatoptions-=tc
