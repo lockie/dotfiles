@@ -52,6 +52,7 @@ setopt PROMPT_SUBST
 bindkey -v
 function zle-line-init zle-keymap-select {
 	RPS1="${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')} %U[%T %D]%u"
+	RPROMPT='${vcs_info_msg_0_}'$RPS1
 	RPS2=$RPS1
 	zle reset-prompt
 }
@@ -65,7 +66,6 @@ SPROMPT="	$fg[red]%R$reset_color → $fg[green]%r?$reset_color (Yes, No, Abort, 
 
 export PROMPT="%(?,$(print '%{\e[1;32m%}^_^%{\e[0m%}'),$(print '%{\e[1;31m%}>_<%{\e[0m%}')) [$(print '%{\e[1;30m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
 export RPS1="%U[%T %D]%u"
-export RPROMPT='${vcs_info_msg_0_}'$RPS1
 export HGUSER=$USER
 ulimit -c unlimited
 
@@ -111,6 +111,7 @@ alias mkdir='nocorrect mkdir'  # ... или не сделать лишний к�
 alias sudo='nocorrect sudo'  # ... или не натворить делов
 alias kill='nocorrect kill'
 alias killall='nocorrect killall'
+alias pkill='nocorrect pkill'
 if [ -f /usr/bin/pacman ]; then
 	alias pacman='nocorrect pacman'
 fi
@@ -136,12 +137,13 @@ if [ -f /usr/bin/emerge ]; then
 	alias cave='nocorrect cave'
 	alias eselect='nocorrect eselect'
 	alias equery='nocorrect equery'
-	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y -uDNvat @world && sudo emerge --depclean -a ; sudo revdep-rebuild -- -vat'
+	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y -uDNvat @world && sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -- -vat ; sudo env-update'
 #	alias upd='sudo emerge -uDNva world'
 fi
 
 
 alias c='cd'
+alias m='mc'
 alias psa='ps axu'
 alias psf='ps axuf'
 alias cmd='ipython'
@@ -261,7 +263,7 @@ alias -s {jpg,jpeg,png,gif}=display
 
 # подсветка
 # оверлей для Gentoo называется mv
-source /usr/share/zsh/site-contrib/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/site-contrib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Печенюшка на дорожку ^_^
 if [ -f /usr/bin/fortune ] || [ -f /usr/games/fortune ]; then
