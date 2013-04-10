@@ -104,17 +104,18 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "edit config", editor_cmd .. " " .. awesome.conffile, "/usr/share/icons/nuoveXT2/128x128/apps/text-editor.png" },
    { "restart", awesome.restart },
    { "quit", awesome.quit },
-   { "shutdown", home .. "/bin/shutdown_dialog.sh" }
+   { "shutdown", home .. "/bin/shutdown_dialog.sh", "/usr/share/icons/nuoveXT2/128x128/actions/system-shutdown.png" }
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "firefox", "firefox" },
-                                    { "pidgin", "/usr/bin/pidgin" },
-                                    { "freemind", "/usr/bin/freemind" },
-                                    { "terminal", terminal }
+                                    { "firefox", "firefox", "/usr/share/icons/nuoveXT2/128x128/apps/firefox-icon.png" },
+                                    { "pidgin", "/usr/bin/pidgin", "/usr/share/pixmaps/pidgin/status/16/available.png" },
+                                    { "deadbeef", "/usr/bin/deadbeef", "/usr/share/icons/hicolor/192x192/apps/deadbeef.png" },
+                                    { "freemind", "/usr/bin/freemind", "/usr/share/pixmaps/freemind.png" },
+                                    { "terminal", terminal, "/usr/share/icons/nuoveXT2/128x128/apps/terminal.png" }
                                   }
                         })
 
@@ -569,6 +570,8 @@ awful.rules.rules = {
     { rule = { class = "Pidgin", role = "conversation"},
       properties = { tag = tags[1][4]}, callback = awful.client.setslave },
     { rule = { instance = "plugin-container" },
+      properties = { floating = true } },
+    { rule = { instance = "exe" },
       properties = { floating = true } },
     { rule = { class = "Xmessage" },
       properties = { floating = true } },
