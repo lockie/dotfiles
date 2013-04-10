@@ -71,6 +71,7 @@ filetype plugin indent on
 	" Plugin minibufexpl {
 		let g:miniBufExplorerMoreThanOne=2
 		let g:miniBufExplUseSingleClick=1
+		let g:miniBufExplModSelTarget=1
 	" }
 
 	if has ("gui_running")
@@ -283,7 +284,7 @@ filetype plugin indent on
 			imap <F5> <Esc>:wa<CR>:make %:r<CR>:cw<CR>a
 		endif
 	endfunction
-	au FileType c,cc,cpp,cxx,h,hpp,hxx,pas,inl,s call BindF5_C()
+	au FileType c,cc,cpp,cxx,h,hpp,hxx,pas,inl,s,tex call BindF5_C()
 	" выход аля mc
 	nmap <F10> :qa<CR>
 	" F12 - обозреватель файлов
