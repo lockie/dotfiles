@@ -17,6 +17,10 @@ set fileencoding=utf-8
 set ffs=unix,dos,mac
 set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 
+" запоминать историю undo между перезапусками
+set undodir=~/.vim/undodir/
+set undofile
+
 " Я не evim
 if v:progname =~? "evim"
 	finish
