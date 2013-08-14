@@ -5,7 +5,8 @@ scriptencoding utf-8
 " менеджер пакетов
 set nocompatible
 let mapleader = "'"
-call pathogen#infect()
+call pathogen#runtime_append_all_bundles()
+" see https://github.com/tpope/vim-pathogen/issues/40
 call pathogen#helptags()
 
 " И вообще, юникод - это прогрессивненько
