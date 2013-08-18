@@ -60,7 +60,7 @@ filetype plugin indent on
 	set foldmethod=indent " включаем фолдинг (сворачивание участков кода)
 	set nofoldenable
 	set fdm=indent " Сворачивание по отступам
-	set gfn=Monofur\ 14,Monaco\ 10,DejaVu\ Sans\ Mono\ 10
+	set gfn=Monofur\ for\ Powerline\ 14,Monaco\ 10,DejaVu\ Sans\ Mono\ 10
 
 	set stal=2 " постоянно выводим строку с табами
 	
@@ -71,7 +71,7 @@ filetype plugin indent on
 	" Cтрока состояния
 	set laststatus=2
 
-	set statusline=%<%f%h%m%r\ \[%{&encoding}]\ \|\ Line:\ %3l/%L[%3p%%]\ Col:\ %2c\ \|\ %{Tlist_Get_Tagname_By_Line()}
+	"set statusline=%<%f%h%m%r\ \[%{&encoding}]\ \|\ Line:\ %3l/%L[%3p%%]\ Col:\ %2c\ \|\ %{Tlist_Get_Tagname_By_Line()}
 
 	" Plugin minibufexpl {
 		let g:miniBufExplorerMoreThanOne=2
@@ -191,19 +191,6 @@ filetype plugin indent on
 	let g:syntastic_cpp_compiler = 'clang++'
 " }
 
-
-" Plugin TagList {
-	let g:Tlist_Show_One_File=1 " показывать информацию только по одному файлу
-	let Tlist_Auto_Open = 0 " открывать автоматически?
-	let Tlist_Compact_Format = 1 " компактное меню
-	let Tlist_Enable_Fold_Column = 0 " фолдить дерево?
-	let Tlist_Exist_OnlyWindow = 1 " if you are the last, kill yourself
-	let Tlist_File_Fold_Auto_Close = 0
-	let Tlist_Sort_Type = "order" " сотрировка - по порядку появления
-	let Tlist_Use_Right_Window = 1 " справа?
-	let Tlist_WinWidth = 40 " ширина
-" }
-
 " Plugin OmniCppComplete {
 	let OmniCpp_NamespaceSearch = 1
 	let OmniCpp_ShowPrototypeInAbbr = 1 " показывать параметры
@@ -228,6 +215,21 @@ filetype plugin indent on
 	"let g:C_AuthorRef       = 'http://nosite.ru'
 	let g:C_Email           = 'awkravchuk@gmail.com'
 	"let g:C_Company         = 'Freelancer'
+" }
+
+" Plugin airline {
+	if has("gui_running")
+		let g:airline_powerline_fonts = 1
+	endif
+	let g:airline_detect_whitespace=2
+	let g:airline_theme="molokai"
+	set ttimeoutlen=50
+" }
+
+" Plugin tagbar {
+	let g:tagbar_sort = 0
+	let g:tagbar_compact = 1
+	let g:tagbar_autoshowtag = 1
 " }
 
 " Горячие ключи {
@@ -265,7 +267,7 @@ filetype plugin indent on
 "	nmap <F4> :ConqueTermSplit zsh<CR><Esc>:setlocal nolist<CR>
 	" запуск
 "	map <F5> :! ./%< <CR> 	
-	map <F6> :Tlist<CR> 
+	map <F6> :Tagbar<CR>
 	" предыдущая/следующая ошибка
 	map <F7>  :cp<CR>
 	map <F8>  :cn<CR>
@@ -298,7 +300,7 @@ filetype plugin indent on
 	imap <F12> <esc>:NERDTree<cr>a
 
 	" обновить ctags
-	map <C-u> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>:TlistUpdate<CR>
+	map <C-u> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
 
 	" проверка орфографии
 	map <C-p> :setlocal spell spelllang=en,ru<cr>

@@ -13,7 +13,7 @@
     * pathogen
     * c.vim
     * OmniCppComplete
-    * tag list
+    * tagbar
     * Super Tab
     * NERD tree
     * minibufexpl
@@ -21,6 +21,7 @@
     * ManPageView
     * Scratch
     * Syntastic (доставить htmltidy, clang, pylint)
+    * vim-airline
 
 ## Скрипты
  - git\_diff\_wrapper - vimdiff-ная обёртка для git diff
