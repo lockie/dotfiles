@@ -189,6 +189,9 @@ filetype plugin indent on
 	let g:syntastic_enable_signs=1
 	let g:syntastic_enable_highlighting=1
 	let g:syntastic_cpp_compiler = 'clang++'
+	let g:syntastic_cpp_include_dirs=['/usr/include/gstreamer-1.0', '/usr/include/opencv']
+	let g:syntastic_c_include_dirs=g:syntastic_cpp_include_dirs
+	let g:syntastic_python_checker_args='--rcfile=.pylintrc'
 " }
 
 " Plugin OmniCppComplete {
