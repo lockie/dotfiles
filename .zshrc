@@ -137,7 +137,7 @@ if [ -f /usr/bin/emerge ]; then
 	alias cave='nocorrect cave'
 	alias eselect='nocorrect eselect'
 	alias equery='nocorrect equery'
-	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y -uDNvat @world && sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -- -vat ; sudo env-update'
+	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -- -vat ; sudo env-update'
 #	alias upd='sudo emerge -uDNva world'
 fi
 
@@ -257,7 +257,7 @@ fi
 
 # Привязки файлов к программам
 alias -s {avi,mpeg,mpg,mov,m2v,flv}=mplayer
-alias -s txt=vi
+alias -s txt=vim
 alias -s {ogg,mp3,wav}=mplayer
 alias -s {jpg,jpeg,png,gif}=display
 
