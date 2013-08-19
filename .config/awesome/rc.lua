@@ -587,6 +587,9 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "Smplayer" },
       properties = { floating = true } },
+    { rule = { class = "psi" },
+      properties = {tag = tags[2][4]}
+    }
 }
 -- }}}
 
@@ -615,6 +618,13 @@ client.add_signal("manage", function (c, startup)
             awful.placement.no_offscreen(c)
         end
     end
+
+    -- http://awesome.naquadah.org/wiki/IM_tips#Psi_and_qutIM
+    if c.class == "psi" and not c.name:find("Psi") then
+        awful.client.setslave(c)
+        awful.tag.setmwfact (0.2, tags[2][4])
+    end
+
 end)
 
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
