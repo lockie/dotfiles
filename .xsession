@@ -2,9 +2,13 @@
 
 nitrogen --restore &
 xsetroot -cursor_name left_ptr &
-setxkbmap -layout us,ru -option "grp:ctrl_shift_toggle,grp_led:scroll,terminate:ctrl_alt_bksp" -variant ",winkeys" &
-xset r rate 180 35 &
+xset r rate 190 25 &
+xset -dpms & xset s off &
+setxkbmap -layout us,ru -option "grp:ctrl_shift_toggle,grp_led:scroll" -variant ",winkeys" &
 xscreensaver -nosplash &
 volti &
+/usr/libexec/polkit-gnome-authentication-agent-1 &
+kwalletd &
 /opt/dropbox/dropbox &
+sleep 7 && owncloud &
 exec /usr/bin/awesome
