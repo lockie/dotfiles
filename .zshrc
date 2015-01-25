@@ -33,6 +33,18 @@ zstyle ':vcs_info:(svn|bzr):*' branchformat '%b%F{1}:%F{3}%r'
 zstyle ':vcs_info:*' get-revision true
 precmd () { vcs_info }
 
+# pip zsh completion start
+function _pip_completion {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] ) )
+}
+compctl -K _pip_completion pip
+# pip zsh completion end
+
 # Lines configured by zsh-newuser-install
 export HISTFILE=~/.histfile
 export HISTSIZE=10000
@@ -91,12 +103,15 @@ fi
 if [ -f /usr/bin/ack ]; then
 	alias grep='nocorrect ack'
 fi
+if [ -f /usr/bin/mpv ]; then
+	alias mplayer='mpv'
+fi
 
 # Раскраска ^___^
 if [ -f /usr/bin/grc ]; then
 	alias ping="grc --colour=auto ping"
 	alias traceroute="grc --colour=auto traceroute"
-	alias make="grc --colour=auto make"
+	#alias make="grc --colour=auto make"
 	alias diff="grc --colour=auto diff"
 	alias cvs="grc --colour=auto cvs"
 	alias netstat="grc --colour=auto netstat"
@@ -106,6 +121,8 @@ fi
 alias cls=clear
 alias mv='nocorrect mv'  # чтобы случайно не удалить чего-нибудь
 alias rm='nocorrect rm'  # чтобы случайно не удалить чего-нибудь
+alias ln='nocorrect ln'
+alias make='nocorrect make'
 alias cp='nocorrect cp'  # ... или не скопировать
 alias mkdir='nocorrect mkdir'  # ... или не сделать лишний каталог
 alias sudo='nocorrect sudo'  # ... или не натворить делов
@@ -137,7 +154,7 @@ if [ -f /usr/bin/emerge ]; then
 	alias cave='nocorrect cave'
 	alias eselect='nocorrect eselect'
 	alias equery='nocorrect equery'
-	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -- -vat ; sudo env-update'
+	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y --with-bdeps=y -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -- -vat ; sudo env-update'
 #	alias upd='sudo emerge -uDNva world'
 fi
 
@@ -214,7 +231,7 @@ zstyle ':completion:*:(ssh|scp):*' tag-order '! users'
 
 # git flow
 # оверлей для Gentoo - flora
-source /etc/zsh/git-flow-completion.zsh
+#source /etc/zsh/git-flow-completion.zsh
 
 # Распаковка любого архива (http://muhas.ru/?p=55)
 unpack() {
