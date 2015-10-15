@@ -19,7 +19,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle :compinstall filename '~/.zshrc'
 autoload -Uz compinit promptinit
 compinit -D
-promptinit; prompt gentoo
+promptinit
 
 autoload colors && colors
 
@@ -157,7 +157,10 @@ if [ -f /usr/bin/emerge ]; then
 	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y --with-bdeps=y -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -- -vat ; sudo env-update'
 #	alias upd='sudo emerge -uDNva world'
 fi
-
+if [ -f /usr/bin/avconv ]; then
+	command -v ffmpeg >/dev/null 2>&1 || alias ffmpeg='avconv'
+fi
+alias git='nocorrect git'
 
 alias c='cd'
 alias m='mc'
@@ -280,7 +283,7 @@ alias -s {jpg,jpeg,png,gif}=display
 
 # подсветка
 # оверлей для Gentoo называется mv
-source /usr/share/zsh/site-contrib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/andrew/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Печенюшка на дорожку ^_^
 if [ -f /usr/bin/fortune ] || [ -f /usr/games/fortune ]; then
