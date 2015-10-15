@@ -30,6 +30,7 @@ filetype plugin indent on
 
 " Внешний вид {
 	syntax on " подсветка синтаксиса
+	set guioptions-=T  "remove toolbar
 	set shortmess+=I " отключаем детей Уганды
 	" отключаем звуковой и визуальный сигналы
 	if has("gui_running")
@@ -191,6 +192,7 @@ filetype plugin indent on
 	let g:syntastic_cpp_compiler = 'clang++'
 	let g:syntastic_cpp_include_dirs=['/usr/include/gstreamer-1.0', '/usr/include/opencv']
 	let g:syntastic_c_include_dirs=g:syntastic_cpp_include_dirs
+	let g:syntastic_cpp_compiler_options='-std=c++0x'
 	let g:syntastic_python_checker_args='--rcfile=.pylintrc'
 " }
 
@@ -237,14 +239,14 @@ filetype plugin indent on
 
 " Горячие ключи {
 
-	nnoremap <leader>s :vs<cr>
-	nnoremap <leader><space> :noh<cr>
-	nnoremap ; :
-
 	" возможность использовать команды при русской раскладке
 	" VIM CANNOT INTO UTF8  *coolface.jpg*
 	"set langmap=Ж:,йq,цw,уe,кr,еt,нy,гu,шi,щo,зp,х[,ъ],фa,ыs,вd,аf,пg,рh,оj,лk,дl,э',яz,чx,сc,мv,иb,тn,ьm,б\,,ю.,ё`
 	set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+
+	nnoremap <leader>s :vs<cr>
+	nnoremap <leader><space> :noh<cr>
+	nnoremap ; :
 
 	set wak=yes " используем ALT как обычно, а не для вызова пункта меню
 
@@ -308,15 +310,18 @@ filetype plugin indent on
 	" проверка орфографии
 	map <C-p> :setlocal spell spelllang=en,ru<cr>
 
-	" Ctrl+T - новая вкладка, Shift+Tab - перейти к следующей вкладке, Ctrl+Tab - перейти к предыдущей вкладке:
-	map <S-tab> :tabprevious<cr>
-	nmap <S-tab> :tabprevious<cr>
-	imap <S-tab> <ESC>:tabprevious<cr>a
-	map <C-tab> :tabnext<cr>
-	nmap <C-tab> :tabnext<cr>
-	imap <C-tab> <ESC>:tabnext<cr>a
-	nmap <C-t> :tabnew<cr>
-	imap <C-t> <ESC>:tabnew<cr>a
+	" Ctrl+T - новый буфер, Shift+Tab - перейти к следующему буферу, Ctrl+Tab - перейти к предыдущему буферу:
+	map <S-tab> :bp<cr>
+	nmap <S-tab> :bp<cr>
+	imap <S-tab> <ESC>:bp<cr>a
+	map <C-tab> :bn<cr>
+	nmap <C-tab> :bn<cr>
+	imap <C-tab> <ESC>:bn<cr>a
+	nmap <C-t> :new<cr>
+	imap <C-t> <ESC>:new<cr>a
+	nmap <C-w> :bd<cr>
+	imap <C-w> <ESC>:bd<cr>a
+
 
 	" починка кодировки
 	menu Encoding.CP1251   :e ++enc=cp1251<CR>
