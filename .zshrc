@@ -283,7 +283,7 @@ alias -s {jpg,jpeg,png,gif}=display
 
 # подсветка
 # оверлей для Gentoo называется mv
-source /home/andrew/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Печенюшка на дорожку ^_^
 if [ -f /usr/bin/fortune ] || [ -f /usr/games/fortune ]; then
