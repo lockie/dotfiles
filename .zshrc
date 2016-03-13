@@ -115,7 +115,10 @@ if [ -f /usr/bin/grc ]; then
 	alias diff="grc --colour=auto diff"
 	alias cvs="grc --colour=auto cvs"
 	alias netstat="grc --colour=auto netstat"
-	alias gcc="grc --colour=auto gcc"	
+	alias gcc="grc --colour=auto gcc"
+	if [ -f /usr/bin/dig ]; then
+		alias dig="grc --colour=auto dig"
+	fi
 fi
 
 alias cls=clear
