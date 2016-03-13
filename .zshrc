@@ -154,8 +154,9 @@ if [ -f /usr/bin/emerge ]; then
 	alias cave='nocorrect cave'
 	alias eselect='nocorrect eselect'
 	alias equery='nocorrect equery'
-	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y --with-bdeps=y -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -- -vat ; sudo env-update'
-#	alias upd='sudo emerge -uDNva world'
+	alias upd='sudo eix-sync && sudo emerge --keep-going=y --with-bdeps=y -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -- -vat ; sudo env-update'
+	alias updk='sudo sh -c "cd /usr/src/linux && zcat /proc/config.gz > .config && make oldconfig && make -j5 && make modules_install install && boot-update"'
+	alias updm='sudo emerge -1vta x11-drivers/nvidia-drivers app-emulation/virtualbox-modules'
 fi
 if [ -f /usr/bin/avconv ]; then
 	command -v ffmpeg >/dev/null 2>&1 || alias ffmpeg='avconv'
@@ -196,7 +197,7 @@ function gitdiff() {
 # Установка нормального поведения клавиш Delete, Home, End:
 #
 case "$TERM" in
-	xterm)
+	xterm|xterm-256color)
 		bindkey -M viins "^[OH" beginning-of-line
 		bindkey -M vicmd "^[OH" vi-beginning-of-line
 		bindkey -M viins "^[OF" end-of-line
