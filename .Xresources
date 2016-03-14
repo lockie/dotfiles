@@ -1,0 +1,17 @@
+Xft.antialias:  1
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.dpi: 94
+Xft.rgba: rgb
+
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+rofi.color-enabled: true
+rofi.color-window: #3f3f3f, #6f6f6f, #6f6f6f
+rofi.color-normal: #3f3f3f, #dcdccc, #3f3f3f, #1e2320, #dcdccc
+rofi.color-active: #3f3f3f, #f0dfaf, #3f3f3f, #1e2320, #f0dfaf
+rofi.color-urgent: #3f3f3f, #cc9393, #3f3f3f, #1e2320, #cc9393
+rofi.font: Terminus 13
