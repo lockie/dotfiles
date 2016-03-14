@@ -18,7 +18,7 @@ end
 local top = {}
 
 local function worker(format)
-	local f = io.popen("ps -e --sort -%cpu --no-headers -o state,comm")
+	local f = io.popen("ps --ppid 2 -p 2 --deselect --sort -%cpu --no-headers -o state,comm")
 	if (f == nil) then return nil end
 	local i = 0
 	local all = 0
