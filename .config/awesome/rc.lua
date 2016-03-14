@@ -1,15 +1,17 @@
 
-city = "dubna"
+city = "UUEE"  -- Шереметьево. См. http://www.earthcam.com/myec/yourwebcam/metar_instructions.php
 home = os.getenv("HOME")
 
 -- Standard awesome library
-require("awful")
+awful = require("awful")
+awful.rules = require("awful.rules")
 require("awful.autofocus")
 require("awful.rules")
 -- Theme handling library
-require("beautiful")
+beautiful = require("beautiful")
 -- Notification library
-require("naughty")
+naughty = require("naughty")
+wibox = require("wibox")
 
 vicious = require("vicious")
 require("vicious.widgets.os")
@@ -25,8 +27,8 @@ require("vicious.widgets.dio")
 require("vicious.widgets.hddtemp")
 require("vicious.widgets.gmail")
 require("vicious.widgets.volume")
+require("vicious.widgets.weather")
 
-require("weather")
 require("calendar2")
 
 
@@ -42,7 +44,7 @@ end
 -- Handle runtime errors after startup
 do
     local in_error = false
-    awesome.add_signal("debug::error", function (err)
+    awesome.connect_signal("debug::error", function (err)
         -- Make sure we don't go into an endless error loop
         if in_error then return end
         in_error = true
@@ -114,26 +116,26 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "firefox", "firefox", "/usr/share/icons/nuoveXT2/128x128/apps/firefox-icon.png" },
                                     { "pidgin", "/usr/bin/pidgin", "/usr/share/pixmaps/pidgin/status/16/available.png" },
                                     { "deadbeef", "/usr/bin/deadbeef", "/usr/share/icons/hicolor/192x192/apps/deadbeef.png" },
-                                    { "freemind", "/usr/bin/freemind", "/usr/share/pixmaps/freemind.png" },
+                                    { "zim", "/usr/bin/zim", "/usr/share/icons/hicolor/48x48/apps/zim.png" },
                                     { "terminal", terminal, "/usr/share/icons/nuoveXT2/128x128/apps/terminal.png" }
                                   }
                         })
 
-mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
+mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 -- }}}
 
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock({ align = "right" }, "%H:%M:%S", 1)
+mytextclock = awful.widget.textclock("%H:%M:%S", 1)
 calendar2.addCalendarToWidget(mytextclock, "<span color='green'>%s</span>")
 
 -- Create a systray
-mysystray = widget({ type = "systray" })
+mysystray = wibox.widget.systray()
 
 -- reusable separator
-separator = widget({ type = "imagebox" })
-separator.image = image(beautiful.widget_sep)
+separator = wibox.widget.imagebox()
+separator:set_image(beautiful.widget_sep)
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -192,105 +194,105 @@ if os.execute("ls /sys/devices/platform/it87.656/fan1_input &> /dev/null") == 0 
     have_fan=1
 end
 
-weatherwidget = widget({ type = "textbox" })
-weather.addWeather(weatherwidget, city, 600)
+weatherwidget = wibox.widget.textbox()
+vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}°C", 600, city)
 
-ind_os = widget({ type = "textbox" })
+ind_os = wibox.widget.textbox()
 vicious.register(ind_os, vicious.widgets.os, "$4<span color='#7F9F7F'><b>@</b></span>$2")
-ind_os.width = 160
-ind_uptime = widget({ type = "textbox" })
-ind_uptime.width = 90
+ind_os = wibox.layout.constraint(ind_os, "exact", 190, nil)
+ind_uptime = wibox.widget.textbox()
 vicious.register(ind_uptime, vicious.widgets.uptime,
   '<span color="#7F9F7F"><b>↑</b></span>$1d $2h $3m')
-ind_cpu1 = widget({ type = "textbox" })
+ind_uptime = wibox.layout.constraint(ind_uptime, "exact", 90, nil)
+ind_cpu1 = wibox.widget.textbox()
 vicious.register(ind_cpu1, vicious.widgets.cpu, "$1%", 1)
 vicious.cache(vicious.widgets.cpu)
-ind_cpu1.width = 25
-ind_cpu1.align = 'right'
-ind_cpuf1 = widget({ type = "textbox" })
+ind_cpu1:set_align('right')
+ind_cpu1 = wibox.layout.constraint(ind_cpu1, "exact", 35, nil)
+ind_cpuf1 = wibox.widget.textbox()
 if have_cpufreq==1 then
     vicious.register(ind_cpuf1, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu0")
-    ind_cpuf1.width = 40
+    ind_cpuf1 = wibox.layout.constraint(ind_cpuf1, "exact", 40, nil)
 else
-    ind_cpuf1.width = 10
+    ind_cpuf1 = wibox.layout.constraint(ind_cpuf1, "exact", 10, nil)
 end
-ind_cpu2 = widget({ type = "textbox" })
+ind_cpu2 = wibox.widget.textbox()
 vicious.register(ind_cpu2, vicious.widgets.cpu, "$2%", 1)
-ind_cpu2.width = 25
-ind_cpu2.align = 'right'
-ind_cpuf2 = widget({ type = "textbox" })
+ind_cpu2:set_align('right')
+ind_cpu2 = wibox.layout.constraint(ind_cpu2, "exact", 35, nil)
+ind_cpuf2 = wibox.widget.textbox()
 if have_cpufreq==1 then
     vicious.register(ind_cpuf2, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu1")
-    ind_cpuf2.width = 40
+    ind_cpuf2 = wibox.layout.constraint(ind_cpuf2, "exact", 40, nil)
 else
-    ind_cpuf1.width = 10
+    ind_cpuf1 = wibox.layout.constraint(ind_cpuf1, "exact", 10, nil)
 end
 if core_count == '4' then
-    ind_cpu3 = widget({ type = "textbox" })
+    ind_cpu3 = wibox.widget.textbox()
     vicious.register(ind_cpu3, vicious.widgets.cpu, "$3%", 1)
-    ind_cpu3.width = 25
-    ind_cpu3.align = 'right'
-    ind_cpuf3 = widget({ type = "textbox" })
+    ind_cpu3:set_align('right')
+    ind_cpu3 = wibox.layout.constraint(ind_cpu3, "exact", 35, nil)
+    ind_cpuf3 = wibox.widget.textbox()
     if have_cpufreq==1 then
         vicious.register(ind_cpuf3, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu2")
-        ind_cpuf3.width = 40
+        ind_cpuf3 = wibox.layout.constraint(ind_cpuf3, "exact", 40, nil)
     end
-    ind_cpu4 = widget({ type = "textbox" })
+    ind_cpu4 = wibox.widget.textbox()
     vicious.register(ind_cpu4, vicious.widgets.cpu, "$4%", 1)
-    ind_cpu4.width = 25
-    ind_cpu4.align = 'right'
-    ind_cpuf4 = widget({ type = "textbox" })
+    ind_cpu4:set_align('right')
+    ind_cpu4 = wibox.layout.constraint(ind_cpu3, "exact", 35, nil)
+    ind_cpuf4 = wibox.widget.textbox()
     if have_cpufreq==1 then
         vicious.register(ind_cpuf4, vicious.widgets.cpufreq, "<b><span color='#7F9F7F'>⌚</span></b><span color='#7f7f7f'>$2</span>", 1, "cpu3")
-        ind_cpuf4.width = 40
+        ind_cpuf4 = wibox.layout.constraint(ind_cpuf4, "exact", 40, nil)
     end
 end
-ind_cputemp = widget({ type = "textbox" })
-vicious.register(ind_cputemp, vicious.widgets.thermal, "$1°C", 2, {"coretemp.0", "core", "3"})
-ind_fan = widget({ type = "textbox" })
+ind_cputemp = wibox.widget.textbox()
+vicious.register(ind_cputemp, vicious.widgets.thermal, "$1°C", 2, {"thermal_zone0", "sys", "3"})
+ind_fan = wibox.widget.textbox()
 if have_fan==1 then
     vicious.register(ind_fan, vicious.widgets.fan, "<b><span color='#7F9F7F'>☢</span></b>$1 ", 2)
-    ind_fan.width = 45
+    ind_fan = wibox.layout.constraint(ind_fan, "exact", 55, nil)
 else
-    ind_fan.width = 10
+    ind_fan = wibox.layout.constraint(ind_fan, "exact", 10, nil)
 end
-ind_vtemp = widget({ type = "textbox" })
+ind_vtemp = wibox.widget.textbox()
 vicious.register(ind_vtemp, vicious.widgets.nvidiatemp, "<span color='#7f7f7f'>$1°C</span>", 2)
-ind_vtemp.width = 40
-cpuicon = widget({ type = "imagebox" })
-cpuicon.image = image(beautiful.widget_cpu)
-ind_top = widget({ type = "textbox" })
+ind_vtemp = wibox.layout.constraint(ind_vtemp, "exact", 35, nil)
+cpuicon = wibox.widget.imagebox()
+cpuicon:set_image(beautiful.widget_cpu)
+ind_top = wibox.widget.textbox()
 vicious.register(ind_top, vicious.widgets.top, "<span color='#7f7f7f'>$2</span><span color='#7F9F7F'>/</span>$3 $1", 1)
-ind_top.width = 120
-topicon = widget({ type = "imagebox" })
-topicon.image = image(beautiful.widget_procs)
-memicon = widget({ type = "imagebox" })
-memicon.image = image(beautiful.widget_mem)
+ind_top = wibox.layout.constraint(ind_top, "exact", 140, nil)
+topicon = wibox.widget.imagebox()
+topicon:set_image(beautiful.widget_procs)
+memicon = wibox.widget.imagebox()
+memicon:set_image(beautiful.widget_mem)
 membar = awful.widget.progressbar()
 membar:set_vertical(false):set_ticks(false)
 membar:set_height(12):set_width(50)
-membar:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+membar:set_color({ type = "linear", from = {0, 0}, to = {0, 50}, stops = { {0, "#AECF96"}, {0.5, "#88A175"}, {1, "#FF5656"} } })
 vicious.register(membar, vicious.widgets.mem, "$1", 2)
-ind_mem = widget({ type = "textbox" })
+ind_mem = wibox.widget.textbox()
 vicious.register(ind_mem, vicious.widgets.mem, "$2M<span color='#7F9F7F'>/</span>$6M ", 1)
-ind_mem.width=75
-dnicon = widget({ type = "imagebox" })
-upicon = widget({ type = "imagebox" })
-dnicon.image = image(beautiful.widget_net)
-upicon.image = image(beautiful.widget_netup)
-netwidget = widget({ type = "textbox" })
+ind_mem = wibox.layout.constraint(ind_mem, "exact", 75, nil)
+dnicon = wibox.widget.imagebox()
+upicon = wibox.widget.imagebox()
+dnicon:set_image(beautiful.widget_net)
+upicon:set_image(beautiful.widget_netup)
+netwidget = wibox.widget.textbox()
 vicious.register(netwidget, vicious.widgets.net, '<span color="'
   .. beautiful.fg_netdn_widget ..'">${eth0 down_mb}M</span> <span color="'
   .. beautiful.fg_netup_widget ..'">${eth0 up_mb}M</span>', 2)
-netwidget.width = 75
-neticon = widget({ type = "imagebox" })
-neticon.image = image(beautiful.widget_inet)
-dnicon = widget({ type = "imagebox" })
-upicon = widget({ type = "imagebox" })
-dnicon.image = image(beautiful.widget_net)
-upicon.image = image(beautiful.widget_netup)
-fsicon = widget({ type = "imagebox" })
-fsicon.image = image(beautiful.widget_fs)
+netwidget = wibox.layout.constraint(netwidget, "exact", 85, nil)
+neticon = wibox.widget.imagebox()
+neticon:set_image(beautiful.widget_inet)
+dnicon = wibox.widget.imagebox()
+upicon = wibox.widget.imagebox()
+dnicon:set_image(beautiful.widget_net)
+upicon:set_image(beautiful.widget_netup)
+fsicon = wibox.widget.imagebox()
+fsicon:set_image(beautiful.widget_fs)
 fs = {
   r = awful.widget.progressbar(),
   h = awful.widget.progressbar()
@@ -300,28 +302,27 @@ for _, w in pairs(fs) do
   w:set_height(12):set_width(50):set_ticks_size(2)
   w:set_border_color(beautiful.border_widget)
   w:set_background_color(beautiful.fg_off_widget)
-  w:set_gradient_colors({ beautiful.fg_widget,
-     beautiful.fg_center_widget, beautiful.fg_end_widget
-  })
+  w:set_color({ type = "linear", from = {0, 0}, to = {0, 50},
+     stops = { {0, beautiful.fg_widget}, {0.5, beautiful.fg_center_widget}, {1, beautiful.fg_end_widget} } })
 end
-ind_fsr = widget({ type = "textbox" })
-ind_fsh = widget({ type = "textbox" })
+ind_fsr = wibox.widget.textbox()
+ind_fsh = wibox.widget.textbox()
 -- Enable caching
 vicious.cache(vicious.widgets.fs)
 vicious.register(ind_fsr, vicious.widgets.fs, "<span color='#7F9F7F'><b>☣</b></span> ${/ used_gb}G<span color='#7F9F7F'>/</span>${/ size_gb}G ", 599)
 vicious.register(ind_fsh, vicious.widgets.fs, " <span color='#7F9F7F'><b>☺</b></span> ${/home used_gb}G<span color='#7F9F7F'>/</span>${/home size_gb}G ", 599)
 vicious.register(fs.r, vicious.widgets.fs, "${/ used_p}",     599)
 vicious.register(fs.h, vicious.widgets.fs, "${/home used_p}", 599)
-ind_dio = widget({ type = "textbox" })
+ind_dio = wibox.widget.textbox()
 vicious.register(ind_dio, vicious.widgets.dio, "<span color='"
   .. beautiful.fg_netdn_widget .. "'>${sda write_mb}M</span> <span color='"
   .. beautiful.fg_netup_widget .. "'>${sda read_mb}M</span>", 2)
-ind_dio.width = 75
-ind_hddtemp = widget({ type = "textbox" })
+ind_dio = wibox.layout.constraint(ind_dio, "exact", 85, nil)
+ind_hddtemp = wibox.widget.textbox()
 vicious.register(ind_hddtemp, vicious.widgets.hddtemp, "${/dev/sda}°C ", 2)
-mailicon = widget({ type = "imagebox" })
-mailicon.image = image(beautiful.widget_mail)
-ind_mail = widget({type = "textbox"})
+mailicon = wibox.widget.imagebox()
+mailicon:set_image(beautiful.widget_mail)
+ind_mail = wibox.widget.textbox()
 vicious.register(ind_mail, vicious.widgets.gmail, "<span color='#7F9F7F'>[</span>${count}<span color='#7F9F7F'>]</span> ${subject}", 60)
 ind_mail:buttons(awful.util.table.join(
   awful.button({}, 1, function () awful.util.spawn("xdg-open 'https://mail.google.com/mail/u/0'") end)))
@@ -330,7 +331,7 @@ ind_mail:buttons(awful.util.table.join(
 --for s = 1, screen.count() do
 s=1
     -- Create a promptbox for each screen
-    mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
+    mypromptbox[s] = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
@@ -340,66 +341,66 @@ s=1
                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
+    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(function(c)
-                                              return awful.widget.tasklist.label.currenttags(c, s)
-                                          end, mytasklist.buttons)
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "bottom", screen = s, height = 20  })
-    -- Add widgets to the wibox - order matters
-    mywibox[s].widgets = {
-        {
-            mylauncher,
-            mytaglist[s],
-            mylayoutbox[s],
-            mypromptbox[s],
-            layout = awful.widget.layout.horizontal.leftright
-        },
-        mytextclock, separator,
-        weatherwidget, separator,
-        s == 1 and mysystray or nil, separator,
-        mytasklist[s],
-        layout = awful.widget.layout.horizontal.rightleft
-    }
+    -- Widgets that are aligned to the left
+    local left_layout = wibox.layout.fixed.horizontal()
+    left_layout:add(mylauncher)
+    left_layout:add(mytaglist[s])
+    left_layout:add(mylayoutbox[s])
+    left_layout:add(mypromptbox[s])
+
+    -- Widgets that are aligned to the right
+    local right_layout = wibox.layout.fixed.horizontal()
+    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(separator)
+    right_layout:add(weatherwidget)
+    right_layout:add(separator)
+    right_layout:add(mytextclock)
+
+
+    -- Now bring it all together (with the tasklist in the middle)
+    local layout = wibox.layout.align.horizontal()
+    layout:set_left(left_layout)
+    layout:set_middle(mytasklist[s])
+    layout:set_right(right_layout)
+
+    mywibox[s]:set_widget(layout)
 
     -- Create indicators
-    myindicators[s] = awful.wibox({ position = "top", screen = s, height = 16 })
+    local ind_layout = wibox.layout.fixed.horizontal()
     if core_count == '4' then
-    myindicators[s].widgets = {
-        {
-            ind_os, ind_uptime,
-            separator, cpuicon, ind_cputemp, ind_fan, ind_vtemp, ind_cpu1, ind_cpuf1, ind_cpu2, ind_cpuf2, ind_cpu3, ind_cpuf3, ind_cpu4, ind_cpuf4,
-            separator, topicon, ind_top,
-            separator, memicon, ind_mem, membar,
-            separator, fsicon, ind_hddtemp, dnicon, ind_dio, upicon,
-            separator, ind_fsr, fs.r.widget, ind_fsh, fs.h.widget,
-            separator, neticon, dnicon, netwidget, upicon,
-            separator, mailicon, ind_mail,
-            separator, layout = awful.widget.layout.horizontal.leftright
-        },
-        layout = awful.widget.layout.horizontal.rightleft
-    }
+        ind_layout:add(ind_os); ind_layout:add(ind_uptime)
+        ind_layout:add(separator); ind_layout:add(cpuicon); ind_layout:add(ind_cputemp); ind_layout:add(ind_fan); ind_layout:add(ind_vtemp)
+            ind_layout:add(ind_cpu1); ind_layout:add(ind_cpuf1); ind_layout:add(ind_cpu2); ind_layout:add(ind_cpuf2); ind_layout:add(ind_cpu3); ind_layout:add(ind_cpuf3); ind_layout:add(ind_cpu4); ind_layout:add(ind_cpuf4)
+        ind_layout:add(separator); ind_layout:add(topicon); ind_layout:add(ind_top)
+        ind_layout:add(separator); ind_layout:add(memicon); ind_layout:add(ind_mem); ind_layout:add(membar)
+        ind_layout:add(separator); ind_layout:add(fsicon); ind_layout:add(ind_hddtemp); ind_layout:add(dnicon); ind_layout:add(ind_dio); ind_layout:add(upicon)
+        ind_layout:add(separator); ind_layout:add(ind_fsr); ind_layout:add(fs.r);  ind_layout:add(ind_fsh); ind_layout:add(fs.h)
+        ind_layout:add(separator); ind_layout:add(neticon); ind_layout:add(dnicon); ind_layout:add(netwidget); ind_layout:add(upicon)
+        ind_layout:add(separator); ind_layout:add(mailicon); ind_layout:add(ind_mail)
+        ind_layout:add(separator)
     else -- 2 cores
-    myindicators[s].widgets = {
-        {
-            ind_os, ind_uptime,
-            separator, cpuicon, ind_cputemp, ind_fan, ind_vtemp, ind_cpu1, ind_cpuf1, ind_cpu2, ind_cpuf2,
-            separator, topicon, ind_top,
-            separator, memicon, ind_mem, membar,
-            separator, fsicon, ind_hddtemp, dnicon, ind_dio, upicon,
-            separator, ind_fsr, fs.r.widget, ind_fsh, fs.h.widget,
-            separator, neticon, dnicon, netwidget, upicon,
-            separator, mailicon, ind_mail,
-            separator, layout = awful.widget.layout.horizontal.leftright
-        },
-        layout = awful.widget.layout.horizontal.rightleft
-    }
+        ind_layout:add(ind_os); ind_layout:add(ind_uptime)
+        ind_layout:add(separator); ind_layout:add(cpuicon); ind_layout:add(ind_cputemp); ind_layout:add(ind_fan); ind_layout:add(ind_vtemp)
+            ind_layout:add(ind_cpu1); ind_layout:add(ind_cpuf1); ind_layout:add(ind_cpu2); ind_layout:add(ind_cpuf2)
+        ind_layout:add(separator); ind_layout:add(topicon); ind_layout:add(ind_top)
+        ind_layout:add(separator); ind_layout:add(memicon); ind_layout:add(ind_mem); ind_layout:add(membar)
+        ind_layout:add(separator); ind_layout:add(fsicon); ind_layout:add(ind_hddtemp); ind_layout:add(dnicon); ind_layout:add(ind_dio); ind_layout:add(upicon)
+        ind_layout:add(separator); ind_layout:add(ind_fsr); ind_layout:add(fs.r.widget); ind_layout:add(ind_fsh); ind_layout:add(fs.h.widget)
+        ind_layout:add(separator); ind_layout:add(neticon); ind_layout:add(dnicon); ind_layout:add(netwidget); ind_layout:add(upicon)
+        ind_layout:add(separator); ind_layout:add(mailicon); ind_layout:add(ind_mail)
+        ind_layout:add(separator)
     end
-
-
+    local l = wibox.layout.align.horizontal()
+    l:set_left(ind_layout)
+    myindicators[s] = awful.wibox({ position = "top", screen = s, height = 16 })
+    myindicators[s]:set_widget(l)
 
 --end
 -- }}}
@@ -588,19 +589,19 @@ awful.rules.rules = {
     { rule = { class = "Smplayer" },
       properties = { floating = true } },
     { rule = { class = "psi" },
-      properties = {tag = tags[2][4]}
+      properties = {tag = tags[1][4]}
     }
 }
 -- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
-client.add_signal("manage", function (c, startup)
+client.connect_signal("manage", function (c, startup)
     -- Add a titlebar
     -- awful.titlebar.add(c, { modkey = modkey })
 
     -- Enable sloppy focus
-    c:add_signal("mouse::enter", function(c)
+    c:connect_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
             and awful.client.focus.filter(c) then
             client.focus = c
@@ -627,6 +628,6 @@ client.add_signal("manage", function (c, startup)
 
 end)
 
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}

@@ -28,7 +28,7 @@ function displayMonth(month,year,weekStart)
         local lines = "  " --интервал перед днями неделями
 		os.setlocale("ru_RU.utf8")
         for x=0,6 do
-                lines = lines .. os.date("%a ",os.time{year=2006,month=1,day=x+wkSt})
+                lines = lines .. os.date("%a  ",os.time{year=2006,month=1,day=x+wkSt})
         end
        lines = lines .. "\n"-- .. os.date(" %V",os.time{year=year,month=month,day=1}) --Убираем номер недели
 
@@ -59,11 +59,12 @@ function displayMonth(month,year,weekStart)
         return header .. "\n" .. lines
 end
 
+
 function switchNaughtyMonth(switchMonths)
         if (#calendar < 3) then return end
         local swMonths = switchMonths or 1
         calendar[1] = calendar[1] + swMonths
-        calendar[3].box.widgets[2].text = string.format('<span font_desc="%s">%s</span>', "monospace", displayMonth(calendar[1], calendar[2], 2))
+        calendar[3].box.widgets[2].text = string.format('<span font_desc="%s">%s</span>', "Terminus 10", displayMonth(calendar[1], calendar[2], 2))
 end
 
 function switchNaughtyGoToToday()
@@ -77,18 +78,18 @@ end
 function addCalendarToWidget(mywidget, custom_current_day_format)
   if custom_current_day_format then current_day_format = custom_current_day_format end
 
-  mywidget:add_signal('mouse::enter', function ()
+  mywidget:connect_signal('mouse::enter', function ()
         local month, year = os.date('%m'), os.date('%Y')
         calendar = { month, year,
         naughty.notify({
-                text = string.format('<span font_desc="%s">%s</span>', "monospace", displayMonth(month, year, 2)),
+                text = string.format('<span font_desc="%s">%s</span>', "Terminus 10", displayMonth(month, year, 2)),
                 timeout = 0,
                 hover_timeout = 0.5,
                 screen = capi.mouse.screen
         })
   }
   end)
-  mywidget:add_signal('mouse::leave', function () naughty.destroy(calendar[3]) end)
+  mywidget:connect_signal('mouse::leave', function () naughty.destroy(calendar[3]) end)
 
   mywidget:buttons(awful.util.table.join(
     awful.button({ }, 1, function()
