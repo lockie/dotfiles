@@ -106,10 +106,10 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   { "edit config", editor_cmd .. " " .. awesome.conffile, "/usr/share/icons/nuoveXT2/128x128/apps/text-editor.png" },
-   { "restart", awesome.restart },
+   { "shutdown", home .. "/bin/shutdown_dialog.py", "/usr/share/icons/nuoveXT2/128x128/actions/system-shutdown.png" },
    { "quit", awesome.quit },
-   { "shutdown", home .. "/bin/shutdown_dialog.sh", "/usr/share/icons/nuoveXT2/128x128/actions/system-shutdown.png" }
+   { "restart", awesome.restart },
+   { "config", editor_cmd .. " " .. awesome.conffile, "/usr/share/icons/nuoveXT2/128x128/apps/text-editor.png" },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
