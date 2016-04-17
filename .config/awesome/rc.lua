@@ -649,6 +649,11 @@ client.connect_signal("manage", function (c, startup)
         awful.tag.setmwfact (0.2, tags[2][4])
     end
 
+   -- Floating clients don't overlap, cover
+   -- the titlebar or get placed offscreen
+   awful.placement.no_overlap(c)
+   awful.placement.no_offscreen(c)
+
 end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
