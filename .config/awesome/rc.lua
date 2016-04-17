@@ -31,6 +31,30 @@ require("vicious.widgets.weather")
 
 require("calendar2")
 
+-- {{{ Autostart
+
+function run_once(cmd)
+  findme = cmd
+  firstspace = cmd:find(" ")
+  if firstspace then
+    findme = cmd:sub(0, firstspace-1)
+  end
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
+end
+
+awful.util.spawn_with_shell("nitrogen --restore")
+awful.util.spawn_with_shell("xsetroot -cursor_name left_ptr")
+awful.util.spawn_with_shell("xset r rate 190 25")
+awful.util.spawn_with_shell("xset -dpms & xset s off")
+run_once("xscreensaver -nosplash")
+run_once("volumeicon")
+run_once("zim --plugin trayicon")
+run_once("/opt/bin/dropbox")
+
+awesome.connect_signal("exit", function() awful.util.spawn("killall dropbox ; killall zim") end)
+
+-- }}}
+
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
