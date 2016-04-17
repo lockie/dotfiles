@@ -194,6 +194,7 @@ filetype plugin indent on
 	let g:syntastic_c_include_dirs=g:syntastic_cpp_include_dirs
 	let g:syntastic_cpp_compiler_options='-std=c++0x'
 	let g:syntastic_python_checker_args='--rcfile=.pylintrc'
+	let g:syntastic_python_python_exec = 'python3'
 " }
 
 " Plugin OmniCppComplete {
