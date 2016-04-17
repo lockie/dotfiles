@@ -41,9 +41,13 @@ local mail = {
 -- {{{ Gmail widget type
 local function worker(format, warg)
     -- Get info from the Gmail atom feed
-    local f = io.popen("curl --connect-timeout 1 -m 3 -fsn " .. feed[1])
+    local f = io.popen("curl --retry 3 --connect-timeout 2 -m 3 -fsn " .. feed[1])
 
-    local doc = SLAXML:dom(f:read('*all'))
+    local cont = f:read('*all')
+    if cont == "" then
+        return mail
+    end
+    local doc = SLAXML:dom(cont)
     local count = 0
     local title = nil
     for _, el in ipairs(doc.root.kids) do
@@ -52,7 +56,11 @@ local function worker(format, warg)
             if title == nil then
                 for _, p in ipairs(el.kids) do
                     if p.name == "title" then
-                        title = p.kids[1].value
+                        if p.kids[1] == nil then
+                            title = "(no subject)"
+                        else
+                            title = p.kids[1].value
+                        end
 --                        if type(warg) == "table" then
 --                            title = helpers.scroll(title, warg[1], warg[2])
 --                        else
