@@ -158,8 +158,8 @@ if [ -f /usr/bin/emerge ]; then
 	alias eselect='nocorrect eselect'
 	alias equery='nocorrect equery'
 	alias upd='sudo eix-sync && sudo emerge --keep-going=y --with-bdeps=y -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -- -vat ; sudo env-update'
-	alias updk='sudo sh -c "cd /usr/src/linux && zcat /proc/config.gz > .config && make oldconfig && make -j5 && make modules_install install && boot-update"'
-	alias updm='sudo emerge -1vta x11-drivers/nvidia-drivers app-emulation/virtualbox-modules'
+	alias updk='sudo sh -c "cd /usr/src/linux && zcat /proc/config.gz > .config && make oldconfig && make modules_prepare && emerge -va sys-fs/aufs4 && make -j5 && make modules_install install && boot-update"'
+	alias updm='sudo emerge -1vta @module-rebuild'
 fi
 if [ -f /usr/bin/avconv ]; then
 	command -v ffmpeg >/dev/null 2>&1 || alias ffmpeg='avconv'
@@ -168,6 +168,7 @@ alias git='nocorrect git'
 
 alias c='cd'
 alias m='mc'
+alias v='vim'
 alias psa='ps axu'
 alias psf='ps axuf'
 alias cmd='ipython'
