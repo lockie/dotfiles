@@ -222,7 +222,7 @@ vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}°C", 593, cit
 
 ind_os = wibox.widget.textbox()
 vicious.register(ind_os, vicious.widgets.os, "$4<span color='#7F9F7F'><b>@</b></span>$2")
-ind_os = wibox.layout.constraint(ind_os, "exact", 190, nil)
+ind_os = wibox.layout.constraint(ind_os, "exact", 210, nil)
 ind_uptime = wibox.widget.textbox()
 vicious.register(ind_uptime, vicious.widgets.uptime,
   '<span color="#7F9F7F"><b>↑</b></span>$1d $2h $3m')
@@ -298,7 +298,7 @@ membar:set_color({ type = "linear", from = {0, 0}, to = {0, 50}, stops = { {0, "
 vicious.register(membar, vicious.widgets.mem, "$1", 5)
 ind_mem = wibox.widget.textbox()
 vicious.register(ind_mem, vicious.widgets.mem, "$2M<span color='#7F9F7F'>/</span>$6M ", 1)
-ind_mem = wibox.layout.constraint(ind_mem, "exact", 75, nil)
+ind_mem = wibox.layout.constraint(ind_mem, "exact", 90, nil)
 dnicon = wibox.widget.imagebox()
 upicon = wibox.widget.imagebox()
 dnicon:set_image(beautiful.widget_net)
