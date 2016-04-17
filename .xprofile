@@ -2,3 +2,4 @@
 
 export QT_STYLE_OVERRIDE=GTK+
 
+$HOME/bin/lightsOn.sh &
