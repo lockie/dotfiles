@@ -218,7 +218,7 @@ if os.execute("ls /sys/devices/platform/it87.656/fan1_input &> /dev/null") == 0 
 end
 
 weatherwidget = wibox.widget.textbox()
-vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}°C", 600, city)
+vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}°C", 593, city)
 
 ind_os = wibox.widget.textbox()
 vicious.register(ind_os, vicious.widgets.os, "$4<span color='#7F9F7F'><b>@</b></span>$2")
@@ -280,7 +280,7 @@ else
     ind_fan = wibox.layout.constraint(ind_fan, "exact", 10, nil)
 end
 ind_vtemp = wibox.widget.textbox()
-vicious.register(ind_vtemp, vicious.widgets.nvidiatemp, "<span color='#7f7f7f'>$1°C</span>", 2)
+vicious.register(ind_vtemp, vicious.widgets.nvidiatemp, "<span color='#7f7f7f'>$1°C</span>", 3)
 ind_vtemp = wibox.layout.constraint(ind_vtemp, "exact", 35, nil)
 cpuicon = wibox.widget.imagebox()
 cpuicon:set_image(beautiful.widget_cpu)
@@ -295,7 +295,7 @@ membar = awful.widget.progressbar()
 membar:set_vertical(false):set_ticks(false)
 membar:set_height(12):set_width(50)
 membar:set_color({ type = "linear", from = {0, 0}, to = {0, 50}, stops = { {0, "#AECF96"}, {0.5, "#88A175"}, {1, "#FF5656"} } })
-vicious.register(membar, vicious.widgets.mem, "$1", 2)
+vicious.register(membar, vicious.widgets.mem, "$1", 5)
 ind_mem = wibox.widget.textbox()
 vicious.register(ind_mem, vicious.widgets.mem, "$2M<span color='#7F9F7F'>/</span>$6M ", 1)
 ind_mem = wibox.layout.constraint(ind_mem, "exact", 75, nil)
@@ -342,11 +342,11 @@ vicious.register(ind_dio, vicious.widgets.dio, "<span color='"
   .. beautiful.fg_netup_widget .. "'>${sda read_mb}M</span>", 2)
 ind_dio = wibox.layout.constraint(ind_dio, "exact", 85, nil)
 ind_hddtemp = wibox.widget.textbox()
-vicious.register(ind_hddtemp, vicious.widgets.hddtemp, "${/dev/sda}°C ", 2)
+vicious.register(ind_hddtemp, vicious.widgets.hddtemp, "${/dev/sda}°C ", 7)
 mailicon = wibox.widget.imagebox()
 mailicon:set_image(beautiful.widget_mail)
 ind_mail = wibox.widget.textbox()
-vicious.register(ind_mail, vicious.widgets.gmail, "<span color='#7F9F7F'>[</span>${count}<span color='#7F9F7F'>]</span> ${subject}", 60)
+vicious.register(ind_mail, vicious.widgets.gmail, "<span color='#7F9F7F'>[</span>${count}<span color='#7F9F7F'>]</span> ${subject}", 59)
 ind_mail:buttons(awful.util.table.join(
   awful.button({}, 1, function () awful.util.spawn("xdg-open 'https://mail.google.com/mail/u/0'") end)))
 
