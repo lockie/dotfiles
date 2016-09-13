@@ -371,7 +371,7 @@ case "${FULL_PROG_NAME##*/}" in
     *)  
         echo "Starting ${FULL_PROG_NAME} on DISPLAY ${DISPLAY_TO_USE}"
 #		xinit "${FULL_PROG_NAME}" "${@}" -- ${Xserver} :${DISPLAY_TO_USE} ${Xserverargs} # &>/dev/null &
-		xinit "${FULL_PROG_NAME}" "${@}" -- :${DISPLAY_TO_USE} ${Xserverargs} &>/dev/null &
+		xinit "${FULL_PROG_NAME}" "${@}" -- :${DISPLAY_TO_USE} ${Xserverargs} ${XSERVER_ARGS} &>/dev/null &
         ;;
 esac
 
