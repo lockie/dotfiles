@@ -282,7 +282,7 @@ else
     ind_fan = wibox.layout.constraint(ind_fan, "exact", 10, nil)
 end
 ind_vtemp = wibox.widget.textbox()
-vicious.register(ind_vtemp, vicious.widgets.nvidiatemp, "<span color='#7f7f7f'>$1°C</span>", 3)
+vicious.register(ind_vtemp, vicious.widgets.nvidiatemp, "<span color='#7f7f7f'>$1°C</span>", 13)
 ind_vtemp = wibox.layout.constraint(ind_vtemp, "exact", 35, nil)
 cpuicon = wibox.widget.imagebox()
 cpuicon:set_image(beautiful.widget_cpu)
