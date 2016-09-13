@@ -21,6 +21,17 @@ autoload -Uz compinit promptinit
 compinit -D
 promptinit
 
+if [ -f /etc/lsb-release ]; then
+	source /etc/lsb-release
+else
+	DISTRIB_ID="Unknown"
+fi
+
+if [ $DISTRIB_ID = "Gentoo" ]; then
+	prompt gentoo
+fi
+
+
 autoload colors && colors
 
 # Вывод информации о репозиториях
