@@ -58,7 +58,7 @@ select_flags=6
 mcview_eof=
 ignore_ftp_chattr_errors=true
 keymap=mc.keymap
-skin=mine
+skin=zenburn
 
 [Layout]
 equal_split=1
