@@ -50,6 +50,7 @@ run_once("xscreensaver -nosplash")
 run_once("volumeicon")
 run_once("zim --plugin trayicon")
 run_once("/opt/bin/dropbox")
+awful.util.spawn_with_shell("sleep 2; pgrep -u $USER -x tilda > /dev/null || (while true; do; tilda; done)")
 
 awesome.connect_signal("exit", function() awful.util.spawn("killall dropbox ; killall zim") end)
 
@@ -613,6 +614,14 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "smplayer" },
       properties = { floating = true } },
+    { rule = { class = "Tilda" },
+      properties = { floating = true,
+                     callback = function(c)
+                         c:geometry( { width = 672 , height = 415 } )
+                         awful.placement.center_horizontal(c)
+                     end,
+                     buttons = {}
+    } },
     { rule = { class = "psi" },
       properties = {tag = tags[1][4]}
     }
