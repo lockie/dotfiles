@@ -131,15 +131,17 @@ end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "shutdown", home .. "/bin/shutdown_dialog.py", "/usr/share/icons/nuoveXT2/128x128/actions/system-shutdown.png" },
-   { "restart", awesome.restart },
+   { "restart", awesome.restart, "/usr/share/icons/nuoveXT2/128x128/actions/reload.png" },
    { "config", editor_cmd .. " " .. awesome.conffile, "/usr/share/icons/nuoveXT2/128x128/apps/text-editor.png" },
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "firefox", "firefox", "/usr/share/icons/nuoveXT2/128x128/apps/firefox-icon.png" },
+                                    { "chromium", "chromium", "/usr/share/icons/hicolor/256x256/apps/chromium-browser.png" },
                                     { "telegram", home .. "/bin/Telegram/Telegram", home .. "/bin/Telegram/telegram.png"},
-                                    { "skype", "/opt/bin/skype", "/usr/share/icons/hicolor/128x128/apps/skype.png" },
-                                    { "deadbeef", "/usr/bin/deadbeef", "/usr/share/icons/hicolor/192x192/apps/deadbeef.png" },
+                                    { "skype", "/opt/bin/skypeforlinux", "/usr/share/icons/hicolor/512x512/apps/skypeforlinux.png" },
+                                    { "steam", "steam", "/usr/share/icons/hicolor/256x256/apps/steam.png" },
+                                    { "deadbeef", "/usr/bin/deadbeef", "/usr/share/icons/hicolor/256x256/apps/deadbeef.png" },
                                     { "terminal", terminal, "/usr/share/icons/nuoveXT2/128x128/apps/terminal.png" }
                                   }
                         })
