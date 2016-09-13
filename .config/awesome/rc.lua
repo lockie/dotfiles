@@ -611,7 +611,7 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "Vlc" },
       properties = { floating = true } },
-    { rule = { class = "Smplayer" },
+    { rule = { class = "smplayer" },
       properties = { floating = true } },
     { rule = { class = "psi" },
       properties = {tag = tags[1][4]}
