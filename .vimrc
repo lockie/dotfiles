@@ -30,7 +30,6 @@ filetype plugin indent on
 
 " Внешний вид {
 	syntax on " подсветка синтаксиса
-	set guioptions-=T  "remove toolbar
 	set shortmess+=I " отключаем детей Уганды
 	" отключаем звуковой и визуальный сигналы
 	if has("gui_running")
