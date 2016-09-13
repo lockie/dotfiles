@@ -122,11 +122,9 @@ fi
 if [ -f /usr/bin/grc ]; then
 	alias ping="grc --colour=auto ping"
 	alias traceroute="grc --colour=auto traceroute"
-	#alias make="grc --colour=auto make"
 	alias diff="grc --colour=auto diff"
 	alias cvs="grc --colour=auto cvs"
 	alias netstat="grc --colour=auto netstat"
-	alias gcc="grc --colour=auto gcc"
 	if [ -f /usr/bin/dig ]; then
 		alias dig="grc --colour=auto dig"
 	fi
