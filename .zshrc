@@ -295,12 +295,10 @@ alias -s txt=vim
 alias -s {ogg,mp3,wav}=mplayer
 alias -s {jpg,jpeg,png,gif}=display
 
-# подсветка
-# оверлей для Gentoo называется mv
-source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # Печенюшка на дорожку ^_^
 if [ -f /usr/bin/fortune ] || [ -f /usr/games/fortune ]; then
 	fortune -a
 fi
 
+# подсветка
+source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
