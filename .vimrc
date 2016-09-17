@@ -192,7 +192,6 @@ filetype plugin indent on
 	let g:syntastic_cpp_include_dirs=['.', '..', '../include', 'include', '/usr/include/gstreamer-1.0', '/usr/lib64/gstreamer-1.0/include', '/usr/include/opencv', '/usr/include/qt5', '/usr/include/qt5/QtCore', '/usr/include/qt5/QtGui', '/usr/include/qt5/QtWidgets']
 	let g:syntastic_c_include_dirs=g:syntastic_cpp_include_dirs
 	let g:syntastic_cpp_compiler_options='-std=c++0x -fPIC'
-	let g:syntastic_python_checker_args='--rcfile=.pylintrc'
 	let g:syntastic_python_python_exec = 'python3'
 " }
 
