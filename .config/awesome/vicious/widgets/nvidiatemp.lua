@@ -10,6 +10,8 @@ local nvidiatemp = {}
 
 local function worker(format)
 	local res = ""
+    -- TODO : nvidia-settings -q GPUCurrentFanSpeedRPM -t
+    --  returns fan speed. implement it!
 	local f = io.popen("nvidia-settings -q gpucoretemp -t")
 	if (f == nil) then return nil end
 	for line in f:lines() do
