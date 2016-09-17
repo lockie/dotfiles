@@ -39,7 +39,7 @@ function run_once(cmd)
   if firstspace then
     findme = cmd:sub(0, firstspace-1)
   end
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
+  awful.util.spawn_with_shell("pgrep -u $USER -f -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
 awful.util.spawn_with_shell("nitrogen --restore")
@@ -50,9 +50,8 @@ run_once("xscreensaver -nosplash")
 run_once("volumeicon")
 run_once("zim --plugin trayicon")
 run_once("/opt/bin/dropbox")
-awful.util.spawn_with_shell("sleep 2; pgrep -u $USER -x tilda > /dev/null || (while true; do; tilda; done)")
 
-awesome.connect_signal("exit", function() awful.util.spawn("killall dropbox ; killall zim") end)
+awful.util.spawn_with_shell("pgrep -u $USER -x tilda > /dev/null || (sleep 2;   while true; do; tilda; done)")
 
 -- }}}
 
