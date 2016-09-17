@@ -255,6 +255,18 @@ filetype plugin indent on
 	let g:jedi#popup_select_first = 0
 " }
 
+" Plugin CtrlP {
+	"let g:ctrlp_user_command = 'find . -type f -exec /bin/grep -Iq . {} \; -and -print' " shows NO ENTRIES :(
+	let g:ctrlp_root_markers = ['CMakeLists.txt', 'requirements.txt', 'setup.py']
+	let g:ctrlp_clear_cache_on_exit = 0
+	let g:ctrlp_show_hidden = 1
+	let g:ctrlp_open_new_file = 'r'
+	let g:ctrlp_line_prefix = '→ '
+	let g:ctrlp_extensions = ['mixed']
+	let g:ctrlp_cmd = 'CtrlPMixed'
+	let g:airline#extensions#ctrlp#show_adjacent_modes = 0
+" }
+
 " Горячие ключи {
 
 	" возможность использовать команды при русской раскладке
