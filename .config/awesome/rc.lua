@@ -50,7 +50,7 @@ run_once("xscreensaver -nosplash")
 run_once("volumeicon")
 run_once("zim --plugin trayicon")
 run_once("/opt/bin/dropbox")
-
+awful.util.spawn_with_shell("sleep 600; ps ax | /bin/grep update-notifier-tray | /bin/grep -v grep > /dev/null || (while true; do; update-notifier-tray ; done)")
 awful.util.spawn_with_shell("pgrep -u $USER -x tilda > /dev/null || (sleep 2;   while true; do; tilda; done)")
 
 -- }}}
