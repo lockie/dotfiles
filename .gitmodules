@@ -25,3 +25,12 @@
 [submodule ".vim/bundle/zenburn"]
 	path = .vim/bundle/zenburn
 	url = https://github.com/jnurmine/Zenburn
+[submodule ".vim/bundle/indentpython"]
+	path = .vim/bundle/indentpython
+	url = https://github.com/vim-scripts/indentpython.vim
+[submodule ".vim/bundle/vim-jinja"]
+	path = .vim/bundle/vim-jinja
+	url = https://github.com/lepture/vim-jinja
+[submodule ".vim/bundle/jedi-vim"]
+	path = .vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim

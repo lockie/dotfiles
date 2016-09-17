@@ -2,6 +2,20 @@
 " Кодировка vimrc - utf-8
 scriptencoding utf-8
 
+" Add the virtualenv's site-packages to vim path
+if has('python')
+py << EOF
+import os.path
+import sys
+import vim
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, project_base_dir)
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
+endif
+
 " менеджер пакетов
 set nocompatible
 let mapleader = "'"
@@ -172,6 +186,7 @@ filetype plugin indent on
 " Plugin NERDTree {
 	"autocmd VimEnter * NERDTree
 	"autocmd VimEnter * wincmd p
+	let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.pyd$']
 " }
 
 " Plugin Syntastic {
@@ -209,7 +224,7 @@ filetype plugin indent on
 	" автоматически открывать и закрывать окошко предпросмотра
 	au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
-	set completeopt=menu,menuone,longest,preview " всплывающая менюшка
+	set completeopt=menu,menuone" всплывающая менюшка
 
 	set complete=.,t,b,k " порядок автодополнения: словарь текущего буфера, c-тэги, словарь всех буферов, глобальный словарь
 " }
@@ -227,6 +242,17 @@ filetype plugin indent on
 	let g:tagbar_sort = 0
 	let g:tagbar_compact = 1
 	let g:tagbar_autoshowtag = 1
+" }
+
+" Plugin supertab {
+	let g:SuperTabDefaultCompletionType = "<c-x><c-o><c-n>"
+" }
+
+" Plugin jedi {
+	let g:jedi#use_splits_not_buffers = "bottom"
+	let g:jedi#show_call_signatures = "1"
+	let g:jedi#completions_command = ""  " we're using supertab for this
+	let g:jedi#popup_select_first = 0
 " }
 
 " Горячие ключи {
@@ -297,7 +323,7 @@ filetype plugin indent on
 	imap <F12> <esc>:NERDTree<cr>a
 
 	" обновить ctags
-	map <C-u> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+	map <C-u> :!ctags -R --languages=c,c++,python --c++-kinds=+pl --python-kinds=-iv --fields=+ilaS --extra=+q --sort=yes .<CR>
 
 	" проверка орфографии
 	map <C-p> :setlocal spell spelllang=en,ru<cr>
