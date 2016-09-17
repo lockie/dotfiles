@@ -214,13 +214,6 @@ filetype plugin indent on
 	set complete=.,t,b,k " порядок автодополнения: словарь текущего буфера, c-тэги, словарь всех буферов, глобальный словарь
 " }
 
-" Plugin c.vim {
-	let g:C_AuthorName      = 'Andrew Kravchuk'
-	"let g:C_AuthorRef       = 'http://nosite.ru'
-	let g:C_Email           = 'awkravchuk@gmail.com'
-	"let g:C_Company         = 'Freelancer'
-" }
-
 " Plugin airline {
 	if has("gui_running")
 		let g:airline_powerline_fonts = 1
@@ -328,8 +321,5 @@ filetype plugin indent on
 	menu Encoding.KOI8-U   :e ++enc=koi8-u<CR>
 	menu Encoding.UTF-8    :e ++enc=utf-8<CR>
 	nnoremap <leader>e :emenu Encoding.<TAB>
-
-	" Выводим красиво оформленную man-страницу прямо в Vim
-	nnoremap <leader>m :exe ":Man ".expand("<cword>")<CR>:set nofoldenable<CR>
 " }
 
