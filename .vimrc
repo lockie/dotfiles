@@ -95,7 +95,7 @@ filetype plugin indent on
 		" defaults just ok
 	else
 		set t_Co=256
-		colorscheme molokai
+		colorscheme zenburn
 	endif
 " }
 
@@ -219,7 +219,7 @@ filetype plugin indent on
 		let g:airline_powerline_fonts = 1
 	endif
 	let g:airline_detect_whitespace=2
-	let g:airline_theme="molokai"
+	let g:airline_theme="zenburn"
 	set ttimeoutlen=50
 " }
 
