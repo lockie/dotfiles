@@ -182,7 +182,6 @@ filetype plugin indent on
 	set gdefault  " applies substitutions globally on lines
 " }
 
-
 " Plugin NERDTree {
 	"autocmd VimEnter * NERDTree
 	"autocmd VimEnter * wincmd p
@@ -236,6 +235,9 @@ filetype plugin indent on
 	let g:airline_detect_whitespace=2
 	let g:airline_theme="zenburn"
 	set ttimeoutlen=50
+	let g:airline_section_c = '%f'
+	let g:airline_section_x = '%{airline#extensions#tagbar#currenttag()}'
+	let g:airline_section_warning = ''
 " }
 
 " Plugin tagbar {
