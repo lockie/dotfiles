@@ -87,6 +87,7 @@ theme.widget_mail   = home .. "/.config/awesome/icons/mail.png"
 theme.widget_vol    = home .. "/.config/awesome/icons/vol.png"
 theme.widget_sep    = home .. "/.config/awesome/icons/separator.png"
 theme.widget_procs  = home .. "/.config/awesome/icons/load.png"
+theme.widget_rss    = home .. "/.config/awesome/icons/rss.png"
 -- }}}
 
 -- {{{ Misc
