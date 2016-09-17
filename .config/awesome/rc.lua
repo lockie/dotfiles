@@ -220,6 +220,12 @@ if os.execute("ls /sys/devices/platform/it87.656/fan1_input &> /dev/null") == 0 
     have_fan=1
 end
 
+-- {{{ caching
+vicious.cache(vicious.widgets.cpu)
+vicious.cache(vicious.widgets.mem)
+vicious.cache(vicious.widgets.fs)
+-- }}}
+
 weatherwidget = wibox.widget.textbox()
 vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}°C", 593, city)
 
