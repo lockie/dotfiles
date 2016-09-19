@@ -43,3 +43,6 @@
 [submodule ".zsh/warhol.plugin.zsh"]
 	path = .zsh/warhol.plugin.zsh
 	url = https://github.com/unixorn/warhol.plugin.zsh
+[submodule ".zsh/zsh-history-substring-search"]
+	path = .zsh/zsh-history-substring-search
+	url = https://github.com/zsh-users/zsh-history-substring-search
