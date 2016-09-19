@@ -227,7 +227,8 @@ filetype plugin indent on
 	" автоматически открывать и закрывать окошко предпросмотра
 	au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
-	set completeopt=menu,menuone" всплывающая менюшка
+	set completeopt=menu,menuone,longest  " всплывающая менюшка
+	au FileType python setlocal completeopt-=longest  " fix this: https://github.com/davidhalter/jedi-vim/issues/429
 
 	set complete=.,t,b,k " порядок автодополнения: словарь текущего буфера, c-тэги, словарь всех буферов, глобальный словарь
 " }
@@ -251,7 +252,11 @@ filetype plugin indent on
 " }
 
 " Plugin supertab {
-	let g:SuperTabDefaultCompletionType = "<c-x><c-o><c-n>"
+	let g:SuperTabDefaultCompletionType = "<c-n>"
+	autocmd FileType *
+	  \ if &omnifunc != '' |
+	  \   call SuperTabChain(&omnifunc, "<c-x><c-o><c-n>") |
+	  \ endif
 " }
 
 " Plugin jedi {
