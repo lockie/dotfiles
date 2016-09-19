@@ -119,16 +119,7 @@ if [ -f /usr/bin/mpv ]; then
 fi
 
 # Раскраска ^___^
-if [ -f /usr/bin/grc ]; then
-	alias ping="grc --colour=auto ping"
-	alias traceroute="grc --colour=auto traceroute"
-	alias diff="grc --colour=auto diff"
-	alias cvs="grc --colour=auto cvs"
-	alias netstat="grc --colour=auto netstat"
-	if [ -f /usr/bin/dig ]; then
-		alias dig="grc --colour=auto dig"
-	fi
-fi
+source $HOME/.zsh/warhol.plugin.zsh/warhol.plugin.zsh
 
 alias cls=clear
 alias mv='nocorrect mv'  # чтобы случайно не удалить чего-нибудь

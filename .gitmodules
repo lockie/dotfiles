@@ -40,3 +40,6 @@
 [submodule ".vim/bundle/ack"]
 	path = .vim/bundle/ack
 	url = https://github.com/mileszs/ack.vim
+[submodule ".zsh/warhol.plugin.zsh"]
+	path = .zsh/warhol.plugin.zsh
+	url = https://github.com/unixorn/warhol.plugin.zsh
