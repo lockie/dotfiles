@@ -95,8 +95,11 @@ ulimit -c unlimited
 # Раскраска ^___^
 source $HOME/.zsh/warhol.plugin.zsh/warhol.plugin.zsh
 
+alias grep='nocorrect grep'
+
 # Цветной ls и пара полезных алиасов заодно
-if [ "$TERM" != "dumb" ] && [ `which dircolors` ]; then
+hash dircolors 2>/dev/null
+if [ "$TERM" != "dumb" ] && [ $? -eq 0 ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto --group-directories-first'
     alias dir='ls --color=auto --format=vertical'
@@ -107,19 +110,10 @@ if [ "$TERM" != "dumb" ] && [ `which dircolors` ]; then
     alias egrep='nocorrect egrep --color=auto'
 	alias which='nocorrect which'
 fi
-alias grep='nocorrect grep'
-if [ -f /usr/lib/perl5/vendor_perl/bin/ack ] || [ -f /usr/bin/perlbin/vendor/ack ]; then
-	alias grep='nocorrect ack'
-fi
-if [ -f /usr/bin/ack-grep ]; then
-	alias grep='nocorrect ack-grep'
-fi
-if [ -f /usr/bin/ack ]; then
-	alias grep='nocorrect ack'
-fi
-if [ -f /usr/bin/mpv ]; then
-	alias mplayer='mpv'
-fi
+hash ack      2>/dev/null && { alias grep='nocorrect ack'      }
+hash ack-grep 2>/dev/null && { alias grep='nocorrect ack-grep' }
+hash ag       2>/dev/null && { alias grep='nocorrect ag'       }
+hash mpv      2>/dev/null && { alias mplayer='mpv'             }
 
 alias cls=clear
 alias mv='nocorrect mv'  # чтобы случайно не удалить чего-нибудь
@@ -132,26 +126,26 @@ alias sudo='nocorrect sudo'  # ... или не натворить делов
 alias kill='nocorrect kill'
 alias killall='nocorrect killall'
 alias pkill='nocorrect pkill'
-if [ -f /usr/bin/pacman ]; then
+hash pacman 2>/dev/null && {
 	alias pacman='nocorrect pacman'
-fi
-if [ -f /usr/bin/yaourt ]; then
+}
+hash yaourt 2>/dev/null && {
 	alias yaourt='nocorrect yaourt'
-fi
-if [ -f /usr/bin/clyde ]; then
+}
+hash clyde 2>/dev/null && {
 	alias clyde='nocorrect sudo clyde'
 	alias upd='clyde -Suy --aur'
-fi
-if [ -f /usr/bin/aptitude ]; then
+}
+hash aptitude 2>/dev/null && {
 	alias upd='sudo aptitude update && sudo aptitude safe-upgrade'
 	alias aptitude='nocorrect aptitude'
 	alias apt-get='nocorrect apt-get'
-fi
-if [ -f /usr/bin/mpkg ]; then
+}
+hash mpkg 2>/dev/null && {
 	alias mpkg='nocorrect mpkg'
 	alias upd='sudo mpkg update && sudo mpkg upgradeall'
-fi
-if [ -f /usr/bin/emerge ]; then
+}
+hash emerge 2>/dev/null && {
 	alias emerge='nocorrect emerge'
 	alias eix='nocorrect eix'
 	alias cave='nocorrect cave'
@@ -160,10 +154,10 @@ if [ -f /usr/bin/emerge ]; then
 	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y --with-bdeps=y --backtrack=1000 --verbose-conflicts -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -- -vat ; sudo env-update'
 	alias updk='sudo sh -c "cd /usr/src/linux && zcat /proc/config.gz > .config && make oldconfig && make -j5 && make install"'
 	alias updm='sudo emerge -1vta @module-rebuild'
-fi
-if [ -f /usr/bin/avconv ]; then
+}
+hash avconv 2>/dev/null && {
 	command -v ffmpeg >/dev/null 2>&1 || alias ffmpeg='avconv'
-fi
+}
 alias git='nocorrect git'
 
 alias c='cd'
@@ -175,9 +169,9 @@ alias psf='ps axuf'
 alias cmd='ipython'
 alias l='ls'
 alias ll='ls -alh'
-if [ -f /usr/bin/htop ]; then
+hash htop 2>/dev/null && {
 	alias top='htop'
-fi
+}
 
 #alias less='less -M'
 #alias less='/usr/share/vim/vim72/macros/less.sh'
@@ -189,9 +183,9 @@ export LESSCHARSET=UTF-8
 
 alias du='du -hsx'
 
-if [ -f /usr/bin/pbzip2 ]; then
+hash pbzip2 2>/dev/null && {
 	alias bzip2='pbzip2 -v -p4'
-fi
+}
 
 
 function gitdiff() {
@@ -288,9 +282,9 @@ alias -s {ogg,mp3,wav}=mplayer
 alias -s {jpg,jpeg,png,gif}=display
 
 # Печенюшка на дорожку ^_^
-if [ -f /usr/bin/fortune ] || [ -f /usr/games/fortune ]; then
+hash fortune 2>/dev/null && {
 	fortune -a
-fi
+}
 
 # подсветка
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
