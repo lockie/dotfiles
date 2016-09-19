@@ -1,4 +1,8 @@
 
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
+
 " Кодировка vimrc - utf-8
 scriptencoding utf-8
 
@@ -298,10 +302,9 @@ filetype plugin indent on
 	" переключение между хедером и реализацией
 	map <F3> :AV<CR>
 	imap <F3> <Esc>:AV<CR>a
-	" Открываем шелл в горизонтальном окне/буфере, отключаем подсветку пробелов и табуляций
-	" http://welinux.ru/post/4561
-"	imap <F4> <Esc>:ConqueTermSplit zsh<CR><Esc>:setlocal nolist<CR>a
-"	nmap <F4> :ConqueTermSplit zsh<CR><Esc>:setlocal nolist<CR>
+	" Поиск
+	imap <F4> <Esc>:Ack!<Space>
+	nmap <F4> :Ack!<Space>
 	" запуск
 "	map <F5> :! ./%< <CR> 	
 	map <F6> :Tagbar<CR>
