@@ -369,6 +369,9 @@ filetype plugin indent on
 	nmap <silent> <C-Left> :wincmd h<CR>
 	nmap <silent> <C-Right> :wincmd l<CR>
 
+	" не терять выделение при сдвигах
+	xnoremap <  <gv
+	xnoremap >  >gv
 
 	" починка кодировки
 	menu Encoding.CP1251   :e ++enc=cp1251<CR>
