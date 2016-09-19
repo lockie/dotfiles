@@ -92,6 +92,9 @@ export RPS1="%U[%T %D]%u"
 export HGUSER=$USER
 ulimit -c unlimited
 
+# Раскраска ^___^
+source $HOME/.zsh/warhol.plugin.zsh/warhol.plugin.zsh
+
 # Цветной ls и пара полезных алиасов заодно
 if [ "$TERM" != "dumb" ] && [ `which dircolors` ]; then
     eval "`dircolors -b`"
@@ -117,9 +120,6 @@ fi
 if [ -f /usr/bin/mpv ]; then
 	alias mplayer='mpv'
 fi
-
-# Раскраска ^___^
-source $HOME/.zsh/warhol.plugin.zsh/warhol.plugin.zsh
 
 alias cls=clear
 alias mv='nocorrect mv'  # чтобы случайно не удалить чего-нибудь
