@@ -293,9 +293,9 @@ filetype plugin indent on
 	noremap <C-up> :bnext<CR>
 	inoremap <C-down> <Esc>:bprev<CR>
 	inoremap <C-up> <Esc>:bnext<CR>
-	inoremap <F1> <ESC>
-	nnoremap <F1> <ESC>
-	vnoremap <F1> <ESC>
+	inoremap <F1> <Nop>
+	nnoremap <F1> <Nop>
+	vnoremap <F1> <Nop>
 	" сохранение всех буферов
 	imap <F2> <Esc>:wa<CR>a
 	nmap <F2> :wa<CR>
@@ -332,6 +332,7 @@ filetype plugin indent on
 		endif
 	endfunction
 	au FileType c,cc,cpp,cxx,h,hpp,hxx,pas,inl,s,tex call BindF5_C()
+	au FileType python map <F5> :!clear;python %<CR>
 	" выход аля mc
 	nmap <F10> :qa<CR>
 	" F12 - обозреватель файлов
@@ -356,6 +357,12 @@ filetype plugin indent on
 	imap <C-t> <ESC>:new<cr>a
 	nmap <C-w> :bd<cr>
 	imap <C-w> <ESC>:bd<cr>a
+
+	" Переход между сплитами по Ctrl-стрелки
+	nmap <silent> <C-Up> :wincmd k<CR>
+	nmap <silent> <C-Down> :wincmd j<CR>
+	nmap <silent> <C-Left> :wincmd h<CR>
+	nmap <silent> <C-Right> :wincmd l<CR>
 
 
 	" починка кодировки
