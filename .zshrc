@@ -101,6 +101,8 @@ alias grep='nocorrect grep'
 hash dircolors 2>/dev/null
 if [ "$TERM" != "dumb" ] && [ $? -eq 0 ]; then
     eval "`dircolors -b`"
+    zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
     alias ls='ls --color=auto --group-directories-first'
     alias dir='ls --color=auto --format=vertical'
     #alias vdir='ls --color=auto --format=long'
