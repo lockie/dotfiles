@@ -34,7 +34,7 @@ local function worker(format, warg)
 
     local raw_data = split(cont, "\n")
     if raw_data[1] ~= nil then
-        data["{title}"] = raw_data[1]
+        data["{title}"] = awful.util.escape(raw_data[1])
     end
     if raw_data[2] ~= nil then
         data["{link}"] = raw_data[2]
