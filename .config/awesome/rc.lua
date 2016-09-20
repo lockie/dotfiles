@@ -120,10 +120,24 @@ layouts =
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
+mytags = { names = { "Default", "Chat", "Coding", "Internets", "TODO" },
+           icons = {
+               "/usr/share/icons/nuoveXT2/128x128/places/folder.png",
+               "/usr/share/icons/Tango/32x32/apps/internet-group-chat.png",
+               "/usr/share/icons/nuoveXT2/128x128/categories/applications-development.png",
+               "/usr/share/icons/gnome/48x48/emblems/emblem-web.png",
+               "/usr/share/icons/nuoveXT2/128x128/apps/accessories-text-editor.png"
+           }
+}
+
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "Default", "Chat", "Coding", "Internets", "TODO" }, s, layouts[1]) -- TODO : icons instead of text?
+    tags[s] = awful.tag(mytags.names, s, layouts[1])
+    for i = 1, table.getn(mytags.names) do
+        awful.tag.seticon(mytags.icons[i], tags[s][i])
+        awful.tag.setproperty(tags[s][i], "icon_only", 1)
+    end
 end
 -- }}}
 
