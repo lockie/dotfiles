@@ -246,6 +246,8 @@ vicious.cache(vicious.widgets.mem)
 vicious.cache(vicious.widgets.fs)
 -- }}}
 
+weathericon = wibox.widget.imagebox()
+weathericon:set_image("/usr/share/icons/HighContrast/256x256/apps/gnome-weather.png")
 weatherwidget = wibox.widget.textbox()
 vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}°C", 593, city)
 
@@ -420,6 +422,7 @@ s=1
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(separator)
+    right_layout:add(weathericon)
     right_layout:add(weatherwidget)
     right_layout:add(separator)
     right_layout:add(mytextclock)
