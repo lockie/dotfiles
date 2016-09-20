@@ -662,6 +662,8 @@ awful.rules.rules = {
       properties = { tag = tags[1][3] } },
     { rule = { class = "DrRacket" },
       properties = { tag = tags[1][3] } },
+    { rule = { class = "Gtk-recordMyDesktop" },
+      properties = { floating = true } },
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][4] } },
     { rule = { instance = "Download" },
