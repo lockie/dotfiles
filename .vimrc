@@ -70,6 +70,7 @@ filetype plugin indent on
 	else
 		au FileType c,cc,cpp,cxx,h,hpp,hxx,cuda,sh,python au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1)
 	endif
+	au FileType lua setl noet!
 	" отключить автоматический перенос строк
 	set formatoptions-=tc
 
