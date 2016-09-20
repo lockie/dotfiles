@@ -1,34 +1,35 @@
 # dotfiles
 
-Персональные файлы конфигурации и самописные скрипты.
+Personal configuration files and scripts.
 
-## Конфиги
+## Configs
 
- - xsession, запускающий awesome.
  - rofi.
- - zsh.
- - невырвиглазая цветовая схема "mine" для mc.
- - заточенный под себя awesome.
- - заточенный под себя vim. Плагины vim:
+ - zsh (optionally install grc, the\_silver\_searcher aka ag, ipython, htop, unrar/unzip/7z, imagemagick, fortune)
+ - skins for mc (zenburn and mine)
+ - tilda.
+ - awesome.
+ - Vim. plugins:
     * pathogen
-    * c.vim
     * OmniCppComplete
     * tagbar
     * Super Tab
     * NERD tree
     * minibufexpl
     * a.vim
-    * ManPageView
-    * Scratch
-    * Syntastic (доставить htmltidy, clang, pylint)
-    * vim-airline
+    * Syntastic (additionally install htmltidy, clang, pylint/flake8/pyflakes)
+    * vim-airline (+themes)
+    * ack.vim (additionally install ack/ag)
+    * ctrlp.vim
+    * indentpython.vim
+    * jedi-vim
+    * zenburn theme
 
-## Скрипты
- - git\_diff\_wrapper - vimdiff-ная обёртка для git diff
- - latex-hightlight.sh - подсветка синтаксиса исходного кода для LaTeX.
- - lib.homelinux.py - для перевода запроса пароля на http://lib.homelinux.org с кракозябр на русский.
- - shutdown\_dialog - диалог выключения для awesome
- - speedup-firefox.sh - очистка и переиндексирование sqlite-баз Firefox-а.
- - update.sh (в паре с notify.sh) - обновление Gentoo (нужно засовывать в cron)
- - xlaunch - запуск приложений в отдельном X-сервере.
+## Scripts
+ - git\_diff\_wrapper - vimdiff wrapper for git diff
+ - latex-hightlight.sh - source hightlighting for LaTeX
+ - lightsOn.sh - see [here](https://github.com/iye/lightsOn)
+ - shutdown\_dialog - nice shutdown dialog for awesome WM
+ - speedup-firefox.sh - reindexes Firefox sqlite databases
+ - xlaunch - to launch apps in separate X-server
 
