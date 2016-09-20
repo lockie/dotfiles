@@ -234,10 +234,6 @@ bindkey -M vicmd "^[[6~" down-line-or-history
 #zstyle ':completion:*:(ssh|scp):*' hosts $hosts
 zstyle ':completion:*:(ssh|scp):*' tag-order '! users'
 
-# git flow
-# оверлей для Gentoo - flora
-#source /etc/zsh/git-flow-completion.zsh
-
 # Распаковка любого архива (http://muhas.ru/?p=55)
 unpack() {
 if [ -f $1 ] ; then
