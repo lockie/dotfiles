@@ -131,7 +131,6 @@ end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "shutdown", home .. "/bin/shutdown_dialog.py", "/usr/share/icons/nuoveXT2/128x128/actions/system-shutdown.png" },
-   { "restart", awesome.restart, "/usr/share/icons/nuoveXT2/128x128/actions/reload.png" },
    { "config", editor_cmd .. " " .. awesome.conffile, "/usr/share/icons/nuoveXT2/128x128/apps/text-editor.png" },
 }
 
