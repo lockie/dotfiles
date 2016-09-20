@@ -123,7 +123,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "Default", "TODO", "Coding", "Internets" }, s, layouts[1]) -- TODO : icons instead of text?
+    tags[s] = awful.tag({ "Default", "Chat", "Coding", "Internets", "TODO" }, s, layouts[1]) -- TODO : icons instead of text?
 end
 -- }}}
 
@@ -657,7 +657,7 @@ awful.rules.rules = {
     { rule = { class = "gimp" },
       properties = { floating = true } },
     { rule = { class = "freemind-main-FreeMindStarter" },
-      properties = { tag = tags[1][2] } },
+      properties = { tag = tags[1][5] } },
     { rule = { class = "Qtcreator" },
       properties = { tag = tags[1][3] } },
     { rule = { class = "DrRacket" },
@@ -667,9 +667,9 @@ awful.rules.rules = {
     { rule = { instance = "Download" },
       properties = { floating = true } },
     { rule = { class = "Pidgin", role = "buddy_list"},
-      properties = { tag = tags[1][4] } },
+      properties = { tag = tags[1][2] } },
     { rule = { class = "Pidgin", role = "conversation"},
-      properties = { tag = tags[1][4]}, callback = awful.client.setslave },
+      properties = { tag = tags[1][2]}, callback = awful.client.setslave },
     { rule = { instance = "plugin-container" },
       properties = { floating = true } },
     { rule = { instance = "exe" },
@@ -691,7 +691,7 @@ awful.rules.rules = {
                      buttons = {}
     } },
     { rule = { class = "psi" },
-      properties = {tag = tags[1][4]}
+      properties = {tag = tags[1][2]}
     }
 }
 -- }}}
@@ -725,7 +725,7 @@ client.connect_signal("manage", function (c, startup)
     -- http://awesome.naquadah.org/wiki/IM_tips#Psi_and_qutIM
     if c.class == "psi" and not c.name:find("Psi") then
         awful.client.setslave(c)
-        awful.tag.setmwfact (0.2, tags[2][4])
+        awful.tag.setmwfact (0.2, tags[2][2])
     end
 
    -- Floating clients don't overlap, cover
