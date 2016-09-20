@@ -135,14 +135,36 @@ myawesomemenu = {
    { "config", editor_cmd .. " " .. awesome.conffile, "/usr/share/icons/nuoveXT2/128x128/apps/text-editor.png" },
 }
 
+mywebmenu =  {
+    { "firefox", "firefox", "/usr/share/icons/nuoveXT2/128x128/apps/firefox-icon.png" },
+    { "chromium", "chromium", "/usr/share/icons/hicolor/256x256/apps/chromium-browser.png" },
+    { "t10n", "transmission", "/usr/share/icons/hicolor/256x256/apps/transmission.png" }
+}
+
+mychatmenu = {
+    { "skype", "/opt/bin/skypeforlinux", "/usr/share/icons/hicolor/512x512/apps/skypeforlinux.png" },
+    { "tox", "qtox", "/usr/share/icons/hicolor/512x512/apps/qtox.png" },
+    { "hipchat", "hipchat", "/usr/share/icons/hicolor/256x256/apps/hipchat4.png" },
+    { "slack", "slack", "/usr/share/pixmaps/slack.png" },
+    { "telegram", home .. "/bin/Telegram/Telegram", home .. "/bin/Telegram/telegram.png"}
+}
+
+mycodingmenu = {
+    { "gvim", "gvim", "/usr/share/icons/hicolor/scalable/apps/gvim.svg" },
+    { "qtcreator", "qtcreator", "/usr/share/icons/hicolor/512x512/apps/QtProject-qtcreator.png" },
+    { "racket", "drracket", "/usr/share/racket/drracket-exe-icon.png" },
+    { "virtualbox", "VirtualBox", "/usr/share/icons/hicolor/128x128/apps/virtualbox.png" },
+    { "aqemu", "aqemu", "/usr/share/pixmaps/aqemu.png" },
+    { "wireshark", "wireshark-gtk", "/usr/share/icons/hicolor/256x256/apps/wireshark.png" },
+    { "upwork", home .. "/bin/Upwork", "/usr/share/pixmaps/upwork.png" }
+}
+
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "firefox", "firefox", "/usr/share/icons/nuoveXT2/128x128/apps/firefox-icon.png" },
-                                    { "chromium", "chromium", "/usr/share/icons/hicolor/256x256/apps/chromium-browser.png" },
-                                    { "telegram", home .. "/bin/Telegram/Telegram", home .. "/bin/Telegram/telegram.png"},
-                                    { "skype", "/opt/bin/skypeforlinux", "/usr/share/icons/hicolor/512x512/apps/skypeforlinux.png" },
-                                    { "steam", "steam", "/usr/share/icons/hicolor/256x256/apps/steam.png" },
+                                    { "web", mywebmenu, "/usr/share/icons/gnome/48x48/emblems/emblem-web.png" },
+                                    { "chat", mychatmenu, "/usr/share/icons/Tango/32x32/apps/internet-group-chat.png" },
+                                    { "coding", mycodingmenu, "/usr/share/icons/nuoveXT2/128x128/categories/applications-development.png" },
                                     { "deadbeef", "/usr/bin/deadbeef", "/usr/share/icons/hicolor/256x256/apps/deadbeef.png" },
-                                    { "terminal", terminal, "/usr/share/icons/nuoveXT2/128x128/apps/terminal.png" }
+                                    { "steam", "steam", "/usr/share/icons/hicolor/256x256/apps/steam.png" },
                                   }
                         })
 
