@@ -525,6 +525,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Menu",   function () mymainmenu:toggle() end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
+    awful.key({ modkey,           }, "a",      awful.tag.viewprev       ),
+    awful.key({ modkey,           }, "d",      awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
     awful.key({ modkey,           }, "j",
