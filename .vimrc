@@ -23,8 +23,7 @@ endif
 " менеджер пакетов
 set nocompatible
 let mapleader = "'"
-call pathogen#runtime_append_all_bundles()
-" see https://github.com/tpope/vim-pathogen/issues/40
+call pathogen#infect()
 call pathogen#helptags()
 
 " И вообще, юникод - это прогрессивненько
