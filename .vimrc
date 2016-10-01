@@ -167,7 +167,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 
 	function! UPDATE_TAGS()
 		let _f_ = expand("%:p")
-		let _cmd_ = '"ctags -a --c++-kinds=+pl --fields=+iaS --extra=+q " ' . '"' . _f_ . '"'
+		let _cmd_ = 'ctags -R --languages=c,c++,python --c++-kinds=+pl --python-kinds=-iv --fields=+ilaS --extra=+q --sort=yes ' . _f_
 		let _resp = system(_cmd_)
 		unlet _cmd_
 		unlet _f_
