@@ -46,6 +46,8 @@ endif
 
 filetype plugin indent on
 
+autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
+
 " Внешний вид {
 	syntax on " подсветка синтаксиса
 	set shortmess+=I " отключаем детей Уганды

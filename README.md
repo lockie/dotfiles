@@ -9,7 +9,7 @@ Personal configuration files and scripts.
  - skins for mc (zenburn and mine)
  - tilda.
  - awesome.
- - Vim. plugins:
+ - Vim. plugins (additionally install python-jinja2 to support its syntax):
     * pathogen
     * OmniCppComplete
     * tagbar
