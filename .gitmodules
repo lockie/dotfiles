@@ -43,3 +43,6 @@
 [submodule ".zsh/zsh-history-substring-search"]
 	path = .zsh/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search
+[submodule ".vim/bundle/pyenv"]
+	path = .vim/bundle/pyenv
+	url = https://github.com/lambdalisue/vim-pyenv
