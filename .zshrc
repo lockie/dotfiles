@@ -27,7 +27,7 @@ else
 	DISTRIB_ID="Unknown"
 fi
 
-if [ $DISTRIB_ID = "Gentoo" ]; then
+if [ "$DISTRIB_ID" = "Gentoo" ]; then
 	prompt gentoo
 fi
 
@@ -98,8 +98,7 @@ source $HOME/.zsh/warhol.plugin.zsh/warhol.plugin.zsh
 alias grep='nocorrect grep'
 
 # Цветной ls и пара полезных алиасов заодно
-hash dircolors 2>/dev/null
-if [ "$TERM" != "dumb" ] && [ $? -eq 0 ]; then
+if [ "$TERM" != "dumb" ] && hash dircolors 2>/dev/null; then
     eval "`dircolors -b`"
     zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
@@ -190,7 +189,7 @@ hash pbzip2 2>/dev/null && {
 }
 
 
-function gitdiff() {
+function gitdiff {
 	git diff --no-ext-diff -w "$@"
 }
 
@@ -236,7 +235,7 @@ zstyle ':completion:*:(ssh|scp):*' tag-order '! users'
 
 # Распаковка любого архива (http://muhas.ru/?p=55)
 unpack() {
-if [ -f $1 ] ; then
+if [ -f "$1" ] ; then
 case $1 in
 	*.tar.bz2)   tar xjf $1        ;;
 	*.tar.gz)    tar xzf $1     ;;
