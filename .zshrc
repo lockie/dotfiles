@@ -16,7 +16,7 @@ zstyle ':completion:*' select-prompt %SScrolling active: %l matches, current sel
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' verbose true
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle :compinstall filename '~/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 autoload -Uz compinit promptinit
 compinit -D
 promptinit
@@ -42,16 +42,16 @@ zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}%m%F{5}[%F{2}%b%F{3}|%F
 zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}%m%F{5}[%F{2}%b%F{5}][%B%F{yellow}%c%F{red}%u%%b%F{5}]%f '
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b%F{1}:%F{3}%r'
 zstyle ':vcs_info:*' get-revision true
-precmd () { vcs_info }
+precmd () { vcs_info; }
 
 # pip zsh completion start
 function _pip_completion {
   local words cword
-  read -Ac words
-  read -cn cword
-  reply=( $( COMP_WORDS="$words[*]" \
+  read -Acr words
+  read -cnr cword
+  export reply=( $( COMP_WORDS="$words[*]" \
              COMP_CWORD=$(( cword-1 )) \
-             PIP_AUTO_COMPLETE=1 $words[1] ) )
+             PIP_AUTO_COMPLETE=1 "$words[1]" ) )
 }
 compctl -K _pip_completion pip
 # pip zsh completion end
@@ -85,7 +85,7 @@ zle -N zle-keymap-select
 # Исправлять ошибки
 setopt correctall
 # Что при этом говорит?
-SPROMPT="	$fg[red]%R$reset_color → $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
+export SPROMPT="	$fg[red]%R$reset_color → $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
 
 export PROMPT="%(?,$(print '%{\e[1;32m%}^_^%{\e[0m%}'),$(print '%{\e[1;31m%}>_<%{\e[0m%}')) [$(print '%{\e[1;30m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
 export RPS1="%U[%T %D]%u"
@@ -93,28 +93,26 @@ export HGUSER=$USER
 ulimit -c unlimited
 
 # Раскраска ^___^
-source $HOME/.zsh/warhol.plugin.zsh/warhol.plugin.zsh
+source "$HOME/.zsh/warhol.plugin.zsh/warhol.plugin.zsh"
 
 alias grep='nocorrect grep'
 
 # Цветной ls и пара полезных алиасов заодно
 if [ "$TERM" != "dumb" ] && hash dircolors 2>/dev/null; then
-    eval "`dircolors -b`"
-    zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+	eval "$(dircolors -b)"
+	zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-    alias ls='ls --color=auto --group-directories-first'
-    alias dir='ls --color=auto --format=vertical'
-    #alias vdir='ls --color=auto --format=long'
-
-    alias grep='nocorrect grep --color=auto'
-    alias fgrep='nocorrect fgrep --color=auto'
-    alias egrep='nocorrect egrep --color=auto'
+	alias ls='ls --color=auto --group-directories-first'
+	alias dir='ls --color=auto --format=vertical'
+	alias grep='nocorrect grep --color=auto'
+	alias fgrep='nocorrect fgrep --color=auto'
+	alias egrep='nocorrect egrep --color=auto'
 	alias which='nocorrect which'
 fi
-hash ack      2>/dev/null && { alias grep='nocorrect ack'      }
-hash ack-grep 2>/dev/null && { alias grep='nocorrect ack-grep' }
-hash ag       2>/dev/null && { alias grep='nocorrect ag'       }
-hash mpv      2>/dev/null && { alias mplayer='mpv'             }
+hash ack      2>/dev/null && { alias grep='nocorrect ack';      }
+hash ack-grep 2>/dev/null && { alias grep='nocorrect ack-grep'; }
+hash ag       2>/dev/null && { alias grep='nocorrect ag';       }
+hash mpv      2>/dev/null && { alias mplayer='mpv';             }
 
 alias cls=clear
 alias mv='nocorrect mv'  # чтобы случайно не удалить чего-нибудь
@@ -170,24 +168,15 @@ alias psf='ps axuf'
 alias cmd='ipython'
 alias l='ls'
 alias ll='ls -alh'
+alias du='du -hsx'
 hash htop 2>/dev/null && {
 	alias top='htop'
 }
-
-#alias less='less -M'
-#alias less='/usr/share/vim/vim72/macros/less.sh'
-#if [ -f /usr/bin/lesspipe.sh ]; then
-#	eval $(lesspipe.sh)
-#fi
-export LESSCHARSET=UTF-8
-#export LESS=' -R '
-
-alias du='du -hsx'
-
 hash pbzip2 2>/dev/null && {
 	alias bzip2='pbzip2 -v -p4'
 }
 
+export LESSCHARSET=UTF-8
 
 function gitdiff {
 	git diff --no-ext-diff -w "$@"
@@ -229,25 +218,23 @@ bindkey -M viins "^[[6~" down-line-or-history
 bindkey -M vicmd "^[[6~" down-line-or-history
 
 # Автодополнение хостов для ssh/scp
-#hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}% % *}% %,*})
-#zstyle ':completion:*:(ssh|scp):*' hosts $hosts
 zstyle ':completion:*:(ssh|scp):*' tag-order '! users'
 
 # Распаковка любого архива (http://muhas.ru/?p=55)
 unpack() {
 if [ -f "$1" ] ; then
 case $1 in
-	*.tar.bz2)   tar xjf $1        ;;
-	*.tar.gz)    tar xzf $1     ;;
-	*.bz2)       bunzip2 $1       ;;
-	*.rar)       unrar x $1     ;;
-	*.gz)        gunzip $1     ;;
-	*.tar)       tar xf $1        ;;
-	*.tbz2)      tar xjf $1      ;;
-	*.tgz)       tar xzf $1       ;;
-	*.zip)       unzip $1     ;;
-	*.Z)         uncompress $1  ;;
-	*.7z)        7z x $1    ;;
+	*.tar.bz2)   tar xjf "$1"        ;;
+	*.tar.gz)    tar xzf "$1"     ;;
+	*.bz2)       bunzip2 "$1"       ;;
+	*.rar)       unrar x "$1"     ;;
+	*.gz)        gunzip "$1"     ;;
+	*.tar)       tar xf "$1"        ;;
+	*.tbz2)      tar xjf "$1"      ;;
+	*.tgz)       tar xzf "$1"       ;;
+	*.zip)       unzip "$1"     ;;
+	*.Z)         uncompress "$1"  ;;
+	*.7z)        7z x "$1"    ;;
 	*)           echo "Cannot unpack '$1'..." ;;
 esac
 else
@@ -256,15 +243,15 @@ fi
 }
 # ... и упаковка (http://muhas.ru/?p=55)
 pack() {
-if [ $1 ] ; then
+if [ "$1" ] ; then
 case $1 in
-	tbz)   	tar cjvf $2.tar.bz2 $2      ;;
-	tgz)   	tar czvf $2.tar.gz  $2   	;;
-	tar)  	tar cpvf $2.tar  $2       ;;
-	bz2)	bzip $2 ;;
-	gz)		gzip -c -9 -n $2 > $2.gz ;;
-	zip)   	zip -r $2.zip $2   ;;
-	7z)    	7z a $2.7z $2    ;;
+	tbz)   	tar cjvf "$2.tar.bz2" "$2"      ;;
+	tgz)   	tar czvf "$2.tar.gz"  "$2"   	;;
+	tar)  	tar cpvf "$2.tar"  "$2"       ;;
+	bz2)	bzip "$2" ;;
+	gz)		gzip -c -9 -n "$2" > "$2.gz" ;;
+	zip)   	zip -r "$2.zip" "$2"   ;;
+	7z)    	7z a "$2.7z" "$2"    ;;
 	*)     	echo "'$1' Cannot be packed via pack()" ;;
 esac
 else
@@ -274,7 +261,7 @@ fi
 
 # Привязки файлов к программам
 alias -s {avi,mpeg,mpg,mov,m2v,flv}=mplayer
-alias -s txt=vim
+alias -s {md,txt,py,cpp,cxx,h,hpp,hxx,sh}=gvim
 alias -s {ogg,mp3,wav}=mplayer
 alias -s {jpg,jpeg,png,gif}=display
 
@@ -284,11 +271,11 @@ hash fortune 2>/dev/null && {
 }
 
 # подсветка
-source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # поиск по истории!
-source $HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
-HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+source "$HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
+export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 bindkey -M vicmd '^[[A' history-substring-search-up

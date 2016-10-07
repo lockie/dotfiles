@@ -17,7 +17,7 @@ Personal configuration files and scripts.
     * NERD tree
     * minibufexpl
     * a.vim
-    * Syntastic (additionally install htmltidy, clang, pylint/flake8/pyflakes)
+    * Syntastic (additionally install htmltidy, clang, pylint/flake8/pyflakes, shellcheck)
     * vim-airline (+themes)
     * ack.vim (additionally install ack/ag)
     * ctrlp.vim
