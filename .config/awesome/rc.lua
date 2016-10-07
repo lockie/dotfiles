@@ -157,6 +157,7 @@ mywebmenu =  {
 mychatmenu = {
     { "skype", "/opt/bin/skypeforlinux", "/usr/share/icons/hicolor/512x512/apps/skypeforlinux.png" },
     { "tox", "qtox", "/usr/share/icons/hicolor/512x512/apps/qtox.png" },
+    { "gitter", home .. "/bin/Gitter/Gitter", home .. "/bin/Gitter/logo.png"},
     { "hipchat", "hipchat", "/usr/share/icons/hicolor/256x256/apps/hipchat4.png" },
     { "slack", "slack", "/usr/share/pixmaps/slack.png" },
     { "telegram", home .. "/bin/Telegram/Telegram", home .. "/bin/Telegram/telegram.png"}
@@ -702,6 +703,8 @@ awful.rules.rules = {
     { rule = { class = "Slack" },
       properties = { tag = tags[1][2] } },
     { rule = { class = "Telegram" },
+      properties = { tag = tags[1][2] } },
+    { rule = { name  = "Gitter" },
       properties = { tag = tags[1][2] } },
     { rule = { class = "Upwork" },
       properties = { tag = tags[1][2] } },
