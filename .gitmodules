@@ -46,3 +46,6 @@
 [submodule ".vim/bundle/pyenv"]
 	path = .vim/bundle/pyenv
 	url = https://github.com/lambdalisue/vim-pyenv
+[submodule ".pyenv"]
+	path = .pyenv
+	url = https://github.com/yyuu/pyenv
