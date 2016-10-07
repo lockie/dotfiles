@@ -2,4 +2,6 @@
 
 export QT_STYLE_OVERRIDE=GTK+
 
+eval "$(/usr/bin/gpg-agent --daemon)"
+
 $HOME/bin/lightsOn.sh &
