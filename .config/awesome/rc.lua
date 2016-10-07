@@ -770,6 +770,20 @@ client.connect_signal("manage", function (c, startup)
 
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("focus", function(c)
+    c.border_color = beautiful.border_focus
+        for i, t in ipairs(c:tags()) do
+            awful.tag.seticon(mytags.icons[awful.tag.getidx(t)], t)
+        end
+end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+client.connect_signal("property::urgent", function(c)
+    local ctags = c:tags()
+    for i, t in ipairs(ctags) do
+        --"/usr/share/icons/Tango/scalable/status/software-update-urgent.svg"
+        awful.tag.seticon("/usr/share/icons/Tango/scalable/status/important.svg", t)
+    end
+end)
+
 -- }}}
