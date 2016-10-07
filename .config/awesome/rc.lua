@@ -187,7 +187,9 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("%H:%M:%S", 1)
+require("os")
+os.setlocale("ru_RU.UTF-8", "time")
+mytextclock = awful.widget.textclock("%A %e %b  %H:%M:%S", 1)
 calendar2.addCalendarToWidget(mytextclock, "<span color='green'>%s</span>")
 
 -- Create a systray
