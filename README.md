@@ -23,6 +23,7 @@ Personal configuration files and scripts.
     * ctrlp.vim
     * indentpython.vim
     * jedi-vim
+    * molokai theme
     * zenburn theme
 
 ## Scripts
