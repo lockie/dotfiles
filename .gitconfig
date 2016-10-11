@@ -1,3 +1,6 @@
 [user]
 	email = awkravchuk@gmail.com
 	name = Andrew Kravchuk
+	signingkey = 50F6285F
+[commit]
+	gpgsign = true
