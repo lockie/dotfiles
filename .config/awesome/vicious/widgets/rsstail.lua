@@ -25,7 +25,7 @@ local function worker(format, warg)
         ["{link}"] = ""
     }
 
-    local f = io.popen("rsstail -i 1 -z -n 1 -N -1 -l -u " .. warg)
+    local f = io.popen("rsstail -i 2 -z -n 1 -N -1 -l -u " .. warg)
 
     local cont = f:read('*all')
     if cont == "" then
