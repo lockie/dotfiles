@@ -6,5 +6,10 @@
 	default = matching
 [merge]
 	tool = meld
+[alias]
+	co = checkout
+	st = status
+	br = branch
+	g = gui
 [commit]
 	gpgsign = true
