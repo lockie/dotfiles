@@ -52,3 +52,6 @@
 [submodule ".vim/bundle/OmniCppComplete"]
 	path = .vim/bundle/OmniCppComplete
 	url = https://github.com/FromtonRouge/OmniCppComplete
+[submodule ".vim/bundle/a"]
+	path = .vim/bundle/a
+	url = https://github.com/vim-scripts/a.vim
