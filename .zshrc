@@ -261,7 +261,7 @@ fi
 
 # Привязки файлов к программам
 alias -s {avi,mpeg,mpg,mov,m2v,flv}=mplayer
-alias -s {md,txt,py,cpp,cxx,h,hpp,hxx,sh}=gvim
+alias -s {md,txt,cpp,cxx,h,hpp,hxx}=gvim
 alias -s {ogg,mp3,wav}=mplayer
 alias -s {jpg,jpeg,png,gif}=display
 
