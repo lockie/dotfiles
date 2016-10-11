@@ -42,6 +42,8 @@ zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}%m%F{5}[%F{2}%b%F{3}|%F
 zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}%m%F{5}[%F{2}%b%F{5}][%B%F{yellow}%c%F{red}%u%%b%F{5}]%f '
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b%F{1}:%F{3}%r'
 zstyle ':vcs_info:*' get-revision true
+zstyle ':vcs_info:*' check-for-changes true
+# XXX если тормозит при rebase, то в файле /usr/share/zsh/5.2/functions/VCS_Info/Backends/VCS_INFO_get_data_git нужно поменять "grep" на "/bin/grep"
 precmd () { vcs_info; }
 
 # pip zsh completion start
