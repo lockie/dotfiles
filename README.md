@@ -6,6 +6,7 @@ Personal configuration files and scripts.
 
  - rofi.
  - zsh (optionally install grc, the\_silver\_searcher aka ag, ipython, htop, unrar/unzip/7z, imagemagick, fortune)
+ - pyenv (additionally do `git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv`)
  - skins for mc (zenburn and mine)
  - tilda.
  - awesome.

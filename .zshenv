@@ -7,3 +7,4 @@ fi
 export BG1=none
 
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
