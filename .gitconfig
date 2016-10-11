@@ -2,6 +2,8 @@
 	email = awkravchuk@gmail.com
 	name = Andrew Kravchuk
 	signingkey = 50F6285F
+[push]
+	default = matching
 [merge]
 	tool = meld
 [commit]
