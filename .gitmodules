@@ -49,3 +49,6 @@
 [submodule ".pyenv"]
 	path = .pyenv
 	url = https://github.com/yyuu/pyenv
+[submodule ".vim/bundle/OmniCppComplete"]
+	path = .vim/bundle/OmniCppComplete
+	url = https://github.com/FromtonRouge/OmniCppComplete
