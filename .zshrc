@@ -171,6 +171,8 @@ alias cmd='ipython'
 alias l='ls'
 alias ll='ls -alh'
 alias du='du -hsx'
+alias gitg='git gui'
+alias gg='git gui'
 hash htop 2>/dev/null && {
 	alias top='htop'
 }
