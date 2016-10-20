@@ -379,8 +379,8 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	imap <C-tab> <ESC>:bn<cr>a
 	nmap <C-t> :new<cr>
 	imap <C-t> <ESC>:new<cr>a
-	nmap <C-w> :bd<cr>
-	imap <C-w> <ESC>:bd<cr>a
+	nmap <C-w> :BW<cr>
+	imap <C-w> <ESC>:BW<cr>a
 
 	" Переход между сплитами по Ctrl-стрелки
 	nmap <silent> <C-Up> :wincmd k<CR>
