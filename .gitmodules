@@ -58,3 +58,6 @@
 [submodule ".vim/bundle/molokai"]
 	path = .vim/bundle/molokai
 	url = https://github.com/tomasr/molokai
+[submodule ".vim/bundle/sessionman"]
+	path = .vim/bundle/sessionman
+	url = https://github.com/vim-scripts/sessionman.vim

@@ -200,6 +200,10 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	set gdefault  " applies substitutions globally on lines
 " }
 
+" Plugin sessionman {
+	let g:sessionman_save_on_exit=1
+" }
+
 " Plugin NERDTree {
 	"autocmd VimEnter * NERDTree
 	"autocmd VimEnter * wincmd p
