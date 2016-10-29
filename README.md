@@ -7,6 +7,7 @@ Personal configuration files and scripts.
  - [rofi](https://github.com/DaveDavenport/rofi)
  - [zsh](http://zsh.org) (optionally install grc, [the\_silver\_searcher aka ag](https://github.com/ggreer/the_silver_searcher), ipython, htop, unrar/unzip/7z, imagemagick, fortune)
  - zsh plugins:
+    * [gibo](https://github.com/simonwhitaker/gibo)
     * [warhol](https://github.com/unixorn/warhol.plugin.zsh)
     * [zsh-256color](https://github.com/chrissicool/zsh-256color)
     * [zsh-background-notify](https://github.com/lockie/zsh-background-notify)
