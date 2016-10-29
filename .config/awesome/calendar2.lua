@@ -64,7 +64,13 @@ function switchNaughtyMonth(switchMonths)
         if (#calendar < 3) then return end
         local swMonths = switchMonths or 1
         calendar[1] = calendar[1] + swMonths
-        calendar[3].box.widgets[2].text = string.format('<span font_desc="%s">%s</span>', "Terminus 10", displayMonth(calendar[1], calendar[2], 2))
+        naughty.destroy(calendar[3])
+        calendar[3] = naughty.notify({
+                text = string.format('<span font_desc="%s">%s</span>', "Terminus 10", displayMonth(calendar[1], calendar[2], 2)),
+                timeout = 0,
+                hover_timeout = 0.5,
+                screen = capi.mouse.screen
+        })
 end
 
 function switchNaughtyGoToToday()
@@ -93,11 +99,11 @@ function addCalendarToWidget(mywidget, custom_current_day_format)
 
   mywidget:buttons(awful.util.table.join(
     awful.button({ }, 1, function()
-        switchNaughtyMonth(-1)
+        switchNaughtyMonth(1)
     end),
     awful.button({ }, 2, switchNaughtyGoToToday),
     awful.button({ }, 3, function()
-        switchNaughtyMonth(1)
+        switchNaughtyMonth(-1)
     end),
     awful.button({ }, 4, function()
         switchNaughtyMonth(-1)
