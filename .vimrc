@@ -262,6 +262,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	let g:airline_section_c = '%f'
 	let g:airline_section_x = '%{airline#extensions#tagbar#currenttag()}'
 	let g:airline_section_warning = ''
+	let g:airline#extensions#po#displayed_limit = 11
 " }
 
 " Plugin tagbar {
