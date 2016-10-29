@@ -64,3 +64,6 @@
 [submodule ".vim/bundle/sessionman"]
 	path = .vim/bundle/sessionman
 	url = https://github.com/chumakd/sessionman.vim
+[submodule ".zsh/zsh-256color"]
+	path = .zsh/zsh-256color
+	url = https://github.com/chrissicool/zsh-256color

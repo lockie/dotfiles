@@ -8,6 +8,7 @@ Personal configuration files and scripts.
  - [zsh](http://zsh.org) (optionally install grc, [the\_silver\_searcher aka ag](https://github.com/ggreer/the_silver_searcher), ipython, htop, unrar/unzip/7z, imagemagick, fortune)
  - zsh plugins:
     * [warhol](https://github.com/unixorn/warhol.plugin.zsh)
+    * [zsh-256color](https://github.com/chrissicool/zsh-256color)
     * [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)
     * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
  - [pyenv](https://github.com/yyuu/pyenv) (additionally do `git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv`)
