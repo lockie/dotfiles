@@ -28,7 +28,6 @@ Personal configuration files and scripts.
     * zenburn theme
 
 ## Scripts
- - git\_diff\_wrapper - vimdiff wrapper for git diff
  - latex-hightlight.sh - source hightlighting for LaTeX
  - lightsOn.sh - see [here](https://github.com/iye/lightsOn)
  - shutdown\_dialog - nice shutdown dialog for awesome WM
