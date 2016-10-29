@@ -89,7 +89,7 @@ setopt correctall
 # Что при этом говорит?
 export SPROMPT="	$fg[red]%R$reset_color → $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
 
-export PROMPT="%(?,$(print '%{\e[1;32m%}^_^%{\e[0m%}'),$(print '%{\e[1;31m%}>_<%{\e[0m%}')) [$(print '%{\e[1;30m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
+export PROMPT="%(?,$(print '%{\e[1;32m%}😊%{\e[0m%}'),$(print '%{\e[1;31m%}😣%{\e[0m%}')) [$(print '%{\e[1;30m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
 export RPS1="%U[%T %D]%u"
 export HGUSER=$USER
 ulimit -c unlimited
