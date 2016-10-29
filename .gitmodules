@@ -67,3 +67,6 @@
 [submodule ".zsh/zsh-256color"]
 	path = .zsh/zsh-256color
 	url = https://github.com/chrissicool/zsh-256color
+[submodule ".zsh/zsh-background-notify"]
+	path = .zsh/zsh-background-notify
+	url = https://github.com/lockie/zsh-background-notify

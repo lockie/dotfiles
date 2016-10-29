@@ -287,3 +287,6 @@ bindkey -M vicmd '^[[B' history-substring-search-down
 
 # поддержка 256-цветного терминала (чтобы mc не ругался)
 source "$HOME/.zsh/zsh-256color/zsh-256color.plugin.zsh"
+
+# уведомления о долгоиграющих командах
+source "$HOME/.zsh/zsh-background-notify/bgnotify.plugin.zsh"
