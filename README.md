@@ -9,6 +9,7 @@ Personal configuration files and scripts.
  - zsh plugins:
     * [warhol](https://github.com/unixorn/warhol.plugin.zsh)
     * [zsh-256color](https://github.com/chrissicool/zsh-256color)
+    * [zsh-background-notify](https://github.com/lockie/zsh-background-notify)
     * [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search)
     * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
  - [pyenv](https://github.com/yyuu/pyenv) (additionally do `git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv`)
