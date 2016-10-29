@@ -393,8 +393,17 @@ ind_hddtemp = wibox.widget.textbox()
 vicious.register(ind_hddtemp, vicious.widgets.hddtemp, "${/dev/sda}°C ", 7)
 mailicon = wibox.widget.imagebox()
 mailicon:set_image(beautiful.widget_mail)
+
+pomodoro_mode = false
+
 ind_mail = wibox.widget.textbox()
-vicious.register(ind_mail, vicious.widgets.gmail, "<span color='#7F9F7F'>[</span>${count}<span color='#7F9F7F'>]</span> ${subject}", 59)
+vicious.register(ind_mail, vicious.widgets.gmail,
+    function (widget, args)
+        if pomodoro_mode then return ""
+        else return "<span color='#7F9F7F'>[</span>" .. args["{count}"] .. "<span color='#7F9F7F'>]</span> " .. args["{subject}"]
+        end
+    end,
+59)
 ind_mail:buttons(awful.util.table.join(
   awful.button({}, 1, function () awful.util.spawn("xdg-open 'https://mail.google.com/mail/u/0'") end)))
 rssicon = wibox.widget.imagebox()
@@ -402,11 +411,20 @@ rssicon:set_image(beautiful.widget_rss)
 ind_rss = wibox.widget.textbox()
 -- XXX not really from vicious, see this repository
 vicious.register(ind_rss, vicious.widgets.rsstail, function(widget, data)
+    if pomodoro_mode then return "" end
     widget:buttons(awful.util.table.join(
         awful.button({}, 1, function() awful.util.spawn("xdg-open " .. data["{link}"]) end)
     ))
     return data["{title}"]
 end, 53, "https://habrahabr.ru/rss/all")
+
+pomodoro_button = awful.util.table.join(
+    awful.button({}, 3, function () pomodoro_mode = not pomodoro_mode; vicious.force({ ind_mail, ind_rss }) end)
+)
+mailicon:buttons(pomodoro_button)
+rssicon:buttons(pomodoro_button)
+
+
 
 --for s = 1, screen.count() do
 s=1
