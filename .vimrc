@@ -83,7 +83,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	else
 		au FileType c,cc,cpp,cxx,h,hpp,hxx,cuda,sh,python au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1)
 	endif
-	au FileType lua setl noet!
+	au FileType lua,markdown,jinja setl noet!
 	" отключить автоматический перенос строк
 	set formatoptions-=tc
 
