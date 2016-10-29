@@ -76,7 +76,7 @@ setopt PROMPT_SUBST
 #
 bindkey -v
 function zle-line-init zle-keymap-select {
-	RPS1="${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')} %U[%T %D]%u"
+	RPS1="%U[%T]%u ${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')}"
 	RPROMPT='${vcs_info_msg_0_}'$RPS1
 	RPS2=$RPS1
 	zle reset-prompt
