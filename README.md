@@ -33,6 +33,7 @@ Personal configuration files and scripts.
     * [vim-airline](https://github.com/bling/vim-airline) (+[themes](https://github.com/vim-airline/vim-airline-themes))
     * [vim-bufkill](https://github.com/qpkorr/vim-bufkill)
     * [vim-pyenv](https://github.com/lambdalisue/vim-pyenv)
+    * [vim-wakatime](https://wakatime.com)
     * [Zenburn theme](https://github.com/jnurmine/Zenburn)
 
 ## Scripts
