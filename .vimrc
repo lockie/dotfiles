@@ -92,7 +92,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	set foldmethod=indent " включаем фолдинг (сворачивание участков кода)
 	set nofoldenable
 	set fdm=indent " Сворачивание по отступам
-	set gfn=Monofur\ for\ Powerline\ 14,Monaco\ 10,DejaVu\ Sans\ Mono\ 10
+	set gfn=MonofurForPowerline\ Nerd\ Font\ 14,Monofur\ for\ Powerline\ 14,Monaco\ 10,DejaVu\ Sans\ Mono\ 10
 
 	set stal=2 " постоянно выводим строку с табами
 	
