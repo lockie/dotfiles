@@ -292,6 +292,6 @@ source "$HOME/.zsh/zsh-256color/zsh-256color.plugin.zsh"
 source "$HOME/.zsh/zsh-background-notify/bgnotify.plugin.zsh"
 
 # шаблоны gitignore
-source "$HOME/.zsh/gibo"
+source "$HOME/.zsh/gibo/gibo-completion.zsh"
 export PATH="$HOME/.zsh/gibo:$PATH"
 alias gi=gibo
