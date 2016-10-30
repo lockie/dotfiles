@@ -2,6 +2,9 @@
 	email = awkravchuk@gmail.com
 	name = Andrew Kravchuk
 	signingkey = 50F6285F
+[gui]
+	fontdiff = -family Consolas -size 12 -weight normal -slant roman -underline 0 -overstrike 0
+
 [push]
 	default = matching
 [merge]
