@@ -223,6 +223,7 @@ bindkey -M viins "^[[5~" up-line-or-history
 bindkey -M vicmd "^[[5~" up-line-or-history
 bindkey -M viins "^[[6~" down-line-or-history
 bindkey -M vicmd "^[[6~" down-line-or-history
+bindkey "^?" backward-delete-char
 
 # Автодополнение хостов для ssh/scp
 zstyle ':completion:*:(ssh|scp):*' tag-order '! users'
