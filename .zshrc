@@ -76,9 +76,14 @@ setopt PROMPT_SUBST
 #
 bindkey -v
 function zle-line-init zle-keymap-select {
-	RPS1="%U[%T]%u ${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')}"
+	RPS1="%U[%T]%u"
 	RPROMPT='${vcs_info_msg_0_}'$RPS1
 	RPS2=$RPS1
+	if tty | /bin/grep -q tty; then
+		export PROMPT="%(?,$(print '%{\e[1;32m%}^_^%{\e[0m%}'),$(print '%{\e[1;31m%}>_<%{\e[0m%}')) ${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')}[$(print '%{\e[1;30m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
+	else
+		export PROMPT="%(?,$(print '%{\e[1;32m%}😊%{\e[0m%}'),$(print '%{\e[1;31m%}😣%{\e[0m%}')) ${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')}[$(print '%{\e[1;30m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
+	fi
 	zle reset-prompt
 }
 zle -N zle-line-init
@@ -89,12 +94,6 @@ setopt correctall
 # Что при этом говорит?
 export SPROMPT="	$fg[red]%R$reset_color → $fg[green]%r?$reset_color (Yes, No, Abort, Edit) "
 
-if tty | /bin/grep -q tty; then
-	export PROMPT="%(?,$(print '%{\e[1;32m%}^_^%{\e[0m%}'),$(print '%{\e[1;31m%}>_<%{\e[0m%}')) [$(print '%{\e[1;30m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
-else
-	export PROMPT="%(?,$(print '%{\e[1;32m%}😊%{\e[0m%}'),$(print '%{\e[1;31m%}😣%{\e[0m%}')) [$(print '%{\e[1;30m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
-fi
-export RPS1="%U[%T %D]%u"
 export HGUSER=$USER
 ulimit -c unlimited
 
