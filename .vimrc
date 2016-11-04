@@ -265,6 +265,12 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	let g:airline#extensions#po#displayed_limit = 11
 " }
 
+" Plugin buftabline {
+	let g:buftabline_numbers = 1
+	let g:buftabline_indicators = 1
+	let g:buftabline_separators = 1
+" }
+
 " Plugin tagbar {
 	let g:tagbar_sort = 0
 	let g:tagbar_compact = 1
