@@ -80,7 +80,7 @@ bindkey -v
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 function virtenv_indicator {
-	if [[ -z $VIRTUAL_ENV ]] then
+	if [[ -z $VIRTUAL_ENV ]]; then
 		psvar[1]=''
 	else
 		psvar[1]=${VIRTUAL_ENV##*/}
