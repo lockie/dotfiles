@@ -399,6 +399,11 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	nmap <silent> <C-Left> :wincmd h<CR>
 	nmap <silent> <C-Right> :wincmd l<CR>
 
+	if filereadable("/usr/share/clang/clang-format.py")
+		map <C-K> :pyf /usr/share/clang/clang-format.py<cr>
+		imap <C-K> <c-o>:pyf /usr/share/clang/clang-format.py<cr>
+	endif
+
 	" не терять выделение при сдвигах
 	xnoremap <  <gv
 	xnoremap >  >gv
