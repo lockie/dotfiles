@@ -55,6 +55,9 @@ if v:progname =~? "evim"
 	finish
 endif
 
+" пути для gf (open file at cursor)
+let &path.="/usr/include,/usr/include/gstreamer-1.0"
+
 filetype plugin indent on
 
 autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
@@ -327,8 +330,8 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	imap <F2> <Esc>:wa<CR>a
 	nmap <F2> :wa<CR>
 	" переключение между хедером и реализацией
-	map <F3> :AV<CR>
-	imap <F3> <Esc>:AV<CR>a
+	map <F3> :A<CR>
+	imap <F3> <Esc>:A<CR>a
 	" Поиск
 	imap <F4> <Esc>:Ack!<Space>
 	nmap <F4> :Ack!<Space>
@@ -338,6 +341,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	" предыдущая/следующая ошибка
 	map <F7>  :cp<CR>
 	map <F8>  :cn<CR>
+	map <F9> :ccl<CR>
 	" сборка с сохранением и с мэйк-файлом
 	function! Make ()
 		exe ":cclose"
