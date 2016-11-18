@@ -46,9 +46,6 @@
 [submodule ".pyenv"]
 	path = .pyenv
 	url = https://github.com/yyuu/pyenv
-[submodule ".vim/bundle/OmniCppComplete"]
-	path = .vim/bundle/OmniCppComplete
-	url = https://github.com/FromtonRouge/OmniCppComplete
 [submodule ".vim/bundle/a"]
 	path = .vim/bundle/a
 	url = https://github.com/vim-scripts/a.vim
@@ -76,3 +73,6 @@
 [submodule ".zsh/gibo"]
 	path = .zsh/gibo
 	url = https://github.com/simonwhitaker/gibo
+[submodule ".vim/bundle/clang_complete"]
+	path = .vim/bundle/clang_complete
+	url = https://github.com/Rip-Rip/clang_complete

@@ -232,16 +232,8 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	let g:syntastic_stl_format = "%E{ERR  %fe (%e total)}%B{, }%W{WARN  %fw (%w total)}"
 " }
 
-" Plugin OmniCppComplete {
-	let OmniCpp_NamespaceSearch = 1
-	let OmniCpp_ShowPrototypeInAbbr = 1 " показывать параметры
-	let OmniCpp_ShowScopeInAbbr = 1
-	let OmniCpp_MayCompleteDot = 1 " автодоплнять после .
-	let OmniCpp_MayCompleteArrow = 1 " aавтодоплнять после ->
-	let OmniCpp_MayCompleteScope = 1 " автодоплнять после ::
-	let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-	"let OmniCpp_SelectFirstItem = 0
-	let OmniCpp_LocalSearchDecl = 1
+" Plugin clang_complete {
+	let g:clang_complete_macros = 1
 
 	" автоматически открывать и закрывать окошко предпросмотра
 	au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
