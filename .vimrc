@@ -263,6 +263,10 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	let g:airline_section_x = '%{airline#extensions#tagbar#currenttag()}'
 	let g:airline_section_warning = ''
 	let g:airline#extensions#po#displayed_limit = 11
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline#extensions#tabline#show_tabs = 0
+	let g:airline#extensions#tabline#buffers_label = ' '
+	let g:airline#extensions#tabline#buffer_nr_show = 1
 " }
 
 " Plugin buftabline {
