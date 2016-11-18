@@ -16,4 +16,4 @@ gtk-xft-antialias=1
 gtk-xft-hinting=1
 gtk-xft-hintstyle="hintfull"
 gtk-xft-rgba="rgb"
-include "~/.gtkrc-2.0.mine"
+include "~/.gtkrc-2.0.mine"  # XXX edit this to actual path, shell expansion does not work here :(
