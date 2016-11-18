@@ -1,0 +1,10 @@
+#### Firefox text fix goes inside the theme name/gtk-2.0/gtkrc (or an app
+#### fix in the gtk-2.0/styles) This should work with all problematic 
+#### dark themes in Firefox
+style "ff" {
+text[NORMAL] = "#000000"
+base[NORMAL] = "#FFFFFF"
+}
+class "GtkInvisible" style "ff"
+widget "GtkInvisible" style "ff"
+###### End of Firefox fix
