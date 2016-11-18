@@ -4,6 +4,7 @@ Personal configuration files and scripts.
 
 ## Configs
 
+ - nice GTK2 dark [theme](https://github.com/mate-desktop/mate-themes/tree/master/desktop-themes/BlackMATE) (GTK3-compatible)
  - [rofi](https://github.com/DaveDavenport/rofi)
  - [zsh](http://zsh.org) (optionally install grc, [the\_silver\_searcher aka ag](https://github.com/ggreer/the_silver_searcher), ipython, htop, unrar/unzip/7z, imagemagick, fortune)
  - zsh plugins:
@@ -20,12 +21,12 @@ Personal configuration files and scripts.
  - Vim with plugins (additionally install python-jinja2 to support its syntax):
     * [a.vim](https://github.com/vim-scripts/a.vim)
     * [ack.vim](https://github.com/mileszs/ack.vim) (additionally install ack/ag)
+    * [clang\_complete](https://github.com/Rip-Rip/clang_complete)
     * [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)
     * [indentpython.vim](https://github.com/vim-scripts/indentpython.vim)
     * [jedi-vim](https://github.com/davidhalter/jedi-vim)
     * [Molokai theme](https://github.com/tomasr/molokai)
     * [NERD tree](https://github.com/scrooloose/nerdtree)
-    * [OmniCppComplete](https://github.com/FromtonRouge/OmniCppComplete)
     * [pathogen.vim](https://github.com/tpope/vim-pathogen)
     * [sessionman.vim](https://github.com/chumakd/sessionman.vim)
     * [Super Tab](https://github.com/ervandew/supertab)
@@ -33,7 +34,6 @@ Personal configuration files and scripts.
     * [Tagbar](https://github.com/majutsushi/tagbar)
     * [vim-airline](https://github.com/bling/vim-airline) (+[themes](https://github.com/vim-airline/vim-airline-themes) and some pre-patched fonts!)
     * [vim-bufkill](https://github.com/qpkorr/vim-bufkill)
-    * [vim-buftabline](https://github.com/ap/vim-buftabline)
     * [vim-devicons](https://github.com/ryanoasis/vim-devicons)
     * [vim-pyenv](https://github.com/lambdalisue/vim-pyenv)
     * [vim-wakatime](https://wakatime.com)
