@@ -144,6 +144,7 @@ alias sudo='nocorrect sudo'  # ... или не натворить делов
 alias kill='nocorrect kill'
 alias killall='nocorrect killall'
 alias pkill='nocorrect pkill'
+alias howdoi='nocorrect howdoi'
 hash pacman 2>/dev/null && {
 	alias pacman='nocorrect pacman'
 }
