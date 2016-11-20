@@ -70,6 +70,7 @@ setopt appendhistory beep extendedglob nomatch notify
 setopt HIST_IGNORE_DUPS
 setopt autocd
 setopt PROMPT_SUBST
+setopt INTERACTIVE_COMMENTS
 
 #
 # vim-режим
