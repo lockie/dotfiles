@@ -395,6 +395,12 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	nmap <silent> <C-Left> :wincmd h<CR>
 	nmap <silent> <C-Right> :wincmd l<CR>
 
+	" C++ goto definition = leader-d
+	function! GotoDefBind()
+		nnoremap <leader>d <C-]>
+	endfunction
+	au FileType c,cc,cpp,cxx,h,hpp,hxx call GotoDefBind()
+
 	if filereadable("/usr/share/clang/clang-format.py")
 		map <C-K> :pyf /usr/share/clang/clang-format.py<cr>
 		imap <C-K> <c-o>:pyf /usr/share/clang/clang-format.py<cr>
