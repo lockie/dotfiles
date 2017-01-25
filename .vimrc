@@ -200,7 +200,6 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	set hlsearch " подсвечивать строчки при поиске
 	set ignorecase " регистронезависимо
 	set smartcase " регистрозависимо, если ищем КАПС
-	set gdefault  " applies substitutions globally on lines
 " }
 
 " Plugin sessionman {
