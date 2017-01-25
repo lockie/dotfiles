@@ -619,7 +619,13 @@ clientkeys = awful.util.table.join(
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
+        end),
+    awful.key({ modkey, "Shift"   }, "n",
+        function (c)
+            c.maximized_horizontal = false
+            c.maximized_vertical   = false
         end)
+
 )
 
 -- Compute the maximum number of digit we need, limited to 9
