@@ -381,7 +381,7 @@ ind_fsr = wibox.widget.textbox()
 ind_fsh = wibox.widget.textbox()
 -- Enable caching
 vicious.cache(vicious.widgets.fs)
-vicious.register(ind_fsr, vicious.widgets.fs, "<span color='#7F9F7F'><b>☣</b></span> ${/ used_gb}G<span color='#7F9F7F'>/</span>${/ size_gb}G  ", 67)
+vicious.register(ind_fsr, vicious.widgets.fs, "<span color='#7F9F7F'><b>☣</b></span> ${/ used_gb}G<span color='#7F9F7F'> /</span>${/ size_gb}G  ", 67)
 vicious.register(ind_fsh, vicious.widgets.fs, "<span color='#7F9F7F'><b>☺</b></span> ${/home used_gb}G<span color='#7F9F7F'>/</span>${/home size_gb}G ", 67)
 vicious.register(fs.r, vicious.widgets.fs, "${/ used_p}",     67)
 vicious.register(fs.h, vicious.widgets.fs, "${/home used_p}", 67)
