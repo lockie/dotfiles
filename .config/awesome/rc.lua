@@ -601,7 +601,8 @@ globalkeys = awful.util.table.join(
 
     -- Prompt
     --awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
-    awful.key({ modkey },            "r",     function () awful.util.spawn("rofi -show run -fuzzy -levenshtein-sort -lines 5 -width -37 -terminal " .. terminal)  end)
+    awful.key({ modkey },            "r",     function () awful.util.spawn("rofi -show run -fuzzy -levenshtein-sort -lines 5 -width -37 -terminal " .. terminal)  end),
+    awful.key({ modkey },            "F1",    function () awful.util.spawn("recoll") end)
 
 )
 
