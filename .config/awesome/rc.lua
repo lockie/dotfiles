@@ -151,7 +151,7 @@ myawesomemenu = {
 
 mywebmenu =  {
     { "firefox", "firefox", "/usr/share/icons/nuoveXT2/128x128/apps/firefox-icon.png" },
-    { "chromium", "chromium", "/usr/share/icons/hicolor/256x256/apps/chromium-browser.png" },
+    { "chrome", "/opt/google/chrome/google-chrome", "/usr/share/icons/hicolor/256x256/apps/google-chrome.png" },
     { "t10n", "transmission", "/usr/share/icons/hicolor/256x256/apps/transmission.png" }
 }
 
@@ -563,7 +563,7 @@ globalkeys = awful.util.table.join(
             if client.focus then client.focus:raise() end
         end),
     --awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
-    awful.key({ modkey,           }, "w", function () awful.util.spawn("firefox") end),
+    awful.key({ modkey,           }, "w", function () awful.util.spawn(browser) end),
     awful.key({ modkey,           }, "e", function () awful.util.spawn(filemanager) end),
     awful.key({                   }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'") end),
 
@@ -708,6 +708,8 @@ awful.rules.rules = {
     { rule = { class = "Gtk-recordMyDesktop" },
       properties = { floating = true } },
     { rule = { class = "Firefox" },
+      properties = { tag = tags[1][4] } },
+    { rule = { class = "Google-chrome" },
       properties = { tag = tags[1][4] } },
     { rule = { instance = "Download" },
       properties = { floating = true } },
