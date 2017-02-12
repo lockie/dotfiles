@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 
-# Copyright (C) 2016 Andrew Kravchuk <awkravchuk@gmail.com>
+# Copyright (C) 2016, 2017 Andrew Kravchuk <awkravchuk@gmail.com>,
+#  Simon Vermeersch <simonvermeersch@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,12 +20,16 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 import os
+import dbus
+import dbus.mainloop.glib
+import dbus.service
 
 
 cancel_icon = '/usr/share/icons/nuoveXT2/32x32/actions/gtk-cancel.png'
 reboot_icon = '/usr/share/icons/nuoveXT2/32x32/apps/gnome-session-reboot.png'
 shutdown_icon = '/usr/share/icons/nuoveXT2/32x32/actions/stock_exit.png'
 suspend_icon = '/usr/share/icons/nuoveXT2/32x32/apps/gnome-session-suspend.png'
+service_name = 'org.ShutdownDialog'
 
 
 def set_icon(button, icon):
@@ -43,16 +48,16 @@ class ShutdownDialog:
                     gtk.main_quit()
 
     def suspend(self, widget):
-            os.system("sudo pm-hibernate")
             gtk.mainquit()
+            os.system("sudo pm-hibernate")
 
     def reboot(self, widget):
-            os.system("sudo reboot")
             gtk.mainquit()
+            os.system("sudo reboot")
 
     def shutdown(self, widget):
-            os.system("sudo halt")
             gtk.mainquit()
+            os.system("sudo halt")
 
     def __init__(self):
             settings = gtk.settings_get_default()
@@ -104,14 +109,41 @@ class ShutdownDialog:
             self.box1.pack_start(self.button2, True, True, 0)
             self.button2.show()
 
+    def show(self):
             self.box1.show()
             self.window.show()
+            self.window.present()
+
+
+class DbusService(dbus.service.Object):
+        '''
+        http://www.eurion.net/python-snippets/snippet/Single%20Instance.html
+        '''
+        def __init__(self, dialog):
+            self.dialog = dialog
+            bus_name = dbus.service.BusName(service_name,
+                                            bus=dbus.SessionBus())
+            dbus.service.Object.__init__(self, bus_name, '/org/ShutdownDialog')
+
+        @dbus.service.method(dbus_interface=service_name)
+        def show_window(self):
+            self.dialog.show()
 
 
 def main():
-        gtk.main()
+        dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+        if dbus.SessionBus().request_name(service_name) != \
+           dbus.bus.REQUEST_NAME_REPLY_PRIMARY_OWNER:
+                print("Shutdown dialog: already running")
+                method = dbus.SessionBus().get_object(
+                    service_name, '/org/ShutdownDialog').get_dbus_method(
+                        'show_window')
+                method()
+        else:
+                service = DbusService(ShutdownDialog())
+                service.show_window()
+                gtk.main()
 
 
 if __name__ == "__main__":
-        ShutdownDialog()
         main()
