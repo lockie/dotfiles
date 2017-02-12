@@ -10,7 +10,7 @@ local fan = {}
 
 local function worker(format, warg)
 	if warg == nil then warg = 1 end
-	local file = io.open("/sys/devices/platform/it87.656/fan" .. warg .. "_input", "r")
+	local file = io.open("/sys/devices/platform/it87.656/hwmon/hwmon1/fan" .. warg .. "_input", "r")
 	if (file == nil) then
 		return nil
 	end
