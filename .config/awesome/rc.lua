@@ -157,6 +157,7 @@ mywebmenu =  {
 
 mychatmenu = {
     { "skype", "/opt/bin/skypeforlinux", "/usr/share/icons/hicolor/512x512/apps/skypeforlinux.png" },
+    { "pidgin", "pidgin", "/usr/share/icons/hicolor/scalable/apps/pidgin.svg"},
     { "tox", "qtox", "/usr/share/icons/hicolor/512x512/apps/qtox.png" },
     { "gitter", home .. "/bin/Gitter/Gitter", home .. "/bin/Gitter/logo.png"},
     { "hipchat", "hipchat", "/usr/share/icons/hicolor/256x256/apps/hipchat4.png" },
