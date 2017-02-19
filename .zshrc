@@ -193,6 +193,7 @@ alias ll='ls -alh'
 alias du='du -hsx'
 alias gitg='git gui'
 alias gg='git gui'
+alias dc='docker-compose'
 hash htop 2>/dev/null && {
 	alias top='htop'
 }
