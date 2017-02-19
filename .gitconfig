@@ -14,5 +14,6 @@
 	st = status
 	br = branch
 	g = gui
+	df = diff
 [commit]
 	gpgsign = true
