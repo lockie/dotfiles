@@ -75,6 +75,9 @@ local function worker(format, warg)
     if title ~= nil then
         mail["{subject}"] = helpers.escape(title)
     end
+    if count == 0 then
+        mail["{subject}"] = ''
+    end
 
     f:close()
 
