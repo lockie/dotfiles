@@ -4,6 +4,7 @@
 	signingkey = 50F6285F
 [gui]
 	fontdiff = -family Consolas -size 12 -weight normal -slant roman -underline 0 -overstrike 0
+	tabsize = 4
 
 [push]
 	default = matching
