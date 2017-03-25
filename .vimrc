@@ -89,6 +89,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	au FileType lua,markdown,jinja,html setl noet!
 	" отключить автоматический перенос строк
 	set formatoptions-=tc
+	autocmd Syntax * call matchadd('Todo', "HACK")
 
 	set nowrap " не переносить длинные строки
 	set wildmenu " дикое меню :3
