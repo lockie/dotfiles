@@ -289,6 +289,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	let g:jedi#show_call_signatures = "1"
 	let g:jedi#completions_command = ""  " we're using supertab for this
 	let g:jedi#popup_select_first = 0
+	let g:jedi#show_call_signatures = "2"
 " }
 
 " Plugin CtrlP {
