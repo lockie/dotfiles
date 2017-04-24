@@ -88,14 +88,17 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
-beautiful.awesome_icon = home .. "/.config/awesome/gentoo.png"
- 
+if slave then beautiful.awesome_icon = home .. "/.config/awesome/mint.png" else beautiful.awesome_icon = home .. "/.config/awesome/gentoo.png" end
+
+naughty.config.defaults.bg = theme.fg_widget
+naughty.config.defaults.fg = theme.bg_widget
+
 -- This is used later as the default terminal and editor to run.
 terminal = "sakura"
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = "gvim"
 browser = "firefox"
-if slave then filemanager = "caja --no-desktop" else filemanager = "pcmanfm" end
+if slave then filemanager = "caja --no-default-window " .. home else filemanager = "pcmanfm" end
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -147,8 +150,9 @@ end
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
+if slave then shutdowndialog = "mate-session-save --shutdown-dialog" else shutdowndialog = home .. "/bin/shutdown_dialog.py" end
 myawesomemenu = {
-   { "shutdown", home .. "/bin/shutdown_dialog.py", "/usr/share/icons/nuoveXT2/128x128/actions/system-shutdown.png" },
+   { "shutdown", shutdowndialog, "/usr/share/icons/nuoveXT2/128x128/actions/system-shutdown.png" },
    { "config", editor_cmd .. " " .. awesome.conffile, "/usr/share/icons/nuoveXT2/128x128/apps/text-editor.png" },
 }
 if slave then table.insert(myawesomemenu,
@@ -551,6 +555,7 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
+if slave then screenshot = "mate-screenshot -i" else screenshot = "scrot -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'" end
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Menu",   function () mymainmenu:toggle() end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -572,7 +577,7 @@ globalkeys = awful.util.table.join(
     --awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
     awful.key({ modkey,           }, "w", function () awful.util.spawn(browser) end),
     awful.key({ modkey,           }, "e", function () awful.util.spawn(filemanager) end),
-    awful.key({                   }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'") end),
+    awful.key({                   }, "Print", function () awful.util.spawn(screenshot) end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
