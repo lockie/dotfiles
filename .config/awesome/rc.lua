@@ -1,5 +1,6 @@
 
 city = "UUEE"  -- Шереметьево. См. http://www.earthcam.com/myec/yourwebcam/metar_instructions.php
+slave = os.execute("pgrep -u $USER -f -x mate-session > /dev/null")
 home = os.getenv("HOME")
 
 -- Standard awesome library
@@ -42,17 +43,19 @@ function run_once(cmd)
   awful.util.spawn_with_shell("pgrep -u $USER -f -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
 
-awful.util.spawn_with_shell("nitrogen --restore")
 awful.util.spawn_with_shell("xsetroot -cursor_name left_ptr")
 awful.util.spawn_with_shell("xset r rate 190 25")
-awful.util.spawn_with_shell("xset -dpms & xset s off")
-awful.util.spawn_with_shell("dex -a -e awesome")
-run_once("xscreensaver -nosplash")
-run_once("volumeicon")
-run_once("zim --plugin trayicon")
-run_once("/opt/bin/dropbox")
-awful.util.spawn_with_shell("sleep 600; ps ax | /bin/grep update-notifier-tray | /bin/grep -v grep > /dev/null || (while true; do; update-notifier-tray ; done)")
-awful.util.spawn_with_shell("pgrep -u $USER -x tilda > /dev/null || (sleep 2;   while true; do; tilda; done)")
+if not slave then
+    awful.util.spawn_with_shell("nitrogen --restore")
+    awful.util.spawn_with_shell("xset -dpms & xset s off")
+    awful.util.spawn_with_shell("dex -a -e awesome")
+    run_once("xscreensaver -nosplash")
+    run_once("volumeicon")
+    run_once("zim --plugin trayicon")
+    run_once("/opt/bin/dropbox")
+    awful.util.spawn_with_shell("sleep 600; ps ax | /bin/grep update-notifier-tray | /bin/grep -v grep > /dev/null || (while true; do; update-notifier-tray ; done)")
+    awful.util.spawn_with_shell("pgrep -u $USER -x tilda > /dev/null || (sleep 2;   while true; do; tilda; done)")
+end
 
 -- }}}
 
@@ -92,7 +95,7 @@ terminal = "sakura"
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = "gvim"
 browser = "firefox"
-filemanager = "pcmanfm"
+if slave then filemanager = "caja --no-desktop" else filemanager = "pcmanfm" end
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -148,6 +151,9 @@ myawesomemenu = {
    { "shutdown", home .. "/bin/shutdown_dialog.py", "/usr/share/icons/nuoveXT2/128x128/actions/system-shutdown.png" },
    { "config", editor_cmd .. " " .. awesome.conffile, "/usr/share/icons/nuoveXT2/128x128/apps/text-editor.png" },
 }
+if slave then table.insert(myawesomemenu,
+    { "preferences", "mate-control-center", "/usr/share/icons/nuoveXT2/128x128/categories/preferences-desktop.png" })
+end
 
 mywebmenu =  {
     { "firefox", "firefox", "/usr/share/icons/nuoveXT2/128x128/apps/firefox-icon.png" },
@@ -255,7 +261,7 @@ if os.execute("ls /sys/devices/system/cpu/cpu0/cpufreq &> /dev/null") == 0 then
     have_cpufreq=1
 end
 have_fan=0
-if os.execute("ls /sys/devices/platform/it87.656/hwmon/hwmon1/fan1_input &> /dev/null") == 0 then
+if os.execute("test -f /sys/devices/platform/it87.656/hwmon/hwmon1/fan1_input") == true then
     have_fan=1
 end
 
@@ -327,7 +333,7 @@ if have_fan==1 then
     vicious.register(ind_fan, vicious.widgets.fan, "<b><span color='#7F9F7F'>☢</span></b>$1 ", 2)
     ind_fan = wibox.layout.constraint(ind_fan, "exact", 55, nil)
 else
-    ind_fan = wibox.layout.constraint(ind_fan, "exact", 10, nil)
+    ind_fan = wibox.layout.constraint(ind_fan, "exact", 20, nil)
 end
 ind_vtemp = wibox.widget.textbox()
 vicious.register(ind_vtemp, vicious.widgets.nvidiatemp, "<span color='#7f7f7f'>$1°C</span>", 13)
