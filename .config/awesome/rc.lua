@@ -1,6 +1,6 @@
 
 city = "UUEE"  -- Шереметьево. См. http://www.earthcam.com/myec/yourwebcam/metar_instructions.php
-slave = os.execute("pgrep -u $USER -f -x mate-session > /dev/null")
+slave = os.execute("/usr/bin/pgrep -u $USER -f -x mate-session > /dev/null") == 0
 home = os.getenv("HOME")
 
 -- Standard awesome library
@@ -162,7 +162,7 @@ end
 mywebmenu =  {
     { "firefox", "firefox", "/usr/share/icons/nuoveXT2/128x128/apps/firefox-icon.png" },
     { "chrome", "/opt/google/chrome/google-chrome", "/usr/share/icons/hicolor/256x256/apps/google-chrome.png" },
-    { "t10n", "transmission", "/usr/share/icons/hicolor/256x256/apps/transmission.png" }
+    { "t10n", "transmission-gtk", "/usr/share/icons/hicolor/256x256/apps/transmission.png" }
 }
 
 mychatmenu = {
@@ -265,7 +265,7 @@ if os.execute("ls /sys/devices/system/cpu/cpu0/cpufreq &> /dev/null") == 0 then
     have_cpufreq=1
 end
 have_fan=0
-if os.execute("test -f /sys/devices/platform/it87.656/hwmon/hwmon1/fan1_input") == true then
+if os.execute("test -f /sys/devices/platform/it87.656/hwmon/hwmon1/fan1_input") == 0 then
     have_fan=1
 end
 
