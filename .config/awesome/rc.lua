@@ -261,7 +261,7 @@ mytasklist.buttons = awful.util.table.join(
 f = io.popen('cat /proc/cpuinfo | grep processor | wc -l')
 core_count = f:read()
 have_cpufreq=0
-if os.execute("ls /sys/devices/system/cpu/cpu0/cpufreq &> /dev/null") == 0 then
+if os.execute("test -d /sys/devices/system/cpu/cpu0/cpufreq") == 0 then
     have_cpufreq=1
 end
 have_fan=0
