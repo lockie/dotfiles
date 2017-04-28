@@ -177,7 +177,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	set autochdir " переходить в текущую директорию файла
 	set nobackup		" не делать богомерзкие *~ бэкапы
 	set directory=~/.vim/swap " хранить swap в отдельном каталоге
-	set sessionoptions=curdir,buffers,tabpages " что сохранять в сесссии
+	set sessionoptions=curdir,buffers,tabpages,folds,localoptions " что сохранять в сесссии
 	set noex " не читаем файл конфигурации из текущей директории
 	set history=50		" хранить 50 строк истории
 	set backspace=indent,eol,start " бэкспейс стирает всё
