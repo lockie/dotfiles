@@ -179,9 +179,9 @@ mycodingmenu = {
     { "gvim", "gvim", "/usr/share/icons/hicolor/scalable/apps/gvim.svg" },
     { "qtcreator", "qtcreator", "/usr/share/icons/hicolor/512x512/apps/QtProject-qtcreator.png" },
     { "racket", "drracket", "/usr/share/racket/drracket-exe-icon.png" },
-    { "virtualbox", "VirtualBox", "/usr/share/icons/hicolor/128x128/apps/virtualbox.png" },
+    { "virtualbox", "VirtualBox", "/usr/share/icons/hicolor/64x64/apps/virtualbox.png" },
     { "aqemu", "aqemu", "/usr/share/pixmaps/aqemu.png" },
-    { "wireshark", "wireshark-gtk", "/usr/share/icons/hicolor/256x256/apps/wireshark.png" },
+    { "wireshark", "wireshark-gtk", "/usr/share/icons/hicolor/scalable/apps/wireshark.svg" },
     { "upwork", home .. "/bin/Upwork", "/usr/share/pixmaps/upwork.png" }
 }
 
