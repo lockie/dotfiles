@@ -765,7 +765,9 @@ awful.rules.rules = {
     } },
     { rule = { class = "psi" },
       properties = {tag = tags[1][2]}
-    }
+    },
+    { rule = { class = "Gvim" },
+      properties = { size_hints_honor = false } }
 }
 -- }}}
 
