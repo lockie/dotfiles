@@ -26,7 +26,7 @@ function displayMonth(month,year,weekStart)
 
         --print(mthDays .."\n" .. stDay)
         local lines = "  " --интервал перед днями неделями
-		os.setlocale("ru_RU.utf8")
+        os.setlocale("ru_RU.utf8")
         for x=0,6 do
                 lines = lines .. os.date("%a  ",os.time{year=2006,month=1,day=x+wkSt})
         end
@@ -55,7 +55,7 @@ function displayMonth(month,year,weekStart)
                 writeLine = writeLine + 1
         end
         local header = os.date("%B %Y\n",os.time{year=year,month=month,day=1})
-		header = "          " .. header --выравниваем месяц и год по центру
+        header = "          " .. header --выравниваем месяц и год по центру
         return header .. "\n" .. lines
 end
 
@@ -69,7 +69,9 @@ function switchNaughtyMonth(switchMonths)
                 text = string.format('<span font_desc="%s">%s</span>', "Terminus 10", displayMonth(calendar[1], calendar[2], 2)),
                 timeout = 0,
                 hover_timeout = 0.5,
-                screen = capi.mouse.screen
+                screen = capi.mouse.screen,
+                bg = "#3F3F3F",
+                fg = "#DCDCCC"
         })
 end
 
@@ -91,7 +93,9 @@ function addCalendarToWidget(mywidget, custom_current_day_format)
                 text = string.format('<span font_desc="%s">%s</span>', "Terminus 10", displayMonth(month, year, 2)),
                 timeout = 0,
                 hover_timeout = 0.5,
-                screen = capi.mouse.screen
+                screen = capi.mouse.screen,
+                bg = "#3F3F3F",
+                fg = "#DCDCCC"
         })
   }
   end)
