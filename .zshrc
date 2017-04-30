@@ -6,6 +6,9 @@ zstyle ':completion:*:processes' command 'ps -xuf'
 zstyle ':completion:*:processes' sort false
 zstyle ':completion:*:processes-names' command 'ps xho command'
 
+# add custom completion scripts
+fpath=(~/.zsh/completion $fpath)
+
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' file-sort name
 zstyle ':completion:*' list-colors ''
