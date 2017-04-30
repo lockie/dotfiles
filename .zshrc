@@ -163,7 +163,7 @@ hash clyde 2>/dev/null && {
 	alias upd='clyde -Suy --aur'
 }
 hash aptitude 2>/dev/null && {
-	alias upd='sudo aptitude update && sudo aptitude safe-upgrade'
+	alias upd='sudo aptitude update && sudo aptitude safe-upgrade && sudo apt-get autoremove  && sudo aptitude clean'
 	alias aptitude='nocorrect aptitude'
 	alias apt-get='nocorrect apt-get'
 }
