@@ -15,7 +15,11 @@ zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt %SScrolling active: %l matches, current selection at %p%s
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' verbose true
+zstyle ':completion:*' rehash true
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
+zstyle ':completion:*:warnings' format '%BNo matches for: %d%b'
 zstyle :compinstall filename "$HOME/.zshrc"
 autoload -Uz compinit promptinit
 compinit -D
@@ -68,6 +72,7 @@ setopt appendhistory beep extendedglob nomatch notify
 ###########################################################################
 
 setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
 setopt autocd
 setopt PROMPT_SUBST
 setopt INTERACTIVE_COMMENTS
