@@ -167,6 +167,7 @@ mywebmenu =  {
 
 mychatmenu = {
     { "skype", "/opt/bin/skypeforlinux", "/usr/share/icons/hicolor/512x512/apps/skypeforlinux.png" },
+    { "discord", "discord", "/usr/share/pixmaps/discord.png" },
     { "pidgin", "pidgin", "/usr/share/icons/hicolor/scalable/apps/pidgin.svg"},
     { "tox", "qtox", "/usr/share/icons/hicolor/512x512/apps/qtox.png" },
     { "gitter", home .. "/bin/Gitter/Gitter", home .. "/bin/Gitter/logo.png"},
@@ -730,6 +731,8 @@ awful.rules.rules = {
     { rule = { class = "Pidgin", role = "conversation"},
       properties = { tag = tags[1][2]}, callback = awful.client.setslave },
     { rule = { class = "skypeforlinux" },
+      properties = { tag = tags[1][2] } },
+    { rule = { class = "discord" },
       properties = { tag = tags[1][2] } },
     { rule = { class = "qTox" },
       properties = { tag = tags[1][2] } },
