@@ -2,6 +2,10 @@ alias cls=clear
 alias c='cd'
 alias m='mc'
 alias v='vim'
+function e() {
+	pidof emacs && emacsclient -nq -e "(find-file-other-window \"$1\")" || emacsclient -nqc -a "" "$1"
+}
+alias ee='emacs -nw'
 alias psa='ps axu'
 alias psf='ps axuf'
 alias cmd='ipython3'

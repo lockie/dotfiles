@@ -583,6 +583,7 @@ globalkeys = awful.util.table.join(
             if client.focus then client.focus:raise() end
         end),
     --awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
+    awful.key({ modkey,           }, "q", function () awful.util.spawn("emacs") end),
     awful.key({ modkey,           }, "w", function () awful.util.spawn(browser) end),
     awful.key({ modkey,           }, "e", function () awful.util.spawn(filemanager) end),
     awful.key({                   }, "Print", function () awful.util.spawn(screenshot) end),
@@ -777,7 +778,10 @@ awful.rules.rules = {
       properties = {tag = tags[1][2]}
     },
     { rule = { class = "Gvim" },
-      properties = { size_hints_honor = false } }
+      properties = { size_hints_honor = false } },
+    { rule = { class = "Emacs" },
+      properties = { size_hints_honor = false } },
+
 }
 -- }}}
 
