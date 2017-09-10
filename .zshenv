@@ -5,3 +5,4 @@ export BG1=none
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+eval "$(luarocks path --bin)"
