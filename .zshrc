@@ -103,9 +103,9 @@ function zle-line-init zle-keymap-select {
 	RPROMPT='${vcs_info_msg_0_}'$RPS1
 	RPS2=$RPS1
 	if [[ $TERM = "linux" ]] then
-		export PROMPT="%(?,$(print '%{\e[1;32m%}^_^%{\e[0m%}'),$(print '%{\e[1;31m%}>_<%{\e[0m%}')) %(1V.$(print ' %{$fg_bold[blue]%}(%1v%)%{$reset_color%}').) ${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')}[$(print '%{\e[1;30m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
+		export PROMPT="%(?,$(print '%{\e[1;32m%}^_^%{\e[0m%}'),$(print '%{\e[1;31m%}>_<%{\e[0m%}')) %(1V.$(print ' %{$fg_bold[blue]%}(%1v%)%{$reset_color%}').) ${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')}[$(print '%{\e[1;2m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
 	else
-		export PROMPT="%(?,$(print '%{\e[1;32m%}%{\xf0\x9f\x98\x84%G%} %{\e[0m%}'),$(print '%{\e[1;31m%}%{\xf0\x9f\x98\xa3%G%} %{\e[0m%}'))%(1V.$(print ' %{$fg_bold[blue]%}(%1v%)%{$reset_color%}').) ${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')}[$(print '%{\e[1;30m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
+		export PROMPT="%(?,$(print '%{\e[1;32m%}%{\xf0\x9f\x98\x84%G%} %{\e[0m%}'),$(print '%{\e[1;31m%}%{\xf0\x9f\x98\xa3%G%} %{\e[0m%}'))%(1V.$(print ' %{$fg_bold[blue]%}(%1v%)%{$reset_color%}').) ${${KEYMAP/vicmd/$(print '%{$fg_bold[white]%}N%{$reset_color%}')}/(main|viins)/$(print '%{$fg_no_bold[gray]%}I%{$reset_color%}')}[$(print '%{\e[1;2m%}%m%{\e[0m%}'):$(print '%{\e[1;36m%}%n%{\e[0m%}@%{\e[1;33m%}%~%{\E[0m%}')]> "
 	fi
 	zle reset-prompt
 }
