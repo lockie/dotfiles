@@ -38,6 +38,7 @@ Personal configuration files and scripts.
     * [vim-pyenv](https://github.com/lambdalisue/vim-pyenv)
     * [vim-wakatime](https://wakatime.com)
     * [Zenburn theme](https://github.com/jnurmine/Zenburn)
+ - [Spacemacs](http://spacemacs.org) configuration
 
 ## Scripts
  - latex-hightlight.sh - source hightlighting for LaTeX
