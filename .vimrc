@@ -247,6 +247,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	let g:syntastic_cpp_compiler_options='-std=c++0x -fPIC'
 	let g:syntastic_python_python_exec = 'python3'
 	let g:syntastic_stl_format = "%E{ERR  %fe (%e total)}%B{, }%W{WARN  %fw (%w total)}"
+	let g:syntastic_lua_checkers = ["luac", "luacheck"]
 " }
 
 " Plugin clang_complete {
