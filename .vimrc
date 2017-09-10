@@ -315,7 +315,8 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	let g:ctrlp_extensions = ['mixed']
 	let g:ctrlp_cmd = 'CtrlPMixed'
 	let g:airline#extensions#ctrlp#show_adjacent_modes = 0
-	set wildignore+=*.pyc,*.d,*.o
+	set wildignore+=*.pyc,*.d,*.o,.env
+	let g:ctrlp_custom_ignore = '/tmp/.*'
 " }
 
 " Горячие ключи {
