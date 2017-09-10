@@ -142,7 +142,10 @@ hash ack-grep 2>/dev/null && { alias grep='nocorrect ack-grep'; }
 hash ag       2>/dev/null && { alias grep='nocorrect ag';       }
 hash mpv      2>/dev/null && { alias mplayer='mpv';             }
 
-alias cls=clear
+if [ -f ~/.bash_aliases ]; then
+ . ~/.bash_aliases
+fi
+
 alias mv='nocorrect mv'  # чтобы случайно не удалить чего-нибудь
 alias rm='nocorrect rm'  # чтобы случайно не удалить чего-нибудь
 alias ln='nocorrect ln'
@@ -182,32 +185,13 @@ hash emerge 2>/dev/null && {
 	alias equery='nocorrect equery'
 	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y --with-bdeps=y --backtrack=1000 --verbose-conflicts -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -i -- -vat ; sudo env-update'
 	alias updk='sudo sh -c "cd /usr/src/linux && zcat /proc/config.gz > .config && make oldconfig && make -j5 && make install && grub-mkconfig -o /boot/grub/grub.cfg"'
-	alias updm='sudo emerge -1vta @module-rebuild'
+	alias updm='sudo emerge -1vta --keep-going=y @module-rebuild'
 }
 hash avconv 2>/dev/null && {
 	command -v ffmpeg >/dev/null 2>&1 || alias ffmpeg='avconv'
 }
 alias git='nocorrect git'
 
-alias c='cd'
-alias m='mc'
-alias v='vim'
-alias ee='vim'
-alias psa='ps axu'
-alias psf='ps axuf'
-alias cmd='ipython3'
-alias l='ls'
-alias ll='ls -alh'
-alias du='du -hsx'
-alias gitg='git gui'
-alias gg='git gui'
-alias dc='docker-compose'
-hash htop 2>/dev/null && {
-	alias top='htop'
-}
-hash pbzip2 2>/dev/null && {
-	alias bzip2='pbzip2 -v -p4'
-}
 
 export LESSCHARSET=UTF-8
 
