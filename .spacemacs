@@ -1,6 +1,7 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
+;; NOTE : this config requires Emacs 25+
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
@@ -270,7 +271,7 @@ values."
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-inactive-transparency 90
    ;; If non nil show the titles of transient states. (default t)
-   dotspacemacs-show-transient-state-title t
+   dotspacemacs-show-transient-state-title nil
    ;; If non nil show the color guide hint for transient state keys. (default t)
    dotspacemacs-show-transient-state-color-guide t
    ;; If non nil unicode symbols are displayed in the mode line. (default t)
@@ -309,7 +310,7 @@ values."
    dotspacemacs-highlight-delimiters 'nil
    ;; If non nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server nil
+   dotspacemacs-persistent-server t
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
