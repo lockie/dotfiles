@@ -44,7 +44,7 @@ values."
      git
      ;org
      (shell :variables
-            shell-default-shell 'ansi-term
+            shell-default-shell 'multi-term
             shell-default-position 'right)
      (spell-checking :variables
                      spell-checking-enable-by-default nil)
@@ -397,6 +397,13 @@ you should place your code here."
 
   (spacemacs/set-leader-keys "h h" 'howdoi-query-insert-code-snippet-at-point)
 
+  (evil-define-key 'emacs term-raw-map (kbd "C-x m") 'multi-term)
+  (evil-define-key 'emacs term-raw-map (kbd "C-x n") 'multi-term-next)
+  (evil-define-key 'emacs term-raw-map (kbd "C-x p") 'multi-term-prev)
+  (evil-define-key 'emacs term-raw-map (kbd "C-x <right>") 'multi-term-next)
+  (evil-define-key 'emacs term-raw-map (kbd "C-x <left>") 'multi-term-prev)
+  (evil-define-key 'emacs term-raw-map (kbd "C-x ]") 'multi-term-next)
+  (evil-define-key 'emacs term-raw-map (kbd "C-x [") 'multi-term-prev)
   ;; fix :bd so that it closes buffer, not the window
   (evil-ex-define-cmd "bdelete" 'spacemacs/kill-this-buffer)
 
