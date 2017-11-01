@@ -392,8 +392,10 @@ you should place your code here."
 
   (define-key evil-normal-state-map (kbd "M-n") 'highlight-symbol-next)
   (define-key evil-insert-state-map (kbd "M-n") 'highlight-symbol-next)
+  (define-key evil-insert-state-map (kbd "M-]") 'highlight-symbol-next)
   (define-key evil-normal-state-map (kbd "M-p") 'highlight-symbol-prev)
   (define-key evil-insert-state-map (kbd "M-p") 'highlight-symbol-prev)
+  (define-key evil-insert-state-map (kbd "M-[") 'highlight-symbol-prev)
 
   (spacemacs/set-leader-keys "h h" 'howdoi-query-insert-code-snippet-at-point)
 
@@ -404,6 +406,11 @@ you should place your code here."
   (evil-define-key 'emacs term-raw-map (kbd "C-x <left>") 'multi-term-prev)
   (evil-define-key 'emacs term-raw-map (kbd "C-x ]") 'multi-term-next)
   (evil-define-key 'emacs term-raw-map (kbd "C-x [") 'multi-term-prev)
+
+  (global-set-key (kbd "C-x C-o") 'other-window)
+  (global-set-key (kbd "C-x C-c") nil)  ;; prevent disaster
+
+
   ;; fix :bd so that it closes buffer, not the window
   (evil-ex-define-cmd "bdelete" 'spacemacs/kill-this-buffer)
 
