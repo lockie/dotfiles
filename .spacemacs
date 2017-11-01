@@ -600,6 +600,13 @@ you should place your code here."
   (spacemacs|diminish wakatime-mode "⌚")
   (setq powerline-default-separator 'arrow)
 
+  ;; jinja2 templates
+  (add-to-list 'auto-mode-alist '("\\.jinja\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.jinja2\\'" . web-mode))
+
+  ;; use racket for scheme (SICP <3)
+  (add-to-list 'auto-mode-alist '("\\.scm\\'" . racket-mode))
+
 
   ;; TODO : figure out HTML editing, turn off snippets for it
 
@@ -608,6 +615,8 @@ you should place your code here."
   ;; TODO : ormode for notes + org-capture for todo-list of current project
 
   ;; TODO : pomodoro? https://github.com/TatriX/pomidor  ? org-pomodoro ?
+
+  ;; TODO : python indent visual selection only moves by 2 chars! (should be 4)
 
   )
 
