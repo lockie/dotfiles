@@ -71,7 +71,7 @@ compctl -K _pip_completion pip
 export HISTFILE=~/.histfile
 export HISTSIZE=10000
 export SAVEHIST=10000
-setopt appendhistory beep extendedglob nomatch notify
+setopt appendhistory beep extendedglob nomatch notify noequals
 # End of lines configured by zsh-newuser-install
 
 ###########################################################################
