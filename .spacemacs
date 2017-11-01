@@ -166,11 +166,11 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("MonofurForPowerline Nerd Font"
-                               :size 18
+   dotspacemacs-default-font '("Anonymous Pro"
+                               :size 16
                                :weight normal
                                :width normal
-                               :powerline-scale 2)
+                               :powerline-scale 1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -421,7 +421,7 @@ you should place your code here."
   (require 'whitespace)
   (setq-default whitespace-style '(face trailing tab-mark))
   (setq whitespace-display-mappings
-        '((tab-mark   ?\t   [?\x2192?\x2192?\x2192?\x2192] [?\\ ?\t]))
+        '((tab-mark   ?\t   [?\x2192?\x2192] [?\\ ?\t]))
    )
   (global-whitespace-mode 1)
 
@@ -584,6 +584,7 @@ you should place your code here."
   ;; neat statusline
   (spacemacs|diminish highlight-symbol-mode)
   (spacemacs|diminish wakatime-mode "⌚")
+  (setq powerline-default-separator 'arrow)
 
 
   ;; TODO : figure out HTML editing, turn off snippets for it
