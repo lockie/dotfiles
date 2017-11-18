@@ -1,0 +1,425 @@
+[settings]
+screenchange-reload = true
+
+
+[colors]
+background = #3f3f3f
+background-alt = #2b2b2b
+background-alt2 = #6f6f6f
+foreground = #dcdccc
+foreground-alt = #9fafaf
+primary = #ffb52a
+alert = #cc9393
+
+
+[module/RightArrow]
+type = custom/text
+content = ""
+font = 4
+content-foreground = ${colors.background}
+content-background = ${colors.background-alt}
+
+
+[module/RightArrowAlt]
+type = custom/text
+content = ""
+font = 4
+content-foreground = ${colors.background-alt}
+content-background = ${colors.background}
+
+
+[module/LeftArrow]
+type = custom/text
+content = ""
+font = 4
+content-foreground = ${colors.background}
+content-background = ${colors.background-alt}
+
+
+[module/LeftArrowAlt]
+type = custom/text
+content = ""
+font = 4
+content-foreground = ${colors.background-alt}
+content-background = ${colors.background}
+
+
+[bar]
+monitor = ${env:MONITOR:VGA-0}
+width = 100%
+height = 16
+radius = 0.0
+fixed-center = false
+background = ${colors.background}
+foreground = ${colors.foreground}
+line-size = 0
+line-color = #f00
+border-size = 0
+border-color = #00000000
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 0
+spacing = 0
+font-0 = terminus:pixelsize=14;0
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = fontawesome:pixelsize=10;0
+font-3 = powerinesymbols:pixelsize=14;0
+enable-ipc = false
+
+
+[bar/bottom]
+inherit = bar
+bottom = true
+modules-left = powermenu RightArrowAlt i3 RightArrow xwindow RightArrowAlt
+modules-center =
+modules-right = LeftArrowAlt volume LeftArrow weather LeftArrowAlt keyboard LeftArrow date
+locale = "ru_RU.UTF-8"
+
+
+[module/powermenu]
+type = custom/text
+content-background = ${colors.background-alt}
+content-foreground = ${colors.foreground-alt}
+content = 
+content-padding = 1
+click-left = shutdown_dialog.py&
+
+
+[module/i3]
+type = internal/i3
+format = <label-state>
+wrapping-scroll = false
+enable-scroll = false
+index-sort = true
+strip-wsnumbers = true
+ws-icon-0 = 1:default;
+ws-icon-1 = 2:chat;
+ws-icon-2 = 3:coding;
+ws-icon-3 = 4:internets;
+ws-icon-4 = 5:todo;
+ws-icon-default = 
+
+label-focused = %icon%
+label-focused-background = ${colors.background}
+label-focused-foreground = #5f7f5f
+label-focused-padding = 2
+
+label-unfocused = %icon%
+label-unfocused-padding = 2
+
+label-visible = %icon%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+
+label-urgent = %icon%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:150:...%
+label-padding = 1
+label-background = ${colors.background-alt}
+
+
+[module/volume]
+type = internal/volume
+mapped = true
+
+format-volume = <label-volume> <bar-volume>
+format-volume-background = ${colors.background-alt}
+label-volume = 
+label-volume-foreground = ${colors.foreground-alt}
+label-volume-padding = 1
+
+format-muted-foreground = ${colors.foreground-alt}
+format-muted-background = ${colors.background-alt}
+format-muted-padding = 1
+label-muted = " SOUND MUTED"
+
+bar-volume-width = 14
+bar-volume-foreground-0 = #688060
+bar-volume-foreground-1 = #688060
+bar-volume-foreground-2 = #688060
+bar-volume-foreground-3 = #688060
+bar-volume-foreground-4 = #688060
+bar-volume-foreground-5 = #dfaf8f
+bar-volume-foreground-6 = #e89393
+bar-volume-gradient = false
+bar-volume-indicator = ◆
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+bar-volume-indicator-background = ${colors.background-alt}
+bar-volume-fill-background = ${colors.background-alt}
+bar-volume-empty-background = ${colors.background-alt}
+
+
+[module/weather]
+type = custom/script
+interval = 593
+format = <label>
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-padding = 1
+exec = ~/.config/polybar/weather.py
+
+
+[module/music]
+type = custom/script
+interval = 1
+label = %output:0:60:...%
+exec = ~/.config/polybar/mpris.sh
+click-left = playerctl play-pause
+click-middle = playerctl previous
+click-right = playerctl next
+
+
+[module/keyboard]
+type = internal/xkeyboard
+format = <label-layout>
+format-background = ${colors.background-alt}
+format-padding = 1
+
+
+[module/date]
+type = internal/date
+interval = 1
+date = "%A %e %b"
+time = %H:%M:%S
+label = %{A1:gsimplecal&:}%date% %time% %{A}
+label-padding = 1
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+[bar/top]
+inherit = bar
+bottom = false
+tray-position = right
+tray-detached = false
+tray-padding = 2
+modules-left = uname RightArrow uptime RightArrowAlt temperature fan nvidia cpu RightArrow procs RightArrowAlt mem swap membar RightArrow hddtemp io RightArrowAlt network RightArrow fslabel filesystem RightArrowAlt mail RightArrow
+modules-center =
+modules-right = LeftArrow
+background = ${colors.background-alt}
+tray-background = ${colors.background}
+
+
+[module/uname]
+type = custom/script
+exec = uname -rn | sed  's/ /%{F#9fafaf}@%{F-}/'
+label = %output:24%
+tail = false
+interval = 104729
+label-padding = 1
+format-background = ${colors.background}
+
+
+[module/uptime]
+type = custom/script
+exec = uptime -p | cut -d ' ' -f 2,3 | tr -d ,
+label = %output:0:10%
+format-prefix = "↑"
+format-prefix-foreground = ${colors.foreground-alt}
+tail = false
+interval = 59
+format-background = ${colors.background-alt}
+format-padding = 1
+
+
+[module/temperature]
+type = internal/temperature
+interval = 2
+thermal-zone = 0
+warn-temperature = 60
+format = <label>
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-warn = <label-warn>
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${colors.alert}
+format-padding = 1
+format-background = ${colors.background}
+
+
+[module/fan]
+type = custom/script
+exec = cat /sys/devices/platform/it87.656/hwmon/hwmon1/fan1_input
+label = %output:4%
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+tail = false
+interval = 2
+format-background = ${colors.background}
+
+
+[module/nvidia]
+type = custom/script
+exec = nvidia-settings -t -q gpucoretemp | head -n1
+label = %output:3%°C
+tail = false
+interval = 13
+label-padding = 1
+format-background = ${colors.background}
+
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <ramp-coreload>
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
+format-padding = 1
+format-background = ${colors.background}
+
+
+[module/procs]
+type = custom/script
+exec = ~/.config/polybar/procs.sh
+label = %{F#9fafaf}%{F-} %output:24:32%
+tail = false
+interval = 1
+label-background = ${colors.background-alt}
+label-padding = 1
+
+
+[module/mem]
+type = internal/memory
+interval = 1
+format-prefix = " "
+format-suffix = " /"
+format-suffix-foreground = ${colors.foreground-alt}
+format = <label>
+format-prefix-foreground = ${colors.foreground-alt}
+format-padding = 1
+label = %mb_used:10%
+format-background = ${colors.background}
+
+
+[module/swap]
+type = custom/script
+exec = LANG=C free -h | tail -n1 | awk '{print $3}'
+tail = false
+interval = 3
+format-background = ${colors.background}
+
+
+[module/membar]
+type = internal/memory
+interval = 1
+format = <bar-used>
+format-padding = 1
+
+bar-used-indicator =
+bar-used-width = 6
+bar-used-foreground-0 = #688060
+bar-used-foreground-1 = #688060
+bar-used-foreground-2 = #dfaf8f
+bar-used-foreground-3 = #e89393
+bar-used-fill = ▐
+bar-used-empty = ▐
+bar-used-empty-foreground = ${colors.background}
+format-background = ${colors.background}
+
+
+[module/hddtemp]
+type = custom/script
+exec = echo | curl --connect-timeout 1 -fsm 3 telnet://127.0.0.1:7634 | cut -d'|' -f4
+label = %output:3%°C
+tail = false
+interval = 7
+format-background = ${colors.background-alt}
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground-alt}
+format-padding = 1
+
+
+[module/io]
+type = custom/script
+exec = ~/.config/polybar/io.sh
+tail = true
+interval = 1
+label = %output:31:37%
+format-background = ${colors.background-alt}
+format-prefix = "↑"
+format-prefix-foreground = ${colors.foreground-alt}
+format-suffix = " MB/s"
+format-padding = 1
+
+
+; [module/network]
+; type = internal/network
+; ;usb0 is not working as of polybar 3.0.5 :(
+; interface = eth0
+; interval = 2
+; format-connected-prefix = " "
+; format-connected-prefix-foreground = ${colors.foreground-alt}
+; label-connected = %{F#9fafaf}↑%{F-}%upspeed:8% %{F#9fafaf}↓%{F-}%downspeed:8%
+; format-connected-padding = 1
+; format-connected-background = ${colors.background}
+[module/network]
+type = custom/script
+exec = ~/.config/polybar/net.sh
+tail = true
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-padding = 1
+format-background = ${colors.background}
+
+
+[module/fslabel]
+type = custom/text
+content = 
+content-background = ${colors.background-alt}
+content-foreground = ${colors.foreground-alt}
+content-padding = 1
+
+
+[module/filesystem]
+type = internal/fs
+interval = 67
+format-mounted-background = ${colors.background-alt}
+format-mounted-prefix-foreground = ${colors.foreground-alt}
+mount-0 = /
+mount-1 = /home
+format-mounted = <label-mounted> <ramp-capacity>
+label-mounted = "%{F#9fafaf}%mountpoint:0:5%%{F-} %used%%{F#9fafaf}/%{F-}%total%"
+ramp-capacity-padding-right = 1
+ramp-capacity-0 = ▁
+ramp-capacity-1 = ▂
+ramp-capacity-2 = ▃
+ramp-capacity-3 = ▄
+ramp-capacity-4 = ▅
+ramp-capacity-5 = ▆
+ramp-capacity-6 = ▇
+ramp-capacity-7 = █
+
+
+[module/mail]
+type = custom/script
+interval = 53
+format = <label>
+label = %output:3%
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-padding = 1
+exec = ~/.config/polybar/mail.sh
+click-left = xdg-open https://mail.google.com/mail/u/0/#inbox
+format-background = ${colors.background}
+
+; vim:ft=dosini

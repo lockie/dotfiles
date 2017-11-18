@@ -17,7 +17,11 @@ Personal configuration files and scripts.
  - [pyenv](https://github.com/yyuu/pyenv) (additionally do `git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv`)
  - skins for mc ([zenburn](http://kippura.org/zenburnpage) and mine)
  - [tilda](https://github.com/lanoxx/tilda)
- - [awesome WM](https://awesome.naquadah.org)
+ - [awesome WM](https://awesome.naquadah.org) config
+ - [i3 WM](https://i3wm.org) config
+    * [polybar](https://github.com/jaagr/polybar) panel config
+    * [dunst](https://dunst-project.org) notification daemon config
+    * additionally install: unifont, fontawesome and powerline-symbols fonts, iostat, xmllint
  - Vim with plugins (additionally install python-jinja2 to support its syntax):
     * [a.vim](https://github.com/vim-scripts/a.vim)
     * [ack.vim](https://github.com/mileszs/ack.vim) (additionally install ack/ag)
