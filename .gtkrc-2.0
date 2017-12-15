@@ -1,9 +1,9 @@
 # DO NOT EDIT! This file will be overwritten by LXAppearance.
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
-gtk-theme-name="BlackMATE"
-gtk-icon-theme-name="nuoveXT2"
-gtk-font-name="Droid Sans 10"
+gtk-theme-name="Equilux"
+gtk-icon-theme-name="Vertex"
+gtk-font-name="FuturaBookC Regular 12"
 gtk-cursor-theme-name="Vanilla-DMZ-AA"
 gtk-cursor-theme-size=0
 gtk-toolbar-style=GTK_TOOLBAR_ICONS
