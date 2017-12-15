@@ -443,6 +443,7 @@ you should place your code here."
   (put 'helm-make-build-dir 'safe-local-variable 'stringp)
 
   ;; indentaion
+  (spacemacs/toggle-indent-guide-globally-on) ; show ruler
   (setq-default tab-width 4)
   (setq-default standart-indent 4)
   (setq-default c-basic-offset 4)
