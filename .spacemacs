@@ -598,7 +598,8 @@ you should place your code here."
 
   ;; neat statusline
   (spacemacs|diminish highlight-symbol-mode)
-  (spacemacs|diminish wakatime-mode "⌚")
+  (spacemacs|diminish wakatime-mode "⏱")
+  (spacemacs|diminish emoji-cheat-sheet-plus-display-mode "☺")
   (setq powerline-default-separator 'arrow)
 
   ;; jinja2 templates
