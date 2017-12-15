@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export QT_STYLE_OVERRIDE=GTK+
+export QT_QPA_PLATFORMTHEME=gtk2
 
 
 if [ ! -f /tmp/gpg-agent.env ]; then
