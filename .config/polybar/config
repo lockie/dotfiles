@@ -119,7 +119,7 @@ label-urgent-padding = 2
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:150:...%
+label = %title:0:130:...%
 label-padding = 1
 label-background = ${colors.background-alt}
 
@@ -291,7 +291,7 @@ format-background = ${colors.background}
 [module/procs]
 type = custom/script
 exec = ~/.config/polybar/procs.sh
-label = %{F#9fafaf}%{F-} %output:24:32%
+label = %{F#9fafaf}%{F-} %output:28:32%
 tail = false
 interval = 1
 label-background = ${colors.background-alt}

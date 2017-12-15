@@ -15,7 +15,7 @@
 # Auto detect interfaces
 #ifaces=$(ls /sys/class/net | grep -E '^(eth|wlan|enp|wlp)')
 
-ifaces="usb0"
+ifaces="usb0 eth0"
 
 last_time=0
 last_rx=0
