@@ -492,7 +492,9 @@ you should place your code here."
   (define-key evil-insert-state-map (kbd "<insert>") 'ins-key-stub)
   (define-key evil-visual-state-map (kbd "<insert>") 'ins-key-stub)
 
-  (run-with-idle-timer 10 t 'evil-normal-state)
+  (run-with-idle-timer 10 t (lambda()
+                                (when (eq evil-state 'insert)
+                                    (evil-normal-state))))
 
   ;; fix :bd so that it closes buffer, not the window
   (evil-ex-define-cmd "bdelete" 'spacemacs/kill-this-buffer)
