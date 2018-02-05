@@ -53,6 +53,7 @@ values."
 
      (c-c++ :variables c-c++-enable-clang-support t)
      python
+     ipython-notebook
      html
      (javascript :variables javascript-disable-tern-port-files nil)
      markdown
