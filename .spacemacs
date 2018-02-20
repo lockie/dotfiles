@@ -701,6 +701,9 @@ you should place your code here."
       (push (org-projectile-todo-files) org-agenda-files))
   (setq org-bullets-bullet-list '("•" "‒"))
 
+  ;; Make M-= count words in whole buffer
+  (global-set-key (kbd "M-=") 'count-words)
+
   ;; TODO : figure out HTML editing, turn off snippets for it
 
   ;; TODO : https://github.com/bmag/emacs-purpose ?? https://github.com/ecb-home/ecb ??
