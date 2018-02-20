@@ -66,6 +66,7 @@ class ShutdownDialog:
         # Create a new window
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.window.set_title(' ')
+        self.window.set_decorated(False)
         self.window.set_resizable(False)
         self.window.set_position(1)
         self.window.connect('key-press-event', self.keypress)
