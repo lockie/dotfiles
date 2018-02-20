@@ -4,6 +4,7 @@
 
 set $mod Mod4
 set $terminal sakura
+set $browser google-chrome-stable
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -85,7 +86,7 @@ bindsym $mod+Shift+q exec "i3-msg exit"
 ##############################################################################
 
 bindsym $mod+q workspace number "3:coding"; exec emacs
-bindsym $mod+w workspace number "4:internets"; exec firefox
+bindsym $mod+w workspace number "4:internets"; exec $browser
 bindsym $mod+e exec pcmanfm  # or caja --no-default-window $HOME
 bindsym $mod+d exec deadbeef
 bindsym $mod+u [urgent=latest] focus
