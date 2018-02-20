@@ -72,6 +72,7 @@ values."
                wakatime-cli-path "~/.local/bin/wakatime")
      emoji
      colors
+     slack
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -704,6 +705,13 @@ you should place your code here."
 
   ;; Make M-= count words in whole buffer
   (global-set-key (kbd "M-=") 'count-words)
+
+  ;; Slack :D
+  (when (file-readable-p "~/.slack.el")
+      (require 'slack)
+      (load "~/.slack.el"))
+  (setq alert-default-style 'libnotify)
+
 
   ;; TODO : figure out HTML editing, turn off snippets for it
 
