@@ -52,7 +52,7 @@ values."
      version-control
 
      (c-c++ :variables c-c++-enable-clang-support t)
-     python
+     (python :variables python-auto-set-local-pyvenv-virtualenv nil)
      ipython-notebook
      html
      (javascript :variables javascript-disable-tern-port-files nil)
