@@ -91,6 +91,7 @@ values."
                                     color-identifiers
                                     nyan-mode
                                     smartparens
+                                    ham-mode
                                     ;; for performance sake...
                                     auto-yasnippet
                                     yapfify
