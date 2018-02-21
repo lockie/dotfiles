@@ -17,7 +17,6 @@ Personal configuration files and scripts.
  - [pyenv](https://github.com/yyuu/pyenv) (additionally do `git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv`)
  - skins for mc ([zenburn](http://kippura.org/zenburnpage) and mine)
  - [tilda](https://github.com/lanoxx/tilda)
- - [awesome WM](https://awesome.naquadah.org) config
  - [i3 WM](https://i3wm.org) config
     * [polybar](https://github.com/jaagr/polybar) panel config
     * [dunst](https://dunst-project.org) notification daemon config
@@ -41,6 +40,6 @@ Personal configuration files and scripts.
 ## Scripts
  - latex-hightlight.sh - source hightlighting for LaTeX
  - lightsOn.sh - see [here](https://github.com/iye/lightsOn)
- - shutdown\_dialog.py - nice shutdown dialog for awesome WM
+ - shutdown\_dialog.py - nice shutdown dialog for WMs
  - speedup-firefox.sh - reindexes Firefox sqlite databases
  - xlaunch - to launch apps in separate X-server (saved from [here](https://forums.gentoo.org/viewtopic-t-483004.html))
