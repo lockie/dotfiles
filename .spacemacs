@@ -96,6 +96,20 @@ values."
                                     ;; for performance sake...
                                     auto-yasnippet
                                     yapfify
+                                    ;; why do I even have those?
+                                    color-identifiers-mode
+                                    column-enforce-mode
+                                    dactyl-mode
+                                    diff-hl
+                                    emmet-mode
+                                    fancy-battery
+                                    gmail-message-mode
+                                    golden-ratio
+                                    html-to-markdown
+                                    htmlize
+                                    live-py-mode
+                                    rainbow-delimiters
+                                    rainbow-mode
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -599,21 +613,20 @@ you should place your code here."
   ;; window title
   (setq-default frame-title-format
                 '(:eval
-                  (format "%s%s %s- spacemacs"
-                          (if (buffer-modified-p)
-                            (cond
-                              (buffer-file-truename "*")
-                              (t ""))
-                            ""
-                            )
-                          (buffer-name)
-                          (cond
-                           (buffer-file-truename
-                            (concat "(" default-directory ") "))
-                           (dired-directory
-                            (concat "(" dired-directory ") "))
-                           (t
-                            "")))))
+                  (format
+                   "%s%s %s- spacemacs"
+                   (if (buffer-modified-p)
+                           (cond
+                            (buffer-file-truename "*")
+                            (t ""))
+                       "")
+                   (buffer-name)
+                   (cond
+                    (buffer-file-truename
+                     (concat "(" default-directory ") "))
+                    (dired-directory
+                     (concat "(" dired-directory ") "))
+                    (t "")))))
 
   ;; identifiers list
   (setq imenu-list-auto-resize nil)
