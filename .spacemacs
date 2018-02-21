@@ -716,6 +716,8 @@ you should place your code here."
       (require 'slack)
       (load "~/.slack.el"))
   (setq alert-default-style 'libnotify)
+  (spacemacs/set-leader-keys "a C r" 'slack-select-rooms)
+  (spacemacs/set-leader-keys "a C g" 'slack-group-select)
 
 
   ;; TODO : figure out HTML editing, turn off snippets for it
