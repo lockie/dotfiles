@@ -416,14 +416,6 @@ you should place your code here."
 
   (spacemacs/set-leader-keys "h h" 'howdoi-query-insert-code-snippet-at-point)
 
-  (evil-define-key 'emacs term-raw-map (kbd "C-x m") 'multi-term)
-  (evil-define-key 'emacs term-raw-map (kbd "C-x n") 'multi-term-next)
-  (evil-define-key 'emacs term-raw-map (kbd "C-x p") 'multi-term-prev)
-  ;(evil-define-key 'emacs term-raw-map (kbd "C-x <right>") 'multi-term-next)
-  ;(evil-define-key 'emacs term-raw-map (kbd "C-x <left>") 'multi-term-prev)
-  (evil-define-key 'emacs term-raw-map (kbd "C-x ]") 'multi-term-next)
-  (evil-define-key 'emacs term-raw-map (kbd "C-x [") 'multi-term-prev)
-
   (global-set-key (kbd "C-x C-o") 'other-window)
   (global-set-key (kbd "C-x C-c") nil)  ;; prevent disaster
 
@@ -671,7 +663,7 @@ you should place your code here."
   (setq highlight-symbol-highlight-single-occurrence nil)
 
   ;; make zsh behave; see https://git.io/v5inm
-  (evil-set-initial-state 'term-mode 'emacs)
+  (evil-set-initial-state 'term-mode 'hybrid)
   (push 'term-mode evil-escape-excluded-major-modes)
   (evil-define-key 'emacs term-raw-map (kbd "C-c") 'term-send-raw)
   (evil-define-key 'emacs term-raw-map (kbd "ESC") 'term-send-raw)
