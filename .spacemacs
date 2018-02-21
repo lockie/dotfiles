@@ -397,10 +397,8 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "<f12>") 'neotree-toggle)
   (define-key evil-insert-state-map (kbd "<f12>") 'neotree-toggle)
 
-  (defun clang-format-bindings ()
-    (spacemacs/set-leader-keys "m f" 'clang-format-buffer))
-  (add-hook 'c++-mode-hook 'clang-format-bindings)
-  (add-hook 'c-mode-hook 'clang-format-bindings)
+  (spacemacs/set-leader-keys-for-major-mode 'c-mode "f" 'clang-format-buffer)
+  (spacemacs/set-leader-keys-for-major-mode 'c++-mode "f" 'clang-format-buffer)
 
   (spacemacs/set-leader-keys "<left>" 'evil-window-left)
   (spacemacs/set-leader-keys "<right>" 'evil-window-right)
