@@ -664,9 +664,10 @@ you should place your code here."
 
   ;; make zsh behave; see https://git.io/v5inm
   (evil-set-initial-state 'term-mode 'hybrid)
-  (push 'term-mode evil-escape-excluded-major-modes)
-  (evil-define-key 'emacs term-raw-map (kbd "C-c") 'term-send-raw)
-  (evil-define-key 'emacs term-raw-map (kbd "ESC") 'term-send-raw)
+  (evil-define-key 'hybrid term-raw-map (kbd "C-c") 'term-send-raw)
+  (define-key evil-hybrid-state-map [escape]
+      (lambda () (interactive) (term-send-raw-string "\e")))
+
   ;; also make proper width for shell
   (defun launch-shell ()
       (interactive)
