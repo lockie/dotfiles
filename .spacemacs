@@ -718,6 +718,26 @@ you should place your code here."
   (setq alert-default-style 'libnotify)
   (spacemacs/set-leader-keys "a C r" 'slack-select-rooms)
   (spacemacs/set-leader-keys "a C g" 'slack-group-select)
+  (evil-define-key 'normal slack-mode-map
+      ",k" 'slack-buffer-kill
+      ",ra" 'slack-message-add-reaction
+      ",rr" 'slack-message-remove-reaction
+      ",rs" 'slack-message-show-reaction-users
+      ",pl" 'slack-room-pins-list
+      ",pa" 'slack-message-pins-add
+      ",pr" 'slack-message-pins-remove
+      ",mm" 'slack-message-write-another-buffer
+      ",me" 'slack-message-edit
+      ",md" 'slack-message-delete
+      ",2" 'slack-message-embed-mention
+      ",3" 'slack-message-embed-channel
+      ",j" 'slack-buffer-goto-next-message
+      ",k" 'slack-buffer-goto-prev-message)
+  (evil-define-key 'normal slack-edit-message-mode-map
+      ",k" 'slack-message-cancel-edit
+      ",c" 'slack-message-send-from-buffer
+      ",2" 'slack-message-embed-mention
+      ",3" 'slack-message-embed-channel)
 
 
   ;; TODO : figure out HTML editing, turn off snippets for it
