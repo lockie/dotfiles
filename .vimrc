@@ -6,51 +6,11 @@ endif
 " Кодировка vimrc - utf-8
 scriptencoding utf-8
 
-" Add the virtualenv's site-packages to vim path
-if has('python')
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
-endif
-
-if has('python3')
-py3 << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    exec(open(activate_this).read(), dict(__file__=activate_this))
-EOF
-endif
-
-
 " менеджер пакетов
 set nocompatible
 let mapleader = "'"
 call pathogen#infect()
 call pathogen#helptags()
-
-if jedi#init_python()
-  function! s:jedi_auto_force_py_version() abort
-    let major_version = pyenv#python#get_internal_major_version()
-    call jedi#force_py_version(major_version)
-  endfunction
-  augroup vim-pyenv-custom-augroup
-    autocmd! *
-    autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
-    autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
-  augroup END
-endif
 
 " И вообще, юникод - это прогрессивненько
 set encoding=utf-8
@@ -194,15 +154,15 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	" Теперь нет необходимости передвигать курсор к краю экрана, чтобы опуститься в режиме редактирования
 	set scrolloff=7
 
-	function! UPDATE_TAGS()
-		let _f_ = expand("%:p")
-		let _cmd_ = 'ctags -R --languages=c,c++,python --c++-kinds=+pl --python-kinds=-iv --fields=+ilaS --extra=+q --sort=yes ' . _f_
-		let _resp = system(_cmd_)
-		unlet _cmd_
-		unlet _f_
-		unlet _resp
-	endfunction
-	autocmd BufWritePost *.cpp,*.hpp,*.c,*.h,*.cxx,*.hxx call UPDATE_TAGS() " автоматически обновляем ctags при сохранении буфера
+	" function! UPDATE_TAGS()
+	" 	let _f_ = expand("%:p")
+	" 	let _cmd_ = 'ctags -R --languages=c,c++,python --c++-kinds=+pl --python-kinds=-iv --fields=+ilaS --extra=+q --sort=yes ' . _f_
+	" 	let _resp = system(_cmd_)
+	" 	unlet _cmd_
+	" 	unlet _f_
+	" 	unlet _resp
+	" endfunction
+	" autocmd BufWritePost *.cpp,*.hpp,*.c,*.h,*.cxx,*.hxx call UPDATE_TAGS() " автоматически обновляем ctags при сохранении буфера
 
 	" делаем из vim 'редактор реального времени'
 	set updatetime=0 " Время обновления окна = 0 миллисекунд
@@ -217,49 +177,10 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	set smartcase " регистрозависимо, если ищем КАПС
 " }
 
-" Plugin sessionman {
-	let g:sessionman_save_on_exit=1
-" }
-
 " Plugin NERDTree {
 	"autocmd VimEnter * NERDTree
 	"autocmd VimEnter * wincmd p
 	let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.pyd$']
-" }
-
-" Plugin Syntastic {
-	if has("gui_running")
-		let g:syntastic_check_on_open=1
-		let g:syntastic_echo_current_error=0
-		map <C-y> :SyntasticToggleMode<cr>
-		imap <C-y> <esc>:SyntasticToggleMode<cr>a
-	else
-		let g:syntastic_check_on_open=0
-		let g:syntastic_echo_current_error=1
-		map <C-y> :SyntasticCheck<cr>
-		imap <C-y> <esc>:SyntasticCheck<cr>a
-	endif
-	let g:syntastic_enable_signs=1
-	let g:syntastic_enable_highlighting=1
-	let g:syntastic_cpp_compiler = 'clang++'
-	let g:syntastic_cpp_include_dirs=['.', '..', '../include', 'include', '/usr/include/gstreamer-1.0', '/usr/lib64/gstreamer-1.0/include', '/usr/include/opencv', '/usr/include/qt5', '/usr/include/qt5/QtCore', '/usr/include/qt5/QtGui', '/usr/include/qt5/QtWidgets']
-	let g:syntastic_c_include_dirs=g:syntastic_cpp_include_dirs
-	let g:syntastic_cpp_compiler_options='-std=c++0x -fPIC'
-	let g:syntastic_python_python_exec = 'python3'
-	let g:syntastic_stl_format = "%E{ERR  %fe (%e total)}%B{, }%W{WARN  %fw (%w total)}"
-	let g:syntastic_lua_checkers = ["luac", "luacheck"]
-" }
-
-" Plugin clang_complete {
-	let g:clang_complete_macros = 1
-
-	" автоматически открывать и закрывать окошко предпросмотра
-	au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-
-	set completeopt=menu,menuone,longest  " всплывающая менюшка
-	au FileType python setlocal completeopt-=longest  " fix this: https://github.com/davidhalter/jedi-vim/issues/429
-
-	set complete=.,t,b,k " порядок автодополнения: словарь текущего буфера, c-тэги, словарь всех буферов, глобальный словарь
 " }
 
 " Plugin airline {
@@ -289,21 +210,6 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	let g:tagbar_sort = 0
 	let g:tagbar_compact = 1
 	let g:tagbar_autoshowtag = 1
-" }
-
-" Plugin supertab {
-	let g:SuperTabDefaultCompletionType = "<c-n>"
-	autocmd FileType *
-	  \ if &omnifunc != '' |
-	  \   call SuperTabChain(&omnifunc, "<c-x><c-o><c-n>") |
-	  \ endif
-" }
-
-" Plugin jedi {
-	let g:jedi#use_splits_not_buffers = "bottom"
-	let g:jedi#show_call_signatures = "2"
-	let g:jedi#completions_command = ""  " we're using supertab for this
-	let g:jedi#popup_select_first = 0
 " }
 
 " Plugin CtrlP {
@@ -389,7 +295,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	imap <F12> <esc>:NERDTree<cr>a
 
 	" обновить ctags
-	map <C-u> :!ctags -R --languages=c,c++,python --c++-kinds=+pl --python-kinds=-iv --fields=+ilaS --extra=+q --sort=yes .<CR>
+	" map <C-u> :!ctags -R --languages=c,c++,python --c++-kinds=+pl --python-kinds=-iv --fields=+ilaS --extra=+q --sort=yes .<CR>
 
 	" проверка орфографии
 	map <C-p> :setlocal spell spelllang=en,ru<cr>

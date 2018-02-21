@@ -25,24 +25,18 @@ Personal configuration files and scripts.
  - Vim with plugins (additionally install python-jinja2 to support its syntax):
     * [a.vim](https://github.com/vim-scripts/a.vim)
     * [ack.vim](https://github.com/mileszs/ack.vim) (additionally install ack/ag)
-    * [clang\_complete](https://github.com/Rip-Rip/clang_complete)
     * [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim)
     * [indentpython.vim](https://github.com/vim-scripts/indentpython.vim)
-    * [jedi-vim](https://github.com/davidhalter/jedi-vim)
     * [Molokai theme](https://github.com/tomasr/molokai)
     * [NERD tree](https://github.com/scrooloose/nerdtree)
     * [pathogen.vim](https://github.com/tpope/vim-pathogen)
-    * [sessionman.vim](https://github.com/chumakd/sessionman.vim)
-    * [Super Tab](https://github.com/ervandew/supertab)
-    * [Syntastic](https://github.com/scrooloose/syntastic) (additionally install (html)tidy, clang, pylint/flake8/pyflakes, [shellcheck](https://www.shellcheck.net))
     * [Tagbar](https://github.com/majutsushi/tagbar)
     * [vim-airline](https://github.com/bling/vim-airline) (+[themes](https://github.com/vim-airline/vim-airline-themes) and some pre-patched fonts!)
     * [vim-bufkill](https://github.com/qpkorr/vim-bufkill)
     * [vim-devicons](https://github.com/ryanoasis/vim-devicons)
-    * [vim-pyenv](https://github.com/lambdalisue/vim-pyenv)
     * [vim-wakatime](https://wakatime.com)
     * [Zenburn theme](https://github.com/jnurmine/Zenburn)
- - [Spacemacs](http://spacemacs.org) configuration
+ - [Spacemacs](http://spacemacs.org) configuration (additionally install (html)tidy, clang, pylint/flake8/pyflakes, [shellcheck](https://www.shellcheck.net))
 
 ## Scripts
  - latex-hightlight.sh - source hightlighting for LaTeX

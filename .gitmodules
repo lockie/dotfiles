@@ -1,12 +1,6 @@
-[submodule ".vim/bundle/supertab"]
-	path = .vim/bundle/supertab
-	url = git://github.com/ervandew/supertab.git
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
 	url = git://github.com/scrooloose/nerdtree.git
-[submodule ".vim/bundle/syntastic"]
-	path = .vim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
 [submodule ".vim/bundle/tagbar"]
 	path = .vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
@@ -25,9 +19,6 @@
 [submodule ".vim/bundle/indentpython"]
 	path = .vim/bundle/indentpython
 	url = https://github.com/vim-scripts/indentpython.vim
-[submodule ".vim/bundle/jedi-vim"]
-	path = .vim/bundle/jedi-vim
-	url = https://github.com/davidhalter/jedi-vim
 [submodule ".vim/bundle/ctrlp"]
 	path = .vim/bundle/ctrlp
 	url = https://github.com/ctrlpvim/ctrlp.vim
@@ -40,9 +31,6 @@
 [submodule ".zsh/zsh-history-substring-search"]
 	path = .zsh/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search
-[submodule ".vim/bundle/pyenv"]
-	path = .vim/bundle/pyenv
-	url = https://github.com/lambdalisue/vim-pyenv
 [submodule ".pyenv"]
 	path = .pyenv
 	url = https://github.com/yyuu/pyenv
@@ -55,9 +43,6 @@
 [submodule ".vim/bundle/bufkill"]
 	path = .vim/bundle/bufkill
 	url = https://github.com/qpkorr/vim-bufkill
-[submodule ".vim/bundle/sessionman"]
-	path = .vim/bundle/sessionman
-	url = https://github.com/chumakd/sessionman.vim
 [submodule ".zsh/zsh-256color"]
 	path = .zsh/zsh-256color
 	url = https://github.com/chrissicool/zsh-256color
@@ -73,9 +58,6 @@
 [submodule ".zsh/gibo"]
 	path = .zsh/gibo
 	url = https://github.com/simonwhitaker/gibo
-[submodule ".vim/bundle/clang_complete"]
-	path = .vim/bundle/clang_complete
-	url = https://github.com/Rip-Rip/clang_complete
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
