@@ -93,6 +93,8 @@ values."
                                     nyan-mode
                                     smartparens
                                     ham-mode
+                                    ;; to prevent auto-evilification warning
+                                    tar-mode
                                     ;; for performance sake...
                                     auto-yasnippet
                                     yapfify
@@ -414,7 +416,13 @@ you should place your code here."
 
   (spacemacs/set-leader-keys "h h" 'howdoi-query-insert-code-snippet-at-point)
 
+  (add-hook 'helm-mode-hook
+      (lambda () (progn
+           (define-key helm-map (kbd "<tab>") 'helm-next-line)
+           (define-key helm-map (kbd "<backtab>") 'helm-previous-line))))
+
   (global-set-key (kbd "C-x C-o") 'other-window)
+  (global-unset-key (kbd "C-z"))
   (global-set-key (kbd "C-x C-c") nil)  ;; prevent disaster
 
   ;; some ergonomic enforcements :trollface:
