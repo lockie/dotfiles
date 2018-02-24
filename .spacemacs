@@ -111,7 +111,6 @@ values."
                                     htmlize
                                     live-py-mode
                                     rainbow-delimiters
-                                    rainbow-mode
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
