@@ -420,6 +420,12 @@ you should place your code here."
            (define-key helm-map (kbd "<tab>") 'helm-next-line)
            (define-key helm-map (kbd "<backtab>") 'helm-previous-line))))
 
+  (require 'ein)
+  (spacemacs/set-leader-keys-for-major-mode 'ein:notebook-multilang-mode
+      "h" 'ein:pytools-request-tooltip-or-help
+      "H" 'ein:pytools-request-help)
+  (spacemacs/set-leader-keys "a i l" 'ein:notebooklist-login)
+
   (global-set-key (kbd "C-x C-o") 'other-window)
   (global-unset-key (kbd "C-z"))
   (global-set-key (kbd "C-x C-c") nil)  ;; prevent disaster
