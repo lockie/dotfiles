@@ -377,6 +377,7 @@ you should place your code here."
   (setq user-mail-adress "awkravchuk@gmail.com")
 
   ;; keybindings
+  (unbind-key "<menu>")
   (unbind-key "<f1>")
   (defun save-all ()
     (interactive)
