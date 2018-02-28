@@ -520,6 +520,16 @@ you should place your code here."
   ;; fix :bd so that it closes buffer, not the window
   (evil-ex-define-cmd "bdelete" 'spacemacs/kill-this-buffer)
 
+  ;; bury *scratch* buffer insted of killing
+  (defun unkillable-scratch-buffer ()
+      (if (equal (buffer-name (current-buffer)) "*scratch*")
+              (progn
+                  (bury-buffer)
+                  nil)
+          t))
+  (add-hook 'kill-buffer-query-functions 'unkillable-scratch-buffer)
+
+
   ;; scroll tweaks
   (setq scroll-margin 7)
   (setq mouse-wheel-progressive-speed nil)
