@@ -426,6 +426,7 @@ you should place your code here."
       "h" 'ein:pytools-request-tooltip-or-help
       "H" 'ein:pytools-request-help)
   (spacemacs/set-leader-keys "a i l" 'ein:notebooklist-login)
+  (spacemacs/set-leader-keys "a i s" 'ein:jupyter-server-start)
 
   (global-set-key (kbd "C-x C-o") 'other-window)
   (global-unset-key (kbd "C-z"))
