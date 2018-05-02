@@ -432,6 +432,19 @@ you should place your code here."
   (global-unset-key (kbd "C-z"))
   (global-set-key (kbd "C-x C-c") nil)  ;; prevent disaster
 
+  ;; too lazy to release Alt :-)
+  (spacemacs/set-leader-keys
+    "M-0" 'winum-select-window-0-or-10
+    "M-1" 'winum-select-window-1
+    "M-2" 'winum-select-window-2
+    "M-3" 'winum-select-window-3
+    "M-4" 'winum-select-window-4
+    "M-5" 'winum-select-window-5
+    "M-6" 'winum-select-window-6
+    "M-7" 'winum-select-window-7
+    "M-8" 'winum-select-window-8
+    "M-9" 'winum-select-window-9)
+
   ;; some ergonomic enforcements :trollface:
   (defun left-key-stub ()
       (interactive)
@@ -688,6 +701,7 @@ you should place your code here."
   ;; make zsh behave; see https://git.io/v5inm
   (evil-set-initial-state 'term-mode 'hybrid)
   (evil-define-key 'hybrid term-raw-map (kbd "C-c") 'term-send-raw)
+  (evil-define-key 'hybrid term-raw-map (kbd "C-v") 'evil-visual-state)
   (define-key evil-hybrid-state-map [escape]
       (lambda () (interactive) (term-send-raw-string "\e")))
 
@@ -771,8 +785,6 @@ you should place your code here."
   ;; TODO : ormode for notes + org-capture for todo-list of current project
 
   ;; TODO : pomodoro? https://github.com/TatriX/pomidor  ? org-pomodoro ?
-
-  ;; TODO : python indent visual selection only moves by 2 chars! (should be 4)
 
   )
 
