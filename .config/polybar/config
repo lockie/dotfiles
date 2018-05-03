@@ -83,7 +83,7 @@ content-background = ${colors.background-alt}
 content-foreground = ${colors.foreground-alt}
 content = 
 content-padding = 1
-click-left = shutdown_dialog.py&
+click-left = ~/bin/shutdown_dialog.py&
 
 
 [module/i3]
