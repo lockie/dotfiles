@@ -422,7 +422,7 @@ you should place your code here."
            (define-key helm-map (kbd "<tab>") 'helm-next-line)
            (define-key helm-map (kbd "<backtab>") 'helm-previous-line))))
 
-  (require 'ein)
+  (use-package ein)
   (spacemacs/set-leader-keys-for-major-mode 'ein:notebook-multilang-mode
       "h" 'ein:pytools-request-tooltip-or-help
       "H" 'ein:pytools-request-help)
@@ -550,7 +550,7 @@ you should place your code here."
   (setq mouse-wheel-progressive-speed nil)
 
   ;; persistent undo
-  (require 'undohist)
+  (use-package undohist)
   (setq undohist-directory   (expand-file-name
                               (concat
                                (if (boundp 'user-emacs-directory)
@@ -563,7 +563,7 @@ you should place your code here."
   (add-hook 'prog-mode-hook #'fci-mode)
 
   ;; highlight trailing whitespace
-  (require 'whitespace)
+  (use-package whitespace)
   (setq-default whitespace-style '(face trailing tab-mark))
   (setq whitespace-display-mappings
         '((tab-mark   ?\t   [?\x2192?\x2192] [?\\ ?\t]))
@@ -661,7 +661,7 @@ you should place your code here."
   (setq imenu-list-auto-resize nil)
 
   ;; Dockerfile mode
-  (require 'dockerfile-mode)
+  (use-package dockerfile-mode)
   (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
   (put 'docker-image-name 'safe-local-variable 'stringp)
 
@@ -720,7 +720,7 @@ you should place your code here."
   (spacemacs/set-leader-keys "'" 'launch-shell)
 
   ;; fix bug "Symbol’s value as variable is void: helm-bookmark-map" https://git.io/v5iFG
-  (require 'helm-bookmark)
+  (use-package helm-bookmark)
 
   ;; use magit in fullscreen, see http://whattheemacsd.com/setup-magit.el-01.html
   (defadvice magit-status (around magit-fullscreen activate)
@@ -749,7 +749,7 @@ you should place your code here."
 
   ;; some org-mode settings
   (with-eval-after-load 'org-agenda
-      (require 'org-projectile)
+      (use-package org-projectile)
       (push (org-projectile-todo-files) org-agenda-files))
   (setq org-bullets-bullet-list '("•" "‒"))
 
@@ -758,7 +758,7 @@ you should place your code here."
 
   ;; Slack :D
   (when (file-readable-p "~/.slack.el")
-      (require 'slack)
+      (use-package slack)
       (load "~/.slack.el"))
   (setq alert-default-style 'libnotify)
   (spacemacs/set-leader-keys "a C r" 'slack-select-rooms)
