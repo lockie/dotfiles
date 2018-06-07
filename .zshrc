@@ -142,6 +142,7 @@ fi
 hash ack      2>/dev/null && { alias grep='nocorrect ack';      }
 hash ack-grep 2>/dev/null && { alias grep='nocorrect ack-grep'; }
 hash ag       2>/dev/null && { alias grep='nocorrect ag';       }
+hash curl     2>/dev/null && { alias curl='nocorrect curl';     }
 hash mpv      2>/dev/null && { alias mplayer='mpv';             }
 
 if [ -f ~/.bash_aliases ]; then
