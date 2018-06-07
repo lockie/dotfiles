@@ -73,6 +73,7 @@ values."
      emoji
      colors
      slack
+     nlinum
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -679,13 +680,19 @@ you should place your code here."
 
   ;; highlight parenthesis
   (show-paren-mode t)
-  (add-hook 'prog-mode-hook
-            (lambda ()
-              (when (> (buffer-size) 40000)
-                (turn-off-show-smartparens-mode))))
 
   ;; более лучшая отрисовка буфера
   (setq redisplay-dont-pause t)
+
+  ;; be faster
+  (setq gc-cons-threshold (* 128 1024 1024))  ;; 128M
+  (defun find-file-improve-performance-hook ()
+      (when (> (buffer-size) 50000)
+          (turn-off-show-smartparens-mode)
+          (spacemacs/toggle-indent-guide-off)
+          (spacemacs/toggle-syntax-checking-off)
+          (spacemacs/toggle-semantic-stickyfunc-off)))
+  (add-hook 'find-file-hook 'find-file-improve-performance-hook)
 
   ;; dont create ugly .# lock files
   (setq create-lockfiles nil)
