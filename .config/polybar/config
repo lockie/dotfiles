@@ -313,7 +313,7 @@ format-background = ${colors.background}
 
 [module/swap]
 type = custom/script
-exec = LANG=C free -h | tail -n1 | awk '{print $3}'
+exec = LANG=C free -h --mega | tail -n1 | awk '{print $3}'
 tail = false
 interval = 3
 format-background = ${colors.background}
