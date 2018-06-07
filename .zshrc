@@ -312,3 +312,6 @@ source "$HOME/.zsh/zsh-background-notify/bgnotify.plugin.zsh"
 source "$HOME/.zsh/gibo/gibo-completion.zsh"
 export PATH="$HOME/.zsh/gibo:$PATH"
 alias gi=gibo
+
+# alias для transfer.sh
+source "$HOME/.zsh/transfer.sh"
