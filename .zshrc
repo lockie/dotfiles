@@ -139,11 +139,12 @@ if [ "$TERM" != "dumb" ] && hash dircolors 2>/dev/null; then
 	alias egrep='nocorrect egrep --color=auto'
 	alias which='nocorrect which'
 fi
-hash ack      2>/dev/null && { alias grep='nocorrect ack';      }
-hash ack-grep 2>/dev/null && { alias grep='nocorrect ack-grep'; }
-hash ag       2>/dev/null && { alias grep='nocorrect ag';       }
-hash curl     2>/dev/null && { alias curl='nocorrect curl';     }
-hash mpv      2>/dev/null && { alias mplayer='mpv';             }
+hash ack        2>/dev/null && { alias grep='nocorrect ack';              }
+hash ack-grep   2>/dev/null && { alias grep='nocorrect ack-grep';         }
+hash ag         2>/dev/null && { alias grep='nocorrect ag';               }
+hash curl       2>/dev/null && { alias curl='nocorrect curl';             }
+hash virtualenv 2>/dev/null && { alias virtualenv='nocorrect virtualenv'; }
+hash mpv        2>/dev/null && { alias mplayer='mpv';                     }
 
 if [ -f ~/.bash_aliases ]; then
  . ~/.bash_aliases
