@@ -102,6 +102,10 @@ for_window [class="Tilda"] floating enable move absolute position 624 16
 for_window [class="Gtk-recordMyDesktop"] floating enable
 for_window [class="Display"] floating enable
 for_window [class="Pinentry.*"] floating enable
+for_window [class="Gnome-pomodoro"] floating enable
+for_window [class="^Pidgin$" window_role="buddy_list"] layout splith, resize shrink width 0 px or 30 ppt, move right
+for_window [class="^Pidgin$" window_role="conversation"] resize grow width 0 px or 30 ppt, move left
+
 
 # Alien fruit salad
 # class                 border  backgr. text    indicator child_border
