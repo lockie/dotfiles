@@ -420,7 +420,7 @@ you should place your code here."
   (add-hook 'helm-mode-hook
       (lambda () (progn
            (define-key helm-map (kbd "<tab>") 'helm-next-line)
-           (define-key helm-map (kbd "<backtab>") 'helm-previous-line))))
+           (define-key helm-map (kbd "<C-tab>") 'helm-previous-line))))
 
   (use-package ein)
   (spacemacs/set-leader-keys-for-major-mode 'ein:notebook-multilang-mode
