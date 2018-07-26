@@ -15,3 +15,14 @@ rofi.color-normal: #3f3f3f, #dcdccc, #3f3f3f, #1e2320, #dcdccc
 rofi.color-active: #3f3f3f, #f0dfaf, #3f3f3f, #1e2320, #f0dfaf
 rofi.color-urgent: #3f3f3f, #cc9393, #3f3f3f, #1e2320, #cc9393
 rofi.font: Terminus 13
+
+! ------
+! alttab
+! ------
+alttab.windowmanager: 1
+alttab.modifier.keysym: Super_L
+alttab.background: #3f3f3f
+alttab.framecolor: #f0dfaf
+alttab.foreground: #dcdccc
+alttab.font: xft:Terminus
+alttab.tile.geometry: 300x64

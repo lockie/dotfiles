@@ -91,7 +91,6 @@ bindsym $mod+e exec pcmanfm  # or caja --no-default-window $HOME
 bindsym $mod+d exec deadbeef
 bindsym $mod+u [urgent=latest] focus
 bindsym $mod+b exec --no-startup-id xscreensaver-command -lock  # or mate-screensaver --lock
-bindsym $mod+Tab exec --no-startup-id rofi -show window -fuzzy -levenshtein-sort -width -120
 bindsym $mod+Print exec --no-startup-id "scrot -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'"
 bindsym $mod+Shift+Print exec --no-startup-id "sleep 1; scrot -d 1 -s -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'"
 bindsym $mod+space layout toggle
@@ -118,6 +117,7 @@ exec --no-startup-id i3-msg 'rename workspace 1 to "1:default"'
 exec --no-startup-id polybar bottom
 exec --no-startup-id xset r rate 190 25
 exec --no-startup-id dex -a -e i3
+exec --no-startup-id alttab
 exec --no-startup-id xscreensaver -nosplash  # or mate-screensaver
 exec --no-startup-id while pgrep -xf i3; do tilda; done
 exec --no-startup-id zim --plugin trayicon
