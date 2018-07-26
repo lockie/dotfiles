@@ -15,6 +15,7 @@ alias du='du -hsx'
 alias g='git'
 alias gitg='git gui'
 alias gg='git gui'
+alias gk='gitk --all'
 alias dc='docker-compose'
 hash htop 2>/dev/null && {
 	alias top='htop'
