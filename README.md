@@ -41,5 +41,4 @@ Personal configuration files and scripts.
  - latex-hightlight.sh - source hightlighting for LaTeX
  - lightsOn.sh - see [here](https://github.com/iye/lightsOn)
  - shutdown\_dialog.py - nice shutdown dialog for WMs
- - speedup-firefox.sh - reindexes Firefox sqlite databases
  - xlaunch - to launch apps in separate X-server (saved from [here](https://forums.gentoo.org/viewtopic-t-483004.html))
