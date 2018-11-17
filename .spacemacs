@@ -395,6 +395,10 @@ you should place your code here."
   (define-key evil-insert-state-map (kbd "<f5>") 'compile)
   (define-key evil-normal-state-map (kbd "<f6>") 'imenu-list-minor-mode)
   (define-key evil-insert-state-map (kbd "<f6>") 'imenu-list-minor-mode)
+  (define-key evil-normal-state-map (kbd "<f7>") 'spacemacs/next-error)
+  (define-key evil-insert-state-map (kbd "<f7>") 'spacemacs/next-error)
+  (define-key evil-normal-state-map (kbd "<f8>") 'spacemacs/previous-error)
+  (define-key evil-insert-state-map (kbd "<f8>") 'spacemacs/previous-error)
   (define-key evil-normal-state-map (kbd "<f10>") 'spacemacs/prompt-kill-emacs)
   (define-key evil-insert-state-map (kbd "<f10>") 'spacemacs/prompt-kill-emacs)
   (define-key evil-normal-state-map (kbd "<f12>") 'neotree-toggle)
@@ -543,6 +547,18 @@ you should place your code here."
                   nil)
           t))
   (add-hook 'kill-buffer-query-functions 'unkillable-scratch-buffer)
+
+
+  ;; hide compilation window if successful
+  ;; from enberg on #emacs
+  (setq compilation-finish-function
+        (lambda (buf str)
+            (if (null (string-match ".*exited abnormally.*" str))
+                    (progn
+                        (run-at-time
+                         0.4 nil 'delete-windows-on
+                         (get-buffer-create "*compilation*"))
+                        (message "No compilation errors")))))
 
 
   ;; scroll tweaks
