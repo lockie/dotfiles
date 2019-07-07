@@ -35,7 +35,7 @@ Personal configuration files and scripts.
     * [vim-devicons](https://github.com/ryanoasis/vim-devicons)
     * [vim-wakatime](https://wakatime.com)
     * [Zenburn theme](https://github.com/jnurmine/Zenburn)
- - [Spacemacs](http://spacemacs.org) configuration (additionally install (html)tidy, clang, pylint/flake8/pyflakes, [shellcheck](https://www.shellcheck.net))
+ - Emacs configuration (additionally install clang, [pyls](https://github.com/palantir/python-language-server), [shellcheck](https://www.shellcheck.net))
 
 ## Scripts
  - latex-hightlight.sh - source hightlighting for LaTeX
