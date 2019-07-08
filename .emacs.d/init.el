@@ -1031,7 +1031,10 @@
         ("q" . (lambda ()
                  (interactive)
                  (kill-buffer)
-                 (jump-to-register :magit-fullscreen)))))
+                 (jump-to-register :magit-fullscreen))))
+  (:map magit-diff-mode-map
+        ("M-1" . nil)
+        ("M-3" . nil)))
 
 (use-package evil-magit :ensure t)
 
@@ -1095,6 +1098,10 @@
    :non-normal-prefix "M-m"
    "xi" 'yas-insert-snippet
    "xn" 'yas-new-snippet)
+  :bind
+  (:map yas-minor-mode-map
+        ("TAB" . nil)
+        ("<tab>" . nil))
   :custom
   (yas-prompt-functions '(yas-completing-prompt yas-ido-prompt))
   :config
