@@ -178,6 +178,13 @@
   ("S-C-j"   . shrink-window)
   ("S-C-k"   . enlarge-window))
 
+(use-package quelpa
+  :ensure t
+  :custom
+  (quelpa-checkout-melpa-p nil))
+
+(use-package quelpa-use-package :ensure t)
+
 (use-package which-key
   :ensure t
   :diminish which-key-mode
@@ -739,11 +746,13 @@
     (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/elpa/.*" home))))
 
 (use-package undohist
-  :ensure t
+  :quelpa (undohist
+           :fetcher url
+           :url "https://raw.githubusercontent.com/halbtuerke/undohist-el/do-not-save-undo-file-for-ignored-files/undohist.el")
   :custom
   (undohist-directory (my/cache-file "undohist"))
   (undohist-ignored-files
-   '("COMMIT_EDITMSG\\'" "NOTES_EDITMSG" "MERGE_MSG" "TAG_EDITMSG"))
+   '("COMMIT_EDITMSG" "NOTES_EDITMSG" "MERGE_MSG" "TAG_EDITMSG"))
   :config (undohist-initialize))
 
 (use-package undo-tree
@@ -751,6 +760,7 @@
   :diminish undo-tree-mode
   :custom
   (undo-tree-enable-undo-in-region nil)
+  (undo-tree-visualizer-timestamps t)
   :general
   (:states '(normal visual insert emacs)
    :prefix "SPC"
@@ -1268,7 +1278,7 @@
 (use-package tex-mode
   :ensure auctex
   :custom
-  (TeX-auto-save t)
+  (TeX-auto-save nil)
   (TeX-parse-self t)
   (LaTeX-fill-break-at-separators nil)
   (TeX-source-correlate-mode t)
@@ -1321,13 +1331,6 @@
          ("\\.jinja\\'" . web-mode)
          ("\\.jinja2\\'" . web-mode)
          ("\\.jade\\'" . web-mode)))
-
-(use-package quelpa
-  :ensure t
-  :custom
-  (quelpa-checkout-melpa-p nil))
-
-(use-package quelpa-use-package :ensure t)
 
 (use-package howdoi
   :quelpa (howdoi
