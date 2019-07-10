@@ -155,7 +155,6 @@
   (prog-mode
    . (lambda () (unless (equal major-mode 'prog-mode) (hs-minor-mode))))
   (prog-mode . display-line-numbers-mode)
-  (prog-mode . which-function-mode)
   (prog-mode
    . (lambda ()
        (modify-syntax-entry ?_ "w") (modify-syntax-entry ?- "w")))
@@ -514,7 +513,7 @@
   :ensure t
   :custom
   (evil-want-C-u-scroll t)
-  (evil-want-fine-undo 'fine)
+  (evil-want-fine-undo t)
   (evil-want-keybinding nil)
   :general
   (:states
