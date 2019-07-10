@@ -718,7 +718,8 @@
   (:states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-m"
-   "pf"  'counsel-projectile-find-file-dwim
+   "pf"  'counsel-projectile-find-file
+   "pF"  'counsel-projectile-find-file-dwim
    "pp"  'counsel-projectile)
   :config
   (counsel-projectile-mode))
@@ -999,7 +1000,9 @@
           :which-key "toggle term state"))
   (:keymaps 'term-raw-map
    "C-c"      'term-send-raw
-   "<escape>" (lambda () (interactive) (term-send-raw-string "\e")))
+   "<escape>" (lambda () (interactive) (term-send-raw-string "\e"))
+   "M-n"      'term-send-up
+   "M-p"      'term-send-down)
   :hook
   (term-mode . (lambda () (setq indicate-empty-lines nil)))
   (term-mode
@@ -1044,7 +1047,9 @@
                  (jump-to-register :magit-fullscreen))))
   (:map magit-diff-mode-map
         ("M-1" . nil)
-        ("M-3" . nil)))
+        ("M-2" . nil)
+        ("M-3" . nil)
+        ("M-4" . nil)))
 
 (use-package evil-magit :ensure t)
 
