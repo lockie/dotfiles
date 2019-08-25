@@ -19,6 +19,8 @@
 (use-package gcmh
   :ensure t
   :diminish gcmh-mode
+  :custom
+  (gcmh-idle-delay 3)
   :config (gcmh-mode t))
 
 (use-package zenburn-theme
@@ -894,6 +896,7 @@
   :custom
   (prescient-save-file (my/cache-file "prescient-save.el"))
   (prescient-sort-length-enable nil)
+  (prescient-filter-method '(fuzzy))
   :config (prescient-persist-mode t))
 
 (use-package ivy-prescient
@@ -972,6 +975,8 @@
 
 (use-package sane-term
   :ensure t
+  :custom
+  (term-char-mode-buffer-read-only nil)
   :general
   (:states '(normal visual insert emacs)
    :prefix "SPC"
@@ -1054,6 +1059,7 @@
 
 (use-package git-gutter-fringe
   :ensure t
+  :diminish git-gutter-mode
   :custom
   (git-gutter-fr:side 'right-fringe)
   (global-git-gutter-mode t))
@@ -1163,13 +1169,13 @@
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (general-define-key
-    :states '(normal visual insert emacs)
-    :keymaps 'local
-    :prefix "SPC"
-    :non-normal-prefix "M-m"
-    "mrf" 'eglot-format
-    "mrh" 'eglot-help-at-point
-    "mrr" 'eglot-rename)
+   :states '(normal visual insert emacs)
+   :keymap 'eglot-mode-map
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "mrf" 'eglot-format
+   "mrh" 'eglot-help-at-point
+   "mrr" 'eglot-rename)
   :hook
   (python-mode . eglot-ensure)
   (c-mode . eglot-ensure)
@@ -1186,6 +1192,8 @@
   (put 'docker-image-name 'safe-local-variable 'stringp))
 
 (use-package elisp-mode
+  :custom
+  (lisp-indent-function 'lisp-indent-function)
   :hook
   (emacs-lisp-mode . (lambda () (setq evil-shift-width lisp-body-indent)))
   :general
@@ -1318,6 +1326,8 @@
 
 (use-package yaml-mode
   :ensure t
+  :hook
+  (yaml-mode . display-line-numbers-mode)
   :mode (("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
          ("Procfile\\'" . yaml-mode)))
 
