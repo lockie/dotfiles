@@ -223,16 +223,29 @@ case "$TERM" in
 		bindkey -M viins "^[[8~" end-of-line
 		bindkey -M vicmd "^[[8~" vi-end-of-line
 		;;
+	st-256color)
+		bindkey -M viins "^[[H" beginning-of-line
+		bindkey -M vicmd "^[[H" vi-beginning-of-line
+		bindkey -M viins "^[[4h~" yank
+		bindkey -M vicmd "^[[4h~" vi-insert
+		bindkey -M viins "^[[P" delete-char
+		bindkey -M vicmd "^[[P" delete-char
+		;;
 	*)
 		bindkey -M viins "^[[1~" beginning-of-line
 		bindkey -M vicmd "^[[1~" vi-beginning-of-line
-		bindkey -M viins "^[[4~" end-of-line
-		bindkey -M vicmd "^[[4~" vi-end-of-line
+		bindkey -M viins "^[[2~" yank
+		bindkey -M vicmd "^[[2~" vi-insert
+		bindkey -M viins "^[[3~" delete-char
+		bindkey -M vicmd "^[[3~" delete-char
+		bindkey "^?" backward-delete-char
 esac
-bindkey -M viins "^[[3~" delete-char
-bindkey -M vicmd "^[[3~" delete-char
-bindkey -M viins "^[[2~" yank
-bindkey -M vicmd "^[[2~" vi-insert
+bindkey -M viins "^[p" up-line-or-history
+bindkey -M vicmd "^[p" up-line-or-history
+bindkey -M viins "^[n" down-line-or-history
+bindkey -M vicmd "^[n" down-line-or-history
+bindkey -M viins "^[[4~" end-of-line
+bindkey -M vicmd "^[[4~" vi-end-of-line
 bindkey -M viins "^[[5~" up-line-or-history
 bindkey -M vicmd "^[[5~" up-line-or-history
 bindkey -M viins "^[[6~" down-line-or-history
