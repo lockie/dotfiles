@@ -189,7 +189,7 @@ hash emerge 2>/dev/null && {
 	alias equery='nocorrect equery'
 	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y --with-bdeps=y --backtrack=1000 --verbose-conflicts -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo smart-live-rebuild -- -vat --keep-going=y ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -i -- -vat ; sudo env-update'
 	alias updk='sudo sh -c "cd /usr/src/linux && zcat /proc/config.gz > .config && make oldconfig && make -j5 && make install && grub-mkconfig -o /boot/grub/grub.cfg"'
-	alias updm='sudo emerge -1vta --keep-going=y @module-rebuild'
+	alias updm='sudo mkdir -p /lib/modules/`uname -r` && sudo ln -sf /usr/src/linux-`uname -r` /lib/modules/`uname -r`/source && sudo ln -sf /usr/src/linux-`uname -r` /lib/modules/`uname -r`/build && sudo emerge -1vta --keep-going=y @module-rebuild'
 }
 hash avconv 2>/dev/null && {
 	command -v ffmpeg >/dev/null 2>&1 || alias ffmpeg='avconv'
