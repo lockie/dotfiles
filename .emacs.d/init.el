@@ -167,7 +167,7 @@
   ("<f1>"    . nil)
   ("<f2>"    . evil-write-all)
   ("<f3>"    . projectile-find-other-file)
-  ("<f4>"    . counsel-ag)
+  ("<f4>"    . ag)
   ("<f5>"    . compile)
   ("<f6>"    . imenu)
   ("<f7>"    . flymake-goto-next-error)
@@ -205,13 +205,9 @@
    :non-normal-prefix "M-m"
    "!"   'shell-command
    ";"   'comment-or-uncomment-region
-   "TAB" `(,(lambda (&optional window)
+   "TAB" `(,(lambda ()
               (interactive)
-              (destructuring-bind (buf start pos)
-                  (or (cl-find (window-buffer window) (window-prev-buffers)
-                               :key #'car :test-not #'eq)
-                      (list (other-buffer) nil nil ))
-                (set-window-buffer-start-and-point window buf start pos)))
+              (switch-to-buffer (other-buffer (current-buffer))))
            :which-key "last buffer")
    "a"   '(:which-key "applications")
    "ad"  'dired
