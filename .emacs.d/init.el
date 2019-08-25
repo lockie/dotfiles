@@ -1213,6 +1213,9 @@
   :ensure t
   :mode "/.dockerignore\\'")
 
+(use-package lua-mode
+  :ensure t)
+
 (use-package markdown-mode
   :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
