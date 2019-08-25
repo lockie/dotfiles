@@ -264,6 +264,7 @@ case $1 in
 	*.bz2)       bunzip2 "$1"       ;;
 	*.rar)       unrar x "$1"     ;;
 	*.gz)        gunzip "$1"     ;;
+	*.xz)        tar xJf "$1"    ;;
 	*.tar)       tar xf "$1"        ;;
 	*.tbz2)      tar xjf "$1"      ;;
 	*.tgz)       tar xzf "$1"       ;;
