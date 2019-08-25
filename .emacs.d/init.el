@@ -849,11 +849,27 @@
   :ensure t
   :config (hes-mode t))
 
-(use-package highlight-indentation
+(use-package highlight-indent-guides
   :ensure t
-  :diminish highlight-indentation-mode
+  :diminish highlight-indent-guides-mode
+  :custom
+  (highlight-indent-guides-method 'character)
+  (highlight-indent-guides-responsive 'stack)
+  (highlight-indent-guides-character ?\N{U+2506})
   :hook
-  (prog-mode . highlight-indentation-mode))
+  (prog-mode . highlight-indent-guides-mode))
+
+(use-package highlight-numbers
+  :ensure t
+  :hook
+  (prog-mode . highlight-numbers-mode))
+
+(use-package highlight-quoted
+  :ensure t
+  :hook
+  (emacs-lisp-mode . highlight-quoted-mode)
+  (lisp-mode . highlight-quoted-mode)
+  (scheme-mode . highlight-quoted-mode))
 
 (use-package highlight-symbol
   :ensure t
@@ -879,6 +895,19 @@
   (html-mode . rainbow-mode)
   (css-mode . rainbow-mode)
   (latex-mode . rainbow-mode))
+
+(use-package volatile-highlights
+  :ensure t
+  :diminish volatile-highlights-mode
+  :custom-face
+  (vhl/default-face ((t (:background "#555511"))))
+  :config
+  (vhl/define-extension 'evil 'evil-paste-after 'evil-paste-before
+                        'evil-paste-pop 'evil-move)
+  (vhl/install-extension 'evil)
+  (vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
+  (vhl/install-extension 'undo-tree)
+  (volatile-highlights-mode t))
 
 (use-package evil-anzu :ensure t)
 
