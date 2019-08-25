@@ -405,6 +405,8 @@
    "rs"  'purpose-save-window-layout
    "rt"  'purpose-toggle-window-purpose-dedicated)
   :config
+  (purpose-add-user-purposes :modes '((slime-repl-mode . terminal)
+                                      (slime-inspector-mode . popup)))
   (purpose-mode)
   :init
   (setq purpose-mode-map (make-sparse-keymap)))
@@ -596,9 +598,9 @@
   (evil-collection-mode-list
    '(ag bookmark (buff-menu "buff-menu") calc calendar cmake-mode
         comint company compile custom diff-mode dired doc-view ediff eww
-        flymake grep help ibuffer image imenu-list info ivy man magit
+        flymake geiser grep help ibuffer image imenu-list info ivy man magit
         minibuffer (occur replace) (package-menu package) profiler simple
-        wdired which-key woman xref))
+        slime wdired which-key woman xref))
   (evil-collection-setup-minibuffer t)
   :config
   (evil-collection-init))
@@ -799,6 +801,31 @@
   :ensure t
   :config (reverse-im-activate "russian-computer"))
 
+(use-package smartparens
+  :ensure t
+  :diminish smartparens-mode
+  :custom
+  (sp-autoinsert-pair nil)
+  (sp-autoskip-closing-pair nil)
+  (sp-base-key-bindings 'paredit)
+  :bind
+  (:map smartparens-mode-map
+        ("C-M-a" . sp-beginning-of-sexp)
+        ("C-M-e" . sp-end-of-sexp)
+        ("C-M-k" . sp-kill-sexp)
+        ("C-k" . sp-kill-hybrid-sexp)
+        ("M-k" . sp-backward-kill-sexp)
+        ("M-]" . sp-unwrap-sexp)
+        ("M-[" . sp-backward-unwrap-sexp)))
+
+(use-package smartparens-config
+  :ensure smartparens
+  :hook
+  (emacs-lisp-mode . smartparens-mode)
+  (lisp-mode . smartparens-mode)
+  (scheme-mode . smartparens-mode)
+  (racket-mode . smartparens-mode))
+
 (use-package fill-column-indicator
   :ensure t
   :custom
@@ -953,6 +980,7 @@
   (company-minimum-prefix-length 2)
   (company-idle-delay 0.4)
   (company-tooltip-idle-delay 0.4)
+  (company-tooltip-align-annotations t)
   :config
   (defvar company-fci-mode-on-p nil)
   :hook
@@ -1142,8 +1170,9 @@
    "hd" 'counsel-dash)
   :hook
   (emacs-lisp-mode . (lambda () (setq-local counsel-dash-docsets '("Emacs Lisp"))))
-  (python-mode . (lambda () (setq-local counsel-dash-docsets '("Python 3" "Django"))))
+  (lisp-mode . (lambda () (setq-local counsel-dash-docsets '("Common Lisp"))))
   (racket-mode . (lambda () (setq-local counsel-dash-docsets '("Racket"))))
+  (python-mode . (lambda () (setq-local counsel-dash-docsets '("Python 3" "Django"))))
   (TeX-mode . (lambda () (setq-local counsel-dash-docsets '("LaTeX"))))
   (markdown-mode . (lambda () (setq-local counsel-dash-docsets '("Markdown"))))
   (web-mode . (lambda () (setq-local counsel-dash-docsets '("HTML" "Jinja" "CSS"))))
@@ -1177,6 +1206,69 @@
   (c-mode . eglot-ensure)
   (c++-mode . eglot-ensure))
 
+(use-package geiser
+  :ensure t
+  :custom
+  (geiser-active-implementations '(guile chicken chez))
+  (geiser-autodoc-delay 0.4)
+  (geiser-mode-smart-tab-p t)
+  :hook (scheme-mode . geiser-mode)
+  :general
+  (:states '(normal visual insert emacs)
+   :keymaps 'geiser-mode-map
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "msb" 'geiser-eval-buffer
+   "msc" 'geiser-compile-current-buffer
+   "msd" 'geiser-eval-definition
+   "mse" 'geiser-eval-last-sexp
+   "msi" 'run-geiser
+   "msr" 'geiser-eval-region
+  ))
+
+(use-package slime-company
+  :ensure t
+  :defer t
+  :custom
+  (slime-company-completion 'fuzzy))
+
+(use-package slime
+  :ensure t
+  :custom
+  (inferior-lisp-program "sbcl")
+  (slime-net-coding-system 'utf-8-unix)
+  (slime-contribs
+   '(slime-repl slime-autodoc slime-editing-commands slime-fancy-inspector
+                slime-fancy-trace slime-fuzzy slime-mdot-fu slime-macrostep
+                slime-presentations slime-quicklisp slime-references
+                slime-fontifying-fu slime-trace-dialog slime-company
+                slime-cl-indent slime-sbcl-exts))
+  (slime-complete-symbol*-fancy t)
+  (slime-repl-auto-right-margin t)
+  (slime-repl-history-size 10000)
+  (lisp-indent-function 'common-lisp-indent-function)
+  (common-lisp-style "sbcl")
+  :config
+  (let ((quicklisp-helper (expand-file-name "~/.quicklisp/slime-helper.el")))
+    (when (file-exists-p quicklisp-helper)
+      (load quicklisp-helper)))
+  :bind
+  (:map slime-mode-indirect-map
+        ("M-n" . nil)
+        ("M-p" . nil))
+  :general
+  (:states '(normal visual insert emacs)
+   :keymaps 'slime-mode-map
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "mc"  'slime-compile-and-load-file
+   "mrc" 'slime-close-all-parens-in-sexp
+   "msb" 'slime-eval-buffer
+   "msd" 'slime-eval-defun
+   "mse" 'slime-eval-last-expression
+   "msi" 'slime
+   "msr" 'slime-eval-region))
+
 (use-package cmake-mode :ensure t)
 
 (use-package docker-compose-mode :ensure t :defer t)
@@ -1204,6 +1296,23 @@
    "msd" 'eval-defun
    "mse" 'eval-last-sexp
    "msr" 'eval-region))
+
+(use-package fennel-mode
+  :ensure t
+  :custom
+  (fennel-mode-switch-to-repl-after-reload nil)
+  :mode ("\\.fnl\\'" . fennel-mode)
+  :hook
+  (fennel-mode . (lambda () (slime-mode -1) (slime-autodoc-mode -1) (slime-trace-dialog-minor-mode -1)))
+  :general
+  (:states '(normal visual insert emacs)
+   :keymaps 'fennel-mode-map
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "msi" (lambda () (interactive) (run-lisp "love ."))
+   "msb" 'fennel-reload
+   "msd" 'lisp-eval-defun
+   "msr" 'lisp-eval-region))
 
 (use-package gitattributes-mode :ensure t)
 
