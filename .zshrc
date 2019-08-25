@@ -69,8 +69,8 @@ compctl -K _pip_completion pip
 
 # Lines configured by zsh-newuser-install
 export HISTFILE=~/.histfile
-export HISTSIZE=10000
-export SAVEHIST=10000
+export HISTSIZE=1000000
+export SAVEHIST=1000000
 setopt appendhistory beep extendedglob nomatch notify noequals
 # End of lines configured by zsh-newuser-install
 
