@@ -57,6 +57,9 @@
   (use-dialog-box nil)
   (custom-file null-device)
   (bidi-display-reordering nil)
+  (jit-lock-defer-time 0)
+  (jit-lock-stealth-time 0.1)
+  (save-interprogram-paste-before-kill t)
   (indicate-empty-lines t)
   (x-select-enable-clipboard t)
   (x-select-enable-primary t)
@@ -66,6 +69,7 @@
   (backup-directory-alist `(("." . ,(my/cache-file "auto-save"))))
   (auto-save-default nil)
   (delete-old-versions t)
+  (bookmark-save-flag 1)
   (initial-scratch-message "")
   (initial-major-mode 'prog-mode)
   (ad-redefinition-action 'accept)
@@ -574,7 +578,6 @@
   (:states 'motion
    "TAB" nil
    "K"   nil
-   "gd"  'xref-find-definitions
    ";"   'evil-ex)
   :config
   (defun my/kill-this-buffer ()
@@ -953,6 +956,8 @@
 
 (use-package ivy-prescient
   :ensure t
+  :custom
+  (ivy-prescient-enable-filtering nil)
   :config
   (ivy-prescient-mode t)
   (setq
@@ -1076,6 +1081,8 @@
   :custom
   (magit-completing-read-function 'ivy-completing-read)
   (magit-diff-refine-hunk 'all)
+  (magit-save-repository-buffers nil)
+  (magit-refs-show-commit-count 'all)
   :general
   (:states '(normal visual insert emacs)
    :prefix "SPC"
@@ -1238,7 +1245,8 @@
 (use-package geiser
   :ensure t
   :custom
-  (geiser-active-implementations '(guile chicken chez))
+  (geiser-active-implementations '(chicken guile chez chibi))
+  (geiser-chicken-binary '("csi" "-R" "r7rs"))
   (geiser-autodoc-delay 0.4)
   (geiser-mode-smart-tab-p t)
   :hook (scheme-mode . geiser-mode)
@@ -1352,6 +1360,9 @@
   :mode "/.dockerignore\\'")
 
 (use-package lua-mode
+  :ensure t)
+
+(use-package flymake-lua
   :ensure t)
 
 (use-package markdown-mode
