@@ -956,6 +956,7 @@
 
 (use-package ivy-prescient
   :ensure t
+  :after (counsel)
   :custom
   (ivy-prescient-enable-filtering nil)
   :config
