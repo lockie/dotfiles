@@ -518,6 +518,27 @@
         hud)
        :priority 99))))
 
+(use-package undo-tree
+  :quelpa (undo-tree
+           :fetcher url
+           :url "https://raw.githubusercontent.com/emacsmirror/undo-tree/master/undo-tree.el")
+  :diminish undo-tree-mode
+  :custom
+  (undo-limit 800000)
+  (undo-strong-limit 12000000)
+  (undo-outer-limit 120000000)
+  (undo-tree-enable-undo-in-region nil)
+  (undo-tree-visualizer-timestamps t)
+  (undo-tree-auto-save-history t)
+  (undo-tree-history-directory-alist `(("." . ,(my/cache-file "undo-tree"))))
+  :general
+  (:states '(normal visual insert emacs)
+           :prefix "SPC"
+           :non-normal-prefix "M-m"
+           "au"  'undo-tree-visualize)
+  :config
+  (global-undo-tree-mode))
+
 (use-package evil
   :ensure t
   :custom
@@ -752,30 +773,6 @@
     (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/.cache/.*" home))
     (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/snippets/.*" home))
     (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/elpa/.*" home))))
-
-(use-package undohist
-  :quelpa (undohist
-           :fetcher url
-           :url "https://raw.githubusercontent.com/halbtuerke/undohist-el/do-not-save-undo-file-for-ignored-files/undohist.el")
-  :custom
-  (undohist-directory (my/cache-file "undohist"))
-  (undohist-ignored-files
-   '("COMMIT_EDITMSG" "NOTES_EDITMSG" "MERGE_MSG" "TAG_EDITMSG"))
-  :config (undohist-initialize))
-
-(use-package undo-tree
-  :ensure t
-  :diminish undo-tree-mode
-  :custom
-  (undo-tree-enable-undo-in-region nil)
-  (undo-tree-visualizer-timestamps t)
-  :general
-  (:states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-m"
-   "au"  'undo-tree-visualize)
-  :config
-  (global-undo-tree-mode))
 
 (use-package editorconfig
   :ensure t
