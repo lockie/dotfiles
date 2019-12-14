@@ -484,12 +484,15 @@
           (when (bound-and-true-p flymake-mode)
             (let ((lighter (my/spaceline-flymake-lighter ,severity)))
               (when lighter (powerline-raw (s-trim lighter) ',face))))))))
+  (spaceline-define-segment narrow
+    (when (buffer-narrowed-p)
+      "narrow"))
   (spaceline-install
     'main
     '((window-number
        :face highlight-face
        :priority 100)
-      ((buffer-modified buffer-id remote-host buffer-size)
+      ((buffer-modified buffer-id narrow remote-host buffer-size)
        :priority 99)
       (major-mode :priority 94)
       (process :when active)
