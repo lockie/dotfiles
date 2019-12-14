@@ -1253,7 +1253,7 @@
 (use-package geiser
   :ensure t
   :custom
-  (geiser-active-implementations '(chicken guile chez chibi))
+  (geiser-active-implementations '(gambit chicken guile chez chibi))
   (geiser-chicken-binary '("csi" "-R" "r7rs"))
   (geiser-autodoc-delay 0.4)
   (geiser-mode-smart-tab-p t)
@@ -1280,7 +1280,9 @@
 (use-package slime
   :ensure t
   :custom
-  (inferior-lisp-program "sbcl")
+  (slime-lisp-implementations
+   '((sbcl ("sbcl"))
+     (ccl ("ccl"))))
   (slime-net-coding-system 'utf-8-unix)
   (slime-contribs
    '(slime-repl slime-autodoc slime-editing-commands slime-fancy-inspector
