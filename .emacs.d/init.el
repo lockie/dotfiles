@@ -99,6 +99,7 @@
   (web-mode-code-indent-offset 2)
   (dired-dwim-target t)
   (winner-dont-bind-my-keys t)
+  (hexl-bits 8)
   (frame-title-format
    '(:eval
      (format
@@ -410,7 +411,8 @@
    "rt"  'purpose-toggle-window-purpose-dedicated)
   :config
   (purpose-add-user-purposes :modes '((slime-repl-mode . terminal)
-                                      (slime-inspector-mode . popup)))
+                                      (slime-inspector-mode . popup)
+                                      (sldb-mode . terminal)))
   (purpose-mode)
   :init
   (setq purpose-mode-map (make-sparse-keymap)))
@@ -815,6 +817,8 @@
   (:map smartparens-mode-map
         ("C-M-a" . sp-beginning-of-sexp)
         ("C-M-e" . sp-end-of-sexp)
+        ("C-M-n" . sp-next-sexp)
+        ("C-M-p" . sp-previous-sexp)
         ("C-M-k" . sp-kill-sexp)
         ("C-k" . sp-kill-hybrid-sexp)
         ("M-k" . sp-backward-kill-sexp)
@@ -1204,7 +1208,10 @@
   (:states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-m"
-   "hd" 'counsel-dash)
+   "hd" `(,(lambda ()
+             (interactive)
+             (counsel-dash (current-word)))
+          :which-key "counsel dash"))
   :hook
   (emacs-lisp-mode . (lambda () (setq-local counsel-dash-docsets '("Emacs Lisp"))))
   (lisp-mode . (lambda () (setq-local counsel-dash-docsets '("Common Lisp"))))
