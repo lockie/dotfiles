@@ -1422,7 +1422,7 @@
   (add-hook 'pyvenv-post-activate-hooks 'pyvenv-restart-python)
   (add-hook
    'pyvenv-post-activate-hooks
-   (lambda () (eglot-reconnect eglot--cached-current-server))))
+   (lambda () (eglot-reconnect eglot--cached-server))))
 
 (use-package racket-mode
   :ensure t
