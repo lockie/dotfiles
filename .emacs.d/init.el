@@ -742,6 +742,17 @@
    "pR"  'projectile-replace-regexp
    "pI"  'projectile-invalidate-cache))
 
+(use-package doom-todo-ivy
+  :quelpa (doom-todo-ivy
+           :fetcher github
+           :repo "lockie/doom-todo-ivy")
+  :general
+  (:states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "pt"  'doom/ivy-tasks)
+  :hook (after-init . doom-todo-ivy))
+
 (use-package counsel-projectile
   :ensure t
   :general
