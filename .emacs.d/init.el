@@ -738,6 +738,8 @@
    :non-normal-prefix "M-m"
    "p"   '(:which-key "projects")
    "p/"  'projectile-ag
+   "pr"  'projectile-replace
+   "pR"  'projectile-replace-regexp
    "pI"  'projectile-invalidate-cache))
 
 (use-package counsel-projectile
