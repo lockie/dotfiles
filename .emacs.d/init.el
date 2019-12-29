@@ -888,13 +888,6 @@
   :hook
   (prog-mode . highlight-numbers-mode))
 
-(use-package highlight-quoted
-  :ensure t
-  :hook
-  (emacs-lisp-mode . highlight-quoted-mode)
-  (lisp-mode . highlight-quoted-mode)
-  (scheme-mode . highlight-quoted-mode))
-
 (use-package highlight-symbol
   :ensure t
   :diminish highlight-symbol-mode
@@ -932,6 +925,12 @@
   (vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
   (vhl/install-extension 'undo-tree)
   (volatile-highlights-mode t))
+
+(use-package lisp-extra-font-lock
+  :ensure t
+  :config
+  (nconc lisp-extra-font-lock-let-functions '("if-let" "when-let"))
+  (lisp-extra-font-lock-global-mode t))
 
 (use-package evil-anzu :ensure t)
 
