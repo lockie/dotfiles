@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: logger
+# key: 
+# --
+logger = logging.getLogger(__name__)
