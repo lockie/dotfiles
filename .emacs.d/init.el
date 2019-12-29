@@ -777,6 +777,10 @@
   (recentf-max-saved-items 1000)
   (recentf-auto-save-timer (run-with-idle-timer 60 t 'recentf-save-list))
   :config
+  (defun recentf-save-silently-advice (original &rest args)
+    (let ((inhibit-message t))
+      (apply original args)))
+  (advice-add 'recentf-save-list :around #'recentf-save-silently-advice)
   (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
   (add-to-list 'recentf-exclude "/usr/share/emacs/.*")
   (add-to-list 'recentf-exclude "/tmp/.*")
