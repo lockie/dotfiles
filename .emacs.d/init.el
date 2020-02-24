@@ -25,14 +25,11 @@
 
 (use-package zenburn-theme
   :ensure t
+  :custom
+  (frame-inhibit-implied-resize t)
   :config
   (load-theme 'zenburn t)
-  (set-face-attribute
-   'default nil
-   :family "Anonymous Pro"
-   :height 123
-   :weight 'normal
-   :width 'normal))
+  (add-to-list 'default-frame-alist '(font . "Anonymous Pro-12")))
 
 (use-package bind-key :ensure t)
 (use-package diminish :ensure t)
@@ -437,6 +434,7 @@
 
 (use-package spaceline-config
   :ensure spaceline
+  :defer 0.1
   :custom
   (evil-emacs-state-cursor
    `(,(face-attribute 'spaceline-evil-emacs :background) box))
@@ -621,6 +619,7 @@
 
 (use-package evil-collection
   :ensure t
+  :defer 0.1
   :custom
   (evil-collection-company-use-tng nil)
   (evil-collection-key-blacklist '("SPC" "<escape>"))
@@ -932,10 +931,11 @@
   (nconc lisp-extra-font-lock-let-functions '("if-let" "when-let"))
   (lisp-extra-font-lock-global-mode t))
 
-(use-package evil-anzu :ensure t)
+(use-package evil-anzu :ensure t :defer 0.1)
 
 (use-package evil-matchit
   :ensure t
+  :defer 0.1
   :custom
   (evilmi-may-jump-by-percentage nil)
   :config (global-evil-matchit-mode))
@@ -1136,7 +1136,7 @@
         ("M-3" . nil)
         ("M-4" . nil)))
 
-(use-package evil-magit :ensure t)
+(use-package evil-magit :ensure t :defer 0.1)
 
 (use-package git-gutter-fringe
   :ensure t
@@ -1490,6 +1490,7 @@
 
 (use-package auctex-latexmk
   :ensure t
+  :defer t
   :custom
   (auctex-latexmk-inherit-TeX-PDF-mode t)
   :config (auctex-latexmk-setup))
