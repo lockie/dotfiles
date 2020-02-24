@@ -956,7 +956,38 @@
            (ivy-rich-switch-buffer-shorten-path
             x (ivy-rich-minibuffer-width 0.3))))))
       :predicate
-      (lambda (cand) (get-buffer cand)))))
+      (lambda (cand) (get-buffer cand)))
+     counsel-M-x
+     (:columns
+      ((counsel-M-x-transformer (:width 40))
+       (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
+     counsel-describe-function
+     (:columns
+      ((counsel-describe-function-transformer (:width 40))
+       (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
+     counsel-describe-variable
+     (:columns
+      ((counsel-describe-variable-transformer (:width 40))
+       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
+     counsel-recentf
+     (:columns
+      ((ivy-rich-candidate (:width 0.8))
+       (ivy-rich-file-last-modified-time (:face font-lock-comment-face))))
+     counsel-find-file
+     (:columns
+      ((ivy-read-file-transformer)
+       (ivy-rich-counsel-find-file-truename
+        (:face font-lock-doc-face))))
+     package-install
+     (:columns
+      ((ivy-rich-candidate
+        (:width 30))
+       (ivy-rich-package-version
+        (:width 16 :face font-lock-comment-face))
+       (ivy-rich-package-archive-summary
+        (:width 7 :face font-lock-builtin-face))
+       (ivy-rich-package-install-summary
+        (:face font-lock-doc-face))))))
   :config
   (ivy-rich-mode t))
 
