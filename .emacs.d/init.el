@@ -517,14 +517,8 @@
        :priority 99))))
 
 (use-package undo-tree
-  :quelpa (undo-tree
-           :fetcher url
-           :url "https://raw.githubusercontent.com/emacsmirror/undo-tree/master/undo-tree.el")
   :diminish undo-tree-mode
   :custom
-  (undo-limit 800000)
-  (undo-strong-limit 12000000)
-  (undo-outer-limit 120000000)
   (undo-tree-enable-undo-in-region nil)
   (undo-tree-visualizer-timestamps t)
   (undo-tree-auto-save-history t)
