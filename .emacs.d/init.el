@@ -105,9 +105,9 @@
       "%s%s %s- emacs"
       (if (buffer-modified-p)
           (cond
-           (buffer-file-truename "*")
+           (buffer-file-truename "* ")
            (t ""))
-        "")
+        "- ")
       (buffer-name)
       (cond
        (buffer-file-truename
