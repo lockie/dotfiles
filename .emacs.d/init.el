@@ -916,7 +916,7 @@
   :ensure t
   :diminish volatile-highlights-mode
   :custom-face
-  (vhl/default-face ((t (:background "#555511"))))
+  (vhl/default-face ((t (:background "#3F5F3F"))))
   :config
   (vhl/define-extension 'evil 'evil-paste-after 'evil-paste-before
                         'evil-paste-pop 'evil-move)
