@@ -1329,8 +1329,9 @@
   :ensure t
   :custom
   (slime-lisp-implementations
-   '((sbcl ("sbcl"))
-     (ccl ("ccl"))))
+   '((sbcl ("sbcl" "--dynamic-space-size" "4096"))
+     (ccl ("ccl"))
+     (ecl ("ecl"))))
   (slime-net-coding-system 'utf-8-unix)
   (slime-contribs
    '(slime-repl slime-autodoc slime-editing-commands slime-fancy-inspector
