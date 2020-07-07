@@ -942,6 +942,7 @@
 
 (use-package evil-fringe-mark
   :ensure t
+  :defer 0.1
   :diminish global-evil-fringe-mark-mode
   :config (global-evil-fringe-mark-mode))
 
@@ -1521,13 +1522,14 @@
 
 (use-package auctex-latexmk
   :ensure t
-  :defer t
+  :defer 1
   :custom
   (auctex-latexmk-inherit-TeX-PDF-mode t)
   :config (auctex-latexmk-setup))
 
 (use-package company-auctex
   :ensure t
+  :defer 0.1
   :config (company-auctex-init))
 
 (use-package yaml-mode
