@@ -411,7 +411,8 @@
   :config
   (purpose-add-user-purposes :modes '((slime-repl-mode . terminal)
                                       (slime-inspector-mode . popup)
-                                      (sldb-mode . terminal)))
+                                      (sldb-mode . terminal))
+                             :names '(("*slime-macroexpansion*" . popup)))
   (purpose-mode)
   :init
   (setq purpose-mode-map (make-sparse-keymap)))
