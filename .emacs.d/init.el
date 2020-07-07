@@ -836,7 +836,10 @@
         ("C-k" . sp-kill-hybrid-sexp)
         ("M-k" . sp-backward-kill-sexp)
         ("M-]" . sp-unwrap-sexp)
-        ("M-[" . sp-backward-unwrap-sexp)))
+        ("M-[" . sp-backward-unwrap-sexp)
+        ("M-;" . sp-comment)
+        ("M-d" . sp-kill-word)
+        ("M-S" . sp-split-sexp)))
 
 (use-package smartparens-config
   :ensure smartparens
