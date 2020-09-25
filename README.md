@@ -20,6 +20,7 @@ Personal configuration files and scripts.
  - [i3 WM](https://i3wm.org) config
     * [polybar](https://github.com/jaagr/polybar) panel config
     * [dunst](https://dunst-project.org) notification daemon config
+    * [gsimplecal](https://github.com/dmedvinsky/gsimplecal) calendar applet
     * additionally install: unifont, fontawesome and powerline-symbols fonts, iostat, xmllint
  - Vim with plugins (additionally install python-jinja2 to support its syntax):
     * [a.vim](https://github.com/vim-scripts/a.vim)
