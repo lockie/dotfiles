@@ -141,6 +141,7 @@
   (define-fringe-bitmap 'tilde [0 0 0 113 219 142 0 0] nil nil 'center)
   (setcdr (assq 'empty-line fringe-indicator-alist) 'tilde)
   (set-fringe-bitmap-face 'tilde 'line-number)
+  (put 'compile-command 'safe-local-variable #'stringp)
   :hook
   (after-save . executable-make-buffer-file-executable-if-script-p)
   (after-change-major-mode
