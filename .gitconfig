@@ -16,5 +16,7 @@
 	br = branch
 	g = gui
 	df = diff
+	ch = cherry-pick
+	c = clone
 [commit]
 	gpgsign = true
