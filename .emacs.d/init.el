@@ -674,7 +674,9 @@
    "fr"  'counsel-recentf
    "hDf" 'counsel-describe-function
    "hDv" 'counsel-describe-variable
-   "xm"  'counsel-bookmark)
+   "x`"  'counsel-evil-marks
+   "xm"  'counsel-bookmark
+   "xp"  'counsel-yank-pop)
   (:keymaps 'counsel-find-file-map
    "<backspace>"
    (lambda ()
