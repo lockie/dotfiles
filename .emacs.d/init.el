@@ -520,20 +520,25 @@
         hud)
        :priority 99))))
 
-(use-package undo-tree
-  :diminish undo-tree-mode
+(use-package undo-fu
+  :ensure t
   :custom
-  (undo-tree-enable-undo-in-region nil)
-  (undo-tree-visualizer-timestamps t)
-  (undo-tree-auto-save-history t)
-  (undo-tree-history-directory-alist `(("." . ,(my/cache-file "undo-tree"))))
-  :general
-  (:states '(normal visual insert emacs)
-           :prefix "SPC"
-           :non-normal-prefix "M-m"
-           "au"  'undo-tree-visualize)
+  (undo-limit 800000)
+  (undo-strong-limit 12000000)
+  (undo-outer-limit 120000000)
+  (undo-fu-ignore-keyboard-quit t)
   :config
-  (global-undo-tree-mode))
+  (global-set-key [remap undo] #'undo-fu-only-undo)
+  (global-set-key [remap redo] #'undo-fu-only-redo))
+
+(use-package undo-fu-session
+  :ensure t
+  :after undo-fu
+  :custom
+  (undo-fu-session-directory (my/cache-file "undo-fu-session"))
+  (undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'"))
+  :config
+  (global-undo-fu-session-mode +1))
 
 (use-package evil
   :ensure t
@@ -613,7 +618,8 @@
    (lambda()
      (when (eq evil-state 'insert)
        (evil-normal-state))))
-  (evil-mode))
+  (evil-mode)
+  (global-undo-tree-mode -1))
 
 (use-package evil-collection
   :ensure t
@@ -922,8 +928,8 @@
   (vhl/define-extension 'evil 'evil-paste-after 'evil-paste-before
                         'evil-paste-pop 'evil-move)
   (vhl/install-extension 'evil)
-  (vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
-  (vhl/install-extension 'undo-tree)
+  (vhl/define-extension 'undo-fu 'undo-fu-only-undo 'undo-fu-only-redo)
+  (vhl/install-extension 'undo-fu)
   (volatile-highlights-mode t))
 
 (use-package lisp-extra-font-lock
@@ -1150,7 +1156,6 @@
    "gm"  'magit-dispatch
    "gs"  'magit-status)
   :hook
-  (magit-mode . undo-tree-mode)
   (magit-diff-mode . (lambda () (setq truncate-lines nil)))
   :config
   (defadvice magit-status (around magit-fullscreen activate)
