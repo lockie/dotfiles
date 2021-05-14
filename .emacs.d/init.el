@@ -659,6 +659,8 @@
 (use-package counsel
   :ensure t
   :diminish counsel-mode
+  :custom
+  (counsel-projectile-ag-initial-input '(thing-at-point 'symbol t))
   :general
   (:states
    '(normal visual insert emacs)
@@ -711,6 +713,7 @@
   :hook
   (dashboard-mode
    . (lambda ()
+       (evil-mode)
        (define-key evil-normal-state-local-map (kbd "m")
          (lookup-key dashboard-mode-map "m"))
        (define-key evil-normal-state-local-map (kbd "p")
@@ -973,7 +976,7 @@
       (lambda (cand) (get-buffer cand)))
      counsel-M-x
      (:columns
-      ((counsel-M-x-transformer (:width 40))
+      ((counsel-M-x-transformer (:width 60))
        (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
      counsel-describe-function
      (:columns
@@ -1143,6 +1146,7 @@
   (magit-diff-refine-hunk 'all)
   (magit-save-repository-buffers nil)
   (magit-refs-show-commit-count 'all)
+  (magit-log-margin '(t "%Y-%m-%d %H:%M" magit-log-margin-width t 18))
   :general
   (:states '(normal visual insert emacs)
    :prefix "SPC"
@@ -1437,7 +1441,7 @@
          ("\\.markdown\\'" . markdown-mode))
   :custom
   (markdown-command
-   "markdown2 -x code-friendly,cuddled-lists,fenced-code-blocks,header-ids,tables")
+   "markdown2 -x cuddled-lists,fenced-code-blocks,header-ids,tables")
   :general
   (:states '(normal visual insert emacs)
    :keymaps 'markdown-mode-map
@@ -1494,7 +1498,7 @@
    "mse" 'racket-send-last-sexp
    "msr" 'racket-send-region)
   :config
-  (general-def 'motion racket-mode-map "gd" 'racket-visit-definition)
+  (general-def 'motion racket-mode-map "gd" 'racket-repl-visit-definition)
   (evil-set-initial-state 'racket-describe-mode 'motion)
   :hook
   (racket-mode . (lambda () (setq evil-shift-width lisp-body-indent)))
