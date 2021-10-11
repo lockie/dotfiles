@@ -302,6 +302,7 @@
    "qQ"  'kill-emacs
    "qq"  '(my/prompt-kill-emacs :which-key "quit emacs")
    "t"   '(:which-key "toggles")
+   "ta"  '(goto-address-mode :which-key "toggle clickable addresses")
    "td"  'toggle-debug-on-error
    "tl"  'toggle-truncate-lines
    "tr"  `(,(lambda ()
@@ -1261,6 +1262,7 @@
 (use-package counsel-dash
   :ensure t
   :custom
+  (dash-docs-enable-debugging nil)
   (counsel-dash-docs-enable-debugging nil)
   (counsel-dash-docs-min-length 1)
   (dash-docs-browser-func 'eww)
