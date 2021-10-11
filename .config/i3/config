@@ -20,7 +20,7 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+c kill
 
 # start a program launcher
-bindsym $mod+r exec --no-startup-id zsh -c "rofi -show run -fuzzy -levenshtein-sort -lines 5 -width -37 -terminal $terminal"
+bindsym $mod+r exec --no-startup-id zsh -c "rofi -show run -fuzzy -levenshtein-sort -lines 5 -width -37 -terminal $terminal -cache-dir /home/andrew/.local/share/rofi"
 
 # change focus
 bindsym $mod+h focus left
@@ -116,7 +116,7 @@ client.unfocused        #3f3f3f #3f3f3f #85753a
 client.urgent           #cc9393 #cc9393 #f5deb3
 
 # Autostart
-exec --no-startup-id nitrogen --restore
+exec --no-startup-id ~/.fehbg
 exec --no-startup-id polybar top
 exec --no-startup-id i3-msg 'rename workspace 1 to "1:default"'
 exec --no-startup-id polybar bottom
