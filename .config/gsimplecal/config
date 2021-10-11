@@ -12,4 +12,4 @@ mainwindow_skip_taskbar = 1
 mainwindow_resizable = 0
 mainwindow_position = mouse
 mainwindow_xoffset = 0
-mainwindow_yoffset = 0
+mainwindow_yoffset = -50

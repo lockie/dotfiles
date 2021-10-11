@@ -85,6 +85,34 @@ content = 
 content-padding = 1
 click-left = ~/bin/shutdown_dialog.py&
 
+[module/ewmh]
+type = internal/xworkspaces
+enable-scroll = false
+format = <label-state>
+icon-0 = default;
+icon-1 = chat;
+icon-2 = coding;
+icon-3 = internets;
+icon-4 = todo;
+icon-default = 
+
+label-active = %icon%
+label-active-foreground = #5f7f5f
+label-active-background = ${colors.background}
+label-active-padding = 2
+
+#label-occupied = %icon%
+#label-occupied-foreground = #f5deb3
+#label-occupied-padding = 2
+
+label-urgent = %icon%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+label-empty = %icon%
+#label-empty-foreground = #55
+label-empty-padding = 2
+
 
 [module/i3]
 type = internal/i3
