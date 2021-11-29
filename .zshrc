@@ -82,6 +82,11 @@ setopt autocd
 setopt PROMPT_SUBST
 setopt INTERACTIVE_COMMENTS
 
+setopt autopushd
+alias pp=popd
+
+export LISTMAX=0
+
 #
 # vim-режим
 #
