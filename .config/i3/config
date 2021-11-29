@@ -87,8 +87,10 @@ bindsym $mod+Shift+q exec "i3-msg exit"
 
 bindsym $mod+q workspace number "3:coding"; exec emacs
 bindsym $mod+w workspace number "4:internets"; exec $browser
-bindsym $mod+e exec pcmanfm  # or caja --no-default-window $HOME
+bindsym $mod+grave exec dunstctl close
+bindsym $mod+e exec pcmanfm-qt  # or caja --no-default-window $HOME
 bindsym $mod+d exec deadbeef
+bindsym $mod+p exec ~/bin/pomotroid
 bindsym $mod+u [urgent=latest] focus
 bindsym $mod+b exec --no-startup-id xscreensaver-command -lock  # or mate-screensaver --lock
 bindsym $mod+Print exec --no-startup-id "scrot -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'"
@@ -104,6 +106,7 @@ for_window [class="Display"] floating enable
 for_window [class="GStreamer"] floating enable
 for_window [class="Pinentry.*"] floating enable
 for_window [class="Gnome-pomodoro"] floating enable
+for_window [class="kmag"] floating enable
 for_window [class="^Pidgin$" window_role="buddy_list"] layout splith, resize shrink width 0 px or 30 ppt, move right
 for_window [class="^Pidgin$" window_role="conversation"] resize grow width 0 px or 30 ppt, move left
 
