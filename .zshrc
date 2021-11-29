@@ -308,10 +308,6 @@ alias -s {md,txt,cpp,cxx,h,hpp,hxx}=gvim
 alias -s {ogg,mp3,wav}=mplayer
 alias -s {jpg,jpeg,png,gif}=display
 
-# Печенюшка на дорожку ^_^
-hash fortune 2>/dev/null && {
-	fortune -a
-}
 
 # подсветка
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
