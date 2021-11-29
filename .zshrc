@@ -147,6 +147,7 @@ fi
 hash ack        2>/dev/null && { alias grep='nocorrect ack';              }
 hash ack-grep   2>/dev/null && { alias grep='nocorrect ack-grep';         }
 hash ag         2>/dev/null && { alias grep='nocorrect ag';               }
+hash bfs        2>/dev/null && { alias find='nocorrect bfs';              }
 hash curl       2>/dev/null && { alias curl='nocorrect curl';             }
 hash virtualenv 2>/dev/null && { alias virtualenv='nocorrect virtualenv'; }
 hash mpv        2>/dev/null && { alias mplayer='mpv';                     }
