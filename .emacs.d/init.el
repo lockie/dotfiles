@@ -23,7 +23,7 @@
   (frame-inhibit-implied-resize t)
   :config
   (load-theme 'zenburn t)
-  (add-to-list 'default-frame-alist '(font . "Anonymous Pro-12")))
+  (add-to-list 'default-frame-alist '(font . "Anonymous Pro-14")))
 
 (use-package bind-key :ensure t)
 (use-package diminish :ensure t)
