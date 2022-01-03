@@ -23,6 +23,8 @@
   (frame-inhibit-implied-resize t)
   :config
   (load-theme 'zenburn t)
+  (defun zenburn-color (color)
+    (cdr (assoc color zenburn-default-colors-alist)))
   (add-to-list 'default-frame-alist '(font . "Anonymous Pro-14")))
 
 (use-package bind-key :ensure t)
@@ -490,10 +492,12 @@
    "rs"  'purpose-save-window-layout
    "rt"  'purpose-toggle-window-purpose-dedicated)
   :config
-  (purpose-add-user-purposes :modes '((slime-repl-mode . terminal)
-                                      (slime-inspector-mode . popup)
-                                      (sldb-mode . terminal))
-                             :names '(("*slime-macroexpansion*" . popup)))
+  (purpose-add-user-purposes :modes '((sly-repl-mode . terminal)
+                                      (sly-inspector-mode . popup)
+                                      (sly-db-mode . terminal)
+                                      (sly-xref-mode . popup)
+                                      (cider-repl-mode . terminal))
+                             :names '(("*sly-macroexpansion*" . popup)))
   (purpose-mode))
 
 (use-package window-purpose-x
@@ -632,7 +636,7 @@
         comint company compile custom dashboard diff-mode dired doc-view ediff eww
         flymake geiser grep help ibuffer image imenu-list info ivy man magit
         minibuffer (occur replace) (package-menu package) profiler simple
-        slime wdired which-key woman xref))
+        sly wdired which-key woman xref))
   (evil-collection-setup-minibuffer t)
   :config
   (evil-collection-init))
@@ -1382,51 +1386,68 @@
    "msr" 'geiser-eval-region
   ))
 
-(use-package slime-company
+(use-package sly
   :ensure t
-  :defer t
+  :after (evil zenburn-theme)
   :custom
-  (slime-company-completion 'fuzzy))
-
-(use-package slime
-  :ensure t
-  :custom
-  (slime-lisp-implementations
+  (sly-lisp-implementations
    '((sbcl ("sbcl" "--dynamic-space-size" "4096"))
      (ccl ("ccl"))
-     (ecl ("ecl"))))
-  (slime-net-coding-system 'utf-8-unix)
-  (slime-contribs
-   '(slime-repl slime-autodoc slime-editing-commands slime-fancy-inspector
-                slime-fancy-trace slime-fuzzy slime-mdot-fu slime-macrostep
-                slime-presentations slime-quicklisp slime-references
-                slime-fontifying-fu slime-trace-dialog slime-company
-                slime-cl-indent slime-sbcl-exts))
-  (slime-complete-symbol*-fancy t)
-  (slime-repl-auto-right-margin t)
-  (slime-repl-history-size 10000)
+     (ecl ("ecl"))
+     (alisp ("alisp"))))
+  (sly-net-coding-system 'utf-8-unix)
   (lisp-indent-function 'common-lisp-indent-function)
   (common-lisp-style "sbcl")
-  :config
-  (let ((quicklisp-helper (expand-file-name "~/.quicklisp/slime-helper.el")))
-    (when (file-exists-p quicklisp-helper)
-      (load quicklisp-helper)))
+  (sly-complete-symbol-function #'my/sly-flex-completions)
+  :custom-face
+  (sly-mrepl-output-face ((t (:foreground ,(zenburn-color "zenburn-green+2")))))
+  (sly-note-face ((t (:underline (:style wave :color ,(zenburn-color "zenburn-fg"))))))
+  (sly-style-warning-face ((t (:underline (:style wave :color ,(zenburn-color "zenburn-blue"))))))
+  (sly-warning-face ((t (:underline (:style wave :color ,(zenburn-color "zenburn-orange"))))))
+  (sly-error-face ((t (:underline (:style wave :color ,(zenburn-color "zenburn-red-1"))))))
   :bind
-  (:map slime-mode-indirect-map
+  (:map sly-editing-mode-map
         ("M-n" . nil)
-        ("M-p" . nil))
+        ("M-p" . nil)
+        :map sly-mode-map
+        ("M-_" . nil)
+        :map evil-insert-state-map
+        ("C-r" . nil))
   :general
   (:states '(normal visual insert emacs)
-   :keymaps 'slime-mode-map
+   :keymaps 'sly-mode-map
    :prefix "SPC"
    :non-normal-prefix "M-m"
-   "mc"  'slime-compile-and-load-file
-   "mrc" 'slime-close-all-parens-in-sexp
-   "msb" 'slime-eval-buffer
-   "msd" 'slime-eval-defun
-   "mse" 'slime-eval-last-expression
-   "msi" 'slime
-   "msr" 'slime-eval-region))
+   "mc"  'sly-compile-and-load-file
+   "mrc" 'sly-close-all-parens-in-sexp
+   "msb" 'sly-eval-buffer
+   "msd" 'sly-eval-defun
+   "mse" 'sly-eval-last-expression
+   "msi" 'sly
+   "msr" 'sly-eval-region)
+  :config
+  (defun my/sly-flex-completions (pattern)
+    "Same as SLY-FLEX-COMPLETIONS, but without annoying percentage numbers"
+    (cl-loop with (completions _) =
+         (sly--completion-request-completions pattern 'slynk-completion:flex-completions)
+       for (completion score chunks classification suggestion) in completions
+       do (cl-loop for (pos substring) in chunks
+             do (put-text-property pos (+ pos (length substring))
+                                   'face 'completions-first-difference completion)
+             collect `(,pos . ,(+ pos (length substring))) into chunks-2
+             finally (put-text-property 0 (length completion)
+                                        'sly-completion-chunks chunks-2 completion))
+         (add-text-properties 0 (length completion)
+                              `(sly--annotation ,classification sly--suggestion ,suggestion)
+                              completion)
+       collect completion into formatted
+       finally return (list formatted nil))))
+
+(use-package sly-quicklisp
+  :ensure t
+  :defer t
+  :config
+  (define-key sly-prefix-map (kbd "C-q") 'sly-quickload))
 
 (use-package cmake-mode :ensure t)
 
@@ -1462,7 +1483,8 @@
   (fennel-mode-switch-to-repl-after-reload nil)
   :mode ("\\.fnl\\'" . fennel-mode)
   :hook
-  (fennel-mode . (lambda () (slime-mode -1) (slime-autodoc-mode -1) (slime-trace-dialog-minor-mode -1)))
+  (fennel-mode . (lambda () (sly-mode -1) (sly-editing-mode -1)
+                   (sly-quicklisp-mode -1) (sly-symbol-completion-mode -1)))
   :general
   (:states '(normal visual insert emacs)
    :keymaps 'fennel-mode-map
