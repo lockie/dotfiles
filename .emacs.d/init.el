@@ -1363,7 +1363,8 @@
 (use-package geiser
   :ensure t
   :custom
-  (geiser-active-implementations '(gambit chicken guile chez chibi))
+  (geiser-active-implementations '(gambit chicken guile chez chibi mit))
+  (geiser-default-implementation 'mit)
   (geiser-chicken-binary '("csi" "-R" "r7rs"))
   (geiser-autodoc-delay 0.4)
   (geiser-mode-smart-tab-p t)
