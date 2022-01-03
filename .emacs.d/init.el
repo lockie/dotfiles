@@ -763,7 +763,7 @@
   (:states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-m"
-   "pt"  'doom/ivy-tasks)
+   "pt"  '(doom/ivy-tasks :which-key "todos"))
   :hook (after-init . doom-todo-ivy))
 
 (use-package counsel-projectile
@@ -879,6 +879,25 @@
          (if (> (window-width) (+ fci-rule-column 5))
              (fci-mode 1)
            (fci-mode 0))))))
+
+;; prevent fill-column-indicator from adding weird symbols to Org export
+;; see https://emacs.stackexchange.com/q/44361/16660
+(use-package htmlize
+  :defer t
+  :config
+  (progn
+    (with-eval-after-load 'fill-column-indicator
+      (defvar modi/htmlize-initial-fci-state nil
+        "Variable to store the state of `fci-mode' when `htmlize-buffer' is called.")
+      (defun modi/htmlize-before-hook-fci-disable ()
+        (setq modi/htmlize-initial-fci-state fci-mode)
+        (when fci-mode
+          (fci-mode -1)))
+      (defun modi/htmlize-after-hook-fci-enable-maybe ()
+        (when modi/htmlize-initial-fci-state
+          (fci-mode 1)))
+      (add-hook 'htmlize-before-hook #'modi/htmlize-before-hook-fci-disable)
+      (add-hook 'htmlize-after-hook #'modi/htmlize-after-hook-fci-enable-maybe))))
 
 (use-package page-break-lines
   :ensure t
