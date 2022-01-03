@@ -201,6 +201,14 @@
        (evil-normal-state))))
   (evil-mode 1))
 
+(use-package org
+  :defer t
+  :custom
+  (org-ditaa-jar-path "/usr/share/ditaa/lib/ditaa.jar")
+  :config
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((ditaa . t))))
+
 (use-package which-key
   :ensure t
   :diminish which-key-mode
