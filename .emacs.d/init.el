@@ -181,6 +181,26 @@
 
 (use-package quelpa-use-package :ensure t)
 
+(use-package evil
+  :ensure t
+  :custom
+  (evil-want-C-u-scroll t)
+  (evil-want-fine-undo t)
+  (evil-want-keybinding nil)
+  :config
+  (defun my/kill-this-buffer ()
+      (interactive)
+      (if (window-minibuffer-p)
+          (abort-recursive-edit)
+        (kill-buffer)))
+  (evil-ex-define-cmd "bdelete" 'my/kill-this-buffer)
+  (run-with-idle-timer
+   10 t
+   (lambda()
+     (when (eq evil-state 'insert)
+       (evil-normal-state))))
+  (evil-mode 1))
+
 (use-package which-key
   :ensure t
   :diminish which-key-mode
@@ -345,6 +365,67 @@
                     (while (re-search-forward "^\\(.*\n\\)\\1+" end t)
                       (replace-match "\\1"))))))
            :which-key "uniquify lines"))
+  (general-define-key
+   :states '(normal visual insert)
+    "<left>"   (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <h> for Left, <b> for previous word"))
+    "<right>"  (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <l> for Right, <w> for next word"))
+    "<up>"     (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <k> for Up"))
+    "<down>"   (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <j> for Down"))
+    "<home>"   (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <0> for Home"))
+    "<end>"    (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <$> for End, <A> to insert at the end"))
+    "<C-home>" (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <gg> for beginning of document"))
+    "<C-end>"  (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <G> for end of document"))
+    "<prior>"  (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <C-b> for page up, <C-u> for half page up"))
+    "<next>"   (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <C-f> for page down, <C-d> for half page down"))
+    "<delete>" (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <x> for delete char, <d> for generic delete"))
+    "<insert>" (lambda () (interactive)
+                 (message
+                  "Use Vim keys: <i>/<a> for insert, <R> for overwrite"))
+    "<C-left>"  nil
+    "<C-right>" nil
+    "<C-up>"    nil
+    "<C-down>"  nil
+    "<M-left>"  nil
+    "<M-right>" nil)
+  (general-define-key
+  :states 'visual
+    "<" (lambda ()
+          (interactive)
+          (call-interactively 'evil-shift-left)
+          (evil-normal-state)
+          (evil-visual-restore))
+    ">" (lambda ()
+          (interactive)
+          (call-interactively 'evil-shift-right)
+          (evil-normal-state)
+          (evil-visual-restore)))
+  (general-define-key
+   :states 'motion
+    "TAB" nil
+    "K"   nil
+    ";"   'evil-ex)
   (push '(("\\(.*\\) 1" . "buffer-to-window-1") . ("\\1 1..9" . "buffer to window 1..9"))
         which-key-replacement-alist)
   (push '((nil . "buffer-to-window-[2-9]") . t) which-key-replacement-alist)
@@ -429,6 +510,7 @@
 
 (use-package spaceline-config
   :ensure spaceline
+  :after evil
   :defer 0.1
   :custom
   (evil-emacs-state-cursor
@@ -531,96 +613,16 @@
   :config
   (global-undo-fu-session-mode +1))
 
-(use-package evil
-  :ensure t
-  :custom
-  (evil-want-C-u-scroll t)
-  (evil-want-fine-undo t)
-  (evil-want-keybinding nil)
-  :general
-  (:states
-   '(normal visual insert)
-   "<left>"   (lambda () (interactive)
-                (message
-                 "Use Vim keys: <h> for Left, <b> for previous word"))
-   "<right>"  (lambda () (interactive)
-                (message
-                 "Use Vim keys: <l> for Right, <w> for next word"))
-   "<up>"     (lambda () (interactive)
-                (message
-                 "Use Vim keys: <k> for Up"))
-   "<down>"   (lambda () (interactive)
-                (message
-                 "Use Vim keys: <j> for Down"))
-   "<home>"   (lambda () (interactive)
-                (message
-                 "Use Vim keys: <0> for Home"))
-   "<end>"    (lambda () (interactive)
-                (message
-                 "Use Vim keys: <$> for End, <A> to insert at the end"))
-   "<C-home>" (lambda () (interactive)
-                (message
-                 "Use Vim keys: <gg> for beginning of document"))
-   "<C-end>"  (lambda () (interactive)
-                (message
-                 "Use Vim keys: <G> for end of document"))
-   "<prior>"  (lambda () (interactive)
-                (message
-                 "Use Vim keys: <C-b> for page up, <C-u> for half page up"))
-   "<next>"   (lambda () (interactive)
-                (message
-                 "Use Vim keys: <C-f> for page down, <C-d> for half page down"))
-   "<delete>" (lambda () (interactive)
-                (message
-                 "Use Vim keys: <x> for delete char, <d> for generic delete"))
-   "<insert>" (lambda () (interactive)
-                (message
-                 "Use Vim keys: <i>/<a> for insert, <R> for overwrite"))
-   "<C-left>"  nil
-   "<C-right>" nil
-   "<C-up>"    nil
-   "<C-down>"  nil
-   "<M-left>"  nil
-   "<M-right>" nil)
-  ('visual
-   "<" (lambda ()
-         (interactive)
-         (call-interactively 'evil-shift-left)
-         (evil-normal-state)
-         (evil-visual-restore))
-   ">" (lambda ()
-         (interactive)
-         (call-interactively 'evil-shift-right)
-         (evil-normal-state)
-         (evil-visual-restore)))
-  (:states 'motion
-   "TAB" nil
-   "K"   nil
-   ";"   'evil-ex)
-  :config
-  (defun my/kill-this-buffer ()
-      (interactive)
-      (if (window-minibuffer-p)
-          (abort-recursive-edit)
-        (kill-buffer)))
-  (evil-ex-define-cmd "bdelete" 'my/kill-this-buffer)
-  (run-with-idle-timer
-   10 t
-   (lambda()
-     (when (eq evil-state 'insert)
-       (evil-normal-state))))
-  (evil-mode)
-  (global-undo-tree-mode -1))
-
 (use-package evil-collection
   :ensure t
   :defer 0.1
+  :after evil
   :custom
   (evil-collection-company-use-tng nil)
   (evil-collection-key-blacklist '("SPC" "<escape>"))
   (evil-collection-mode-list
    '(ag bookmark (buff-menu "buff-menu") calc calendar cmake-mode
-        comint company compile custom diff-mode dired doc-view ediff eww
+        comint company compile custom dashboard diff-mode dired doc-view ediff eww
         flymake geiser grep help ibuffer image imenu-list info ivy man magit
         minibuffer (occur replace) (package-menu package) profiler simple
         slime wdired which-key woman xref))
@@ -706,7 +708,6 @@
   :hook
   (dashboard-mode
    . (lambda ()
-       (evil-mode)
        (define-key evil-normal-state-local-map (kbd "m")
          (lookup-key dashboard-mode-map "m"))
        (define-key evil-normal-state-local-map (kbd "p")
@@ -934,10 +935,14 @@
   (nconc lisp-extra-font-lock-let-functions '("if-let" "when-let"))
   (lisp-extra-font-lock-global-mode t))
 
-(use-package evil-anzu :ensure t :defer 0.1)
+(use-package evil-anzu
+  :ensure t
+  :after evil
+  :defer 0.1)
 
 (use-package evil-matchit
   :ensure t
+  :after evil
   :defer 0.1
   :custom
   (evilmi-may-jump-by-percentage nil)
@@ -945,12 +950,14 @@
 
 (use-package evil-fringe-mark
   :ensure t
+  :after evil
   :defer 0.1
   :diminish global-evil-fringe-mark-mode
   :config (global-evil-fringe-mark-mode))
 
 (use-package ivy-rich
   :ensure t
+  :defer 0.1
   :custom
   (ivy-rich-display-transformers-list
    '(ivy-switch-buffer
