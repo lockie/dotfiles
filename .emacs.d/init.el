@@ -649,6 +649,12 @@
   :custom-face
   (ivy-current-match ((t (:inherit 'hl-line))))
   :general
+  (:states 'motion
+   :keymaps 'ivy-minibuffer-map
+   "C-d" 'ivy-scroll-up-command
+   "C-f" 'ivy-scroll-up-command
+   "C-u" 'ivy-scroll-down-command
+   "C-b" 'ivy-scroll-down-command)
   (:states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-m"
