@@ -17,13 +17,6 @@
 (eval-when-compile
   (require 'use-package))
 
-(use-package gcmh
-  :ensure t
-  :diminish gcmh-mode
-  :custom
-  (gcmh-idle-delay 3)
-  :config (gcmh-mode t))
-
 (use-package zenburn-theme
   :ensure t
   :custom
