@@ -1341,6 +1341,25 @@
   (c-mode . eglot-ensure)
   (c++-mode . eglot-ensure))
 
+(use-package cider
+  :ensure t
+  :hook
+  (cider-mode . (lambda ()
+                  (set (make-local-variable 'eldoc-documentation-function)
+                       'cider-eldoc)))
+  :general
+  (:states '(normal visual insert emacs)
+   :keymaps 'clojure-mode-map
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "msi" 'cider-jack-in
+   "mhc" 'cider-cheatsheet)
+  (:states '(motion)
+   :keymaps 'clojure-mode-map
+   "gd" 'cider-find-var))
+
+;; TODO : clj-kondo
+
 (use-package geiser
   :ensure t
   :custom
