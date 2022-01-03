@@ -606,6 +606,7 @@
   (undo-strong-limit 12000000)
   (undo-outer-limit 120000000)
   (undo-fu-ignore-keyboard-quit t)
+  (evil-undo-system 'undo-fu)
   :config
   (global-set-key [remap undo] #'undo-fu-only-undo)
   (global-set-key [remap redo] #'undo-fu-only-redo))
@@ -1184,8 +1185,6 @@
         ("M-3" . nil)
         ("M-4" . nil)))
 
-(use-package evil-magit :ensure t :defer 0.1)
-
 (use-package git-gutter-fringe
   :ensure t
   :diminish git-gutter-mode
@@ -1427,13 +1426,9 @@
    "msd" 'lisp-eval-defun
    "msr" 'lisp-eval-region))
 
-(use-package gitattributes-mode :ensure t)
-
-(use-package gitconfig-mode :ensure t)
-
-(use-package gitignore-mode
+(use-package git-modes
   :ensure t
-  :mode "/.dockerignore\\'")
+  :mode ("/.dockerignore\\'" . gitignore-mode))
 
 (use-package lua-mode
   :ensure t)
