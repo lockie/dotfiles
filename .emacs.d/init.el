@@ -138,10 +138,6 @@
   (put 'compile-command 'safe-local-variable #'stringp)
   :hook
   (after-save . executable-make-buffer-file-executable-if-script-p)
-  (after-change-major-mode
-   . (lambda ()
-       (unless (equal major-mode 'term-mode)
-         (define-key key-translation-map (kbd "ESC") (kbd "C-g")))))
   (ediff-load
    . (lambda ()
        (add-hook 'ediff-before-setup-hook
