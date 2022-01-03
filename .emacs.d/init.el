@@ -494,9 +494,7 @@
                                       (slime-inspector-mode . popup)
                                       (sldb-mode . terminal))
                              :names '(("*slime-macroexpansion*" . popup)))
-  (purpose-mode)
-  :init
-  (setq purpose-mode-map (make-sparse-keymap)))
+  (purpose-mode))
 
 (use-package window-purpose-x
   :ensure window-purpose
