@@ -1198,6 +1198,8 @@
       (window-configuration-to-register :magit-fullscreen)
       ad-do-it
       (delete-other-windows))
+  (defadvice magit-mode-quit-window (after magit-restore-screen activate)
+      (jump-to-register :magit-fullscreen))
   :bind
   (:map magit-status-mode-map
         ("q" . (lambda ()
