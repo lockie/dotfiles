@@ -1,0 +1,13 @@
+ao=alsa
+vo=gpu
+profile=opengl-hq
+hwdec=vdpau
+hwdec-codecs=all
+scale=ewa_lanczossharp
+cscale=ewa_lanczossharp
+interpolation
+video-sync=display-resample
+tscale=oversample
+sub-ass=yes
+sub-codepage=enca
+cache=yes
