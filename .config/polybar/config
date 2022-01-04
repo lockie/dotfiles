@@ -335,15 +335,14 @@ format-suffix-foreground = ${colors.foreground-alt}
 format = <label>
 format-prefix-foreground = ${colors.foreground-alt}
 format-padding = 1
-label = %mb_used:10%
+label = %mb_used:9%
 format-background = ${colors.background}
 
 
 [module/swap]
-type = custom/script
-exec = LANG=C free -h --mega | tail -n1 | awk '{print $3}'
-tail = false
-interval = 3
+type = internal/memory
+label = %mb_swap_used%
+interval = 1
 format-background = ${colors.background}
 
 
