@@ -1,0 +1,3 @@
+set sandbox none
+set font "Monofur 14"
+set adjust-open "best-fit"
