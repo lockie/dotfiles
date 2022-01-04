@@ -111,6 +111,8 @@
     # Paths to default icons.
     icon_path = /usr/share/icons/Vertex/status/64/
 
+    fullscreen = delay
+
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
