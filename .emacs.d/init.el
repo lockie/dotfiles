@@ -1347,6 +1347,8 @@
 
 (use-package cider
   :ensure t
+  :custom
+  (cider-repl-history-file (my/cache-file ".cider-repl-history"))
   :hook
   (cider-mode . (lambda ()
                   (set (make-local-variable 'eldoc-documentation-function)
@@ -1360,7 +1362,10 @@
    "mhc" 'cider-cheatsheet)
   (:states '(motion)
    :keymaps 'clojure-mode-map
-   "gd" 'cider-find-var))
+   "gd" 'cider-find-var)
+  (:keymaps 'cider-repl-mode-map
+   :prefix "C-c"
+   "M-o" 'cider-repl-clear-buffer))
 
 ;; TODO : clj-kondo
 
