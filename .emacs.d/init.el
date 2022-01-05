@@ -1395,21 +1395,22 @@
   :ensure t
   :after (evil zenburn-theme)
   :custom
-  (sly-lisp-implementations
-   '((sbcl ("sbcl" "--dynamic-space-size" "4096"))
-     (ccl ("ccl"))
-     (ecl ("ecl"))
-     (alisp ("alisp"))))
+  (sly-default-lisp 'sbcl)
   (sly-net-coding-system 'utf-8-unix)
-  (lisp-indent-function 'common-lisp-indent-function)
-  (common-lisp-style "sbcl")
+  (sly-common-lisp-style-default "sbcl")
   (sly-complete-symbol-function #'my/sly-flex-completions)
+  (sly-mrepl-history-file-name (my/cache-file ".sly-mrepl-history"))
   :custom-face
-  (sly-mrepl-output-face ((t (:foreground ,(zenburn-color "zenburn-green+2")))))
-  (sly-note-face ((t (:underline (:style wave :color ,(zenburn-color "zenburn-fg"))))))
-  (sly-style-warning-face ((t (:underline (:style wave :color ,(zenburn-color "zenburn-blue"))))))
-  (sly-warning-face ((t (:underline (:style wave :color ,(zenburn-color "zenburn-orange"))))))
-  (sly-error-face ((t (:underline (:style wave :color ,(zenburn-color "zenburn-red-1"))))))
+  (sly-mrepl-output-face
+   ((t (:foreground ,(zenburn-color "zenburn-green+2")))))
+  (sly-note-face
+   ((t (:underline (:style wave :color ,(zenburn-color "zenburn-fg"))))))
+  (sly-style-warning-face
+   ((t (:underline (:style wave :color ,(zenburn-color "zenburn-blue"))))))
+  (sly-warning-face
+   ((t (:underline (:style wave :color ,(zenburn-color "zenburn-orange"))))))
+  (sly-error-face
+   ((t (:underline (:style wave :color ,(zenburn-color "zenburn-red-1"))))))
   :bind
   (:map sly-editing-mode-map
         ("M-n" . nil)
@@ -1431,6 +1432,12 @@
    "msi" 'sly
    "msr" 'sly-eval-region)
   :config
+  (setq sly-lisp-implementations
+        '((sbcl ("sbcl" "--dynamic-space-size" "4096"))
+          (ccl ("ccl"))
+          (ecl ("ecl"))
+          (alisp ("alisp"))))
+  (setq lisp-indent-function #'sly-common-lisp-indent-function)
   (defun my/sly-flex-completions (pattern)
     "Same as SLY-FLEX-COMPLETIONS, but without annoying percentage numbers"
     (cl-loop with (completions _) =
