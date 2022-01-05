@@ -36,7 +36,7 @@
     (if (boundp 'user-emacs-directory)
         user-emacs-directory
       "~/.emacs.d/")
-    ".cache/"
+    "cache/"
     filename)))
 
 (use-package emacs
