@@ -23,7 +23,7 @@
   (frame-inhibit-implied-resize t)
   :config
   (load-theme 'zenburn t)
-  (defun zenburn-color (color)
+  (defun my/zenburn-color (color)
     (cdr (assoc color zenburn-default-colors-alist)))
   (add-to-list 'default-frame-alist '(font . "Anonymous Pro-14")))
 
@@ -794,10 +794,10 @@
   (recentf-max-saved-items 1000)
   (recentf-auto-save-timer (run-with-idle-timer 60 t 'recentf-save-list))
   :config
-  (defun recentf-save-silently-advice (original &rest args)
+  (defun my/recentf-save-silently-advice (original &rest args)
     (let ((inhibit-message t))
       (apply original args)))
-  (advice-add 'recentf-save-list :around #'recentf-save-silently-advice)
+  (advice-add 'recentf-save-list :around #'my/recentf-save-silently-advice)
   (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
   (add-to-list 'recentf-exclude "/usr/share/emacs/.*")
   (add-to-list 'recentf-exclude "/tmp/.*")
@@ -1402,15 +1402,15 @@
   (sly-mrepl-history-file-name (my/cache-file ".sly-mrepl-history"))
   :custom-face
   (sly-mrepl-output-face
-   ((t (:foreground ,(zenburn-color "zenburn-green+2")))))
+   ((t (:foreground ,(my/zenburn-color "zenburn-green+2")))))
   (sly-note-face
-   ((t (:underline (:style wave :color ,(zenburn-color "zenburn-fg"))))))
+   ((t (:underline (:style wave :color ,(my/zenburn-color "zenburn-fg"))))))
   (sly-style-warning-face
-   ((t (:underline (:style wave :color ,(zenburn-color "zenburn-blue"))))))
+   ((t (:underline (:style wave :color ,(my/zenburn-color "zenburn-blue"))))))
   (sly-warning-face
-   ((t (:underline (:style wave :color ,(zenburn-color "zenburn-orange"))))))
+   ((t (:underline (:style wave :color ,(my/zenburn-color "zenburn-orange"))))))
   (sly-error-face
-   ((t (:underline (:style wave :color ,(zenburn-color "zenburn-red-1"))))))
+   ((t (:underline (:style wave :color ,(my/zenburn-color "zenburn-red-1"))))))
   :bind
   (:map sly-editing-mode-map
         ("M-n" . nil)
