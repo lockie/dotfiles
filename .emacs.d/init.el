@@ -497,7 +497,8 @@
                                       (sly-db-mode . terminal)
                                       (sly-xref-mode . popup)
                                       (cider-repl-mode . terminal))
-                             :names '(("*sly-macroexpansion*" . popup)))
+                             :names '(("*sly-macroexpansion*" . popup)
+                                      ("*cider-clojuredocs*" . popup)))
   (purpose-mode))
 
 (use-package window-purpose-x
