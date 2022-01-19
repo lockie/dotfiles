@@ -726,6 +726,7 @@
   :hook
   (dashboard-mode
    . (lambda ()
+       (projectile-mode)
        (define-key evil-normal-state-local-map (kbd "m")
          (lookup-key dashboard-mode-map "m"))
        (define-key evil-normal-state-local-map (kbd "p")
@@ -750,6 +751,7 @@
   (find-file . projectile-find-file-hook-function)
   :custom
   (projectile-completion-system 'ivy)
+  (projectile-enable-caching t)
   :general
   (:states '(normal visual insert emacs)
    :prefix "SPC"
