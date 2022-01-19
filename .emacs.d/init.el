@@ -1202,17 +1202,19 @@
   (magit-diff-mode . (lambda () (setq truncate-lines nil)))
   :config
   (defadvice magit-status (around magit-fullscreen activate)
-      (window-configuration-to-register :magit-fullscreen)
-      ad-do-it
-      (delete-other-windows))
+    (window-configuration-to-register :magit-fullscreen)
+    ad-do-it
+    (delete-other-windows))
   (defadvice magit-mode-quit-window (after magit-restore-screen activate)
-      (jump-to-register :magit-fullscreen))
+    (jump-to-register :magit-fullscreen))
+  (defun my/close-magit ()
+    (interactive)
+    (kill-buffer)
+    (jump-to-register :magit-fullscreen))
   :bind
   (:map magit-status-mode-map
-        ("q" . (lambda ()
-                 (interactive)
-                 (kill-buffer)
-                 (jump-to-register :magit-fullscreen))))
+        ("q" . my/close-magit)
+        ("<escape>" . my/close-magit))
   (:map magit-diff-mode-map
         ("M-1" . nil)
         ("M-2" . nil)
