@@ -930,7 +930,7 @@
   :ensure t
   :diminish volatile-highlights-mode
   :custom-face
-  (vhl/default-face ((t (:background "#3F5F3F"))))
+  (vhl/default-face ((t (:background ,(my/zenburn-color "zenburn-green-4")))))
   :config
   (vhl/define-extension 'evil 'evil-paste-after 'evil-paste-before
                         'evil-paste-pop 'evil-move)
@@ -1205,16 +1205,16 @@
   :custom-face
   (flymake-error
    ((((supports :underline (:style wave)))
-     (:underline (:style wave :color "#BC8383") :inherit unspecified))
-    (t (:foreground "#BC8383" :weight bold :underline t))))
+     (:underline (:style wave :color ,(my/zenburn-color "zenburn-red-1")) :inherit unspecified))
+    (t (:foreground ,(my/zenburn-color "zenburn-red-1") :weight bold :underline t))))
   (flymake-warning
    ((((supports :underline (:style wave)))
-     (:underline (:style wave :color "#F0DFAF") :inherit unspecified))
-    (t (:foreground "#F0DFAF" :weight bold :underline t))))
+     (:underline (:style wave :color ,(my/zenburn-color "zenburn-yellow")) :inherit unspecified))
+    (t (:foreground ,(my/zenburn-color "zenburn-yellow") :weight bold :underline t))))
   (flymake-note
    ((((supports :underline (:style wave)))
-     (:underline (:style wave :color "#93E0E3") :inherit unspecified))
-    (t (:foreground "#93E0E3" :weight bold :underline t))))
+     (:underline (:style wave :color ,(my/zenburn-color "zenburn-cyan")) :inherit unspecified))
+    (t (:foreground ,(my/zenburn-color "zenburn-cyan") :weight bold :underline t))))
   :custom
   (flymake-wrap-around t)
   :general
