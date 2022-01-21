@@ -498,6 +498,7 @@
                                       (sly-xref-mode . popup)
                                       (cider-repl-mode . terminal))
                              :names '(("*sly-macroexpansion*" . popup)
+                                      ("*cider-macroexpansion*" . popup)
                                       ("*cider-clojuredocs*" . popup)))
   (purpose-mode))
 
@@ -842,36 +843,6 @@
 (use-package reverse-im
   :ensure t
   :config (reverse-im-activate "russian-computer"))
-
-(use-package smartparens
-  :ensure t
-  :diminish smartparens-mode
-  :custom
-  (sp-autoinsert-pair nil)
-  (sp-autoskip-closing-pair nil)
-  (sp-base-key-bindings 'paredit)
-  :bind
-  (:map smartparens-mode-map
-        ("C-M-a" . sp-beginning-of-sexp)
-        ("C-M-e" . sp-end-of-sexp)
-        ("C-M-n" . sp-next-sexp)
-        ("C-M-p" . sp-previous-sexp)
-        ("C-M-k" . sp-kill-sexp)
-        ("C-k" . sp-kill-hybrid-sexp)
-        ("M-k" . sp-backward-kill-sexp)
-        ("M-]" . sp-unwrap-sexp)
-        ("M-[" . sp-backward-unwrap-sexp)
-        ("M-;" . sp-comment)
-        ("M-d" . sp-kill-word)
-        ("M-S" . sp-split-sexp)))
-
-(use-package smartparens-config
-  :ensure smartparens
-  :hook
-  (emacs-lisp-mode . smartparens-mode)
-  (lisp-mode . smartparens-mode)
-  (scheme-mode . smartparens-mode)
-  (racket-mode . smartparens-mode))
 
 (use-package fill-column-indicator
   :ensure t
@@ -1315,6 +1286,7 @@
   :hook
   (emacs-lisp-mode . (lambda () (setq-local counsel-dash-docsets '("Emacs Lisp"))))
   (lisp-mode . (lambda () (setq-local counsel-dash-docsets '("Common Lisp"))))
+  (clojure-mode . (lambda () (setq-local counsel-dash-docsets '("Clojure"))))
   (racket-mode . (lambda () (setq-local counsel-dash-docsets '("Racket"))))
   (python-mode . (lambda () (setq-local counsel-dash-docsets '("Python 3" "Django"))))
   (TeX-mode . (lambda () (setq-local counsel-dash-docsets '("LaTeX"))))
@@ -1372,7 +1344,27 @@
    :prefix "C-c"
    "M-o" 'cider-repl-clear-buffer))
 
-;; TODO : clj-kondo
+(use-package cider-eval-sexp-fu
+  :ensure t
+  :custom
+  (eval-sexp-fu-flash-duration 0.2)
+  (eval-sexp-fu-flash-error-duration 0.2)
+  (eval-sexp-fu-flash-face '((t (:inherit 'highlight))))
+  (eval-sexp-fu-flash-error-face '((t (:inherit 'highlight)))))
+
+(use-package clj-refactor
+  :ensure t
+  :hook
+  (clojure-mode . (lambda ()
+                    (clj-refactor-mode 1)
+                    (cljr-add-keybindings-with-prefix "C-c r"))))
+
+(use-package flymake-kondor
+  :ensure t
+  :hook
+  (clojure-mode . flymake-kondor-setup))
+
+;; TODO : <https://github.com/nedap/formatting-stack>
 
 (use-package geiser
   :ensure t
