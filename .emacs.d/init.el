@@ -1498,7 +1498,14 @@
                               `(sly--annotation ,classification sly--suggestion ,suggestion)
                               completion)
        collect completion into formatted
-       finally return (list formatted nil))))
+       finally return (list formatted nil)))
+  (defun my/sly-ignore-fennel (f &rest args)
+    "Prevent sly functions from running in `fennel-mode'."
+    (unless (or (eq major-mode 'fennel-mode)
+                (eq major-mode 'fennel-repl-mode))
+      (apply f args)))
+  (dolist (f '(sly-mode sly-editing-mode))
+    (advice-add f :around #'my/sly-ignore-fennel)))
 
 (use-package sly-quicklisp
   :ensure t
@@ -1539,9 +1546,6 @@
   :custom
   (fennel-mode-switch-to-repl-after-reload nil)
   :mode ("\\.fnl\\'" . fennel-mode)
-  :hook
-  (fennel-mode . (lambda () (sly-mode -1) (sly-editing-mode -1)
-                   (sly-quicklisp-mode -1) (sly-symbol-completion-mode -1)))
   :general
   (:states '(normal visual insert emacs)
    :keymaps 'fennel-mode-map
