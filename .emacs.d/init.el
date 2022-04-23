@@ -857,6 +857,22 @@
   :ensure t
   :config (reverse-im-activate "russian-computer"))
 
+(use-package paredit
+  :ensure t
+  :hook
+  (clojure-mode . paredit-mode)
+  (lisp-mode . paredit-mode)
+  (emacs-lisp-mode . paredit-mode)
+  (scheme-mode . paredit-mode)
+  (racket-mode . paredit-mode)
+  (ielm-mode . paredit-mode)
+  (lisp-interaction-mode . paredit-mode)
+  :bind
+  ("M-[" . paredit-wrap-square)
+  ("M-{" . paredit-wrap-curly)
+  :config
+  (eldoc-add-command 'paredit-backward-delete 'paredit-close-round))
+
 (use-package fill-column-indicator
   :ensure t
   :custom
