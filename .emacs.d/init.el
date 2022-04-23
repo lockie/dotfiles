@@ -1640,6 +1640,13 @@
   (racket-mode . (lambda () (setq evil-shift-width lisp-body-indent)))
   (racket-repl-mode . (lambda () (setq indicate-empty-lines nil))))
 
+(use-package sql-indent
+  :ensure t
+  :after sql
+  :diminish sql-indent
+  :hook
+  (sql-mode . sqlind-minor-mode))
+
 (use-package tex-mode
   :ensure auctex
   :custom
