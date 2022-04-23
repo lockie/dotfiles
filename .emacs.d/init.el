@@ -25,6 +25,11 @@
   (load-theme 'zenburn t)
   (defun my/zenburn-color (color)
     (cdr (assoc color zenburn-default-colors-alist)))
+  (unless (display-graphic-p)
+    (zenburn-with-color-variables
+      (custom-theme-set-faces
+       'zenburn
+       `(line-number ((t (:foreground ,zenburn-fg-05 :background ,zenburn-bg-05)))))))
   (add-to-list 'default-frame-alist '(font . "Anonymous Pro-14")))
 
 (use-package bind-key :ensure t)
@@ -95,6 +100,7 @@
   (dired-dwim-target t)
   (winner-dont-bind-my-keys t)
   (hexl-bits 8)
+  (dired-listing-switches "-val --group-directories-first")
   (frame-title-format
    '(:eval
      (format
@@ -976,7 +982,7 @@
        (ivy-rich-switch-buffer-size (:width 7))
        (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
        (ivy-rich-switch-buffer-major-mode (:width 16 :face warning))
-       (ivy-rich-switch-buffer-project (:width 15 :face success))
+       (ivy-rich-switch-buffer-project (:width 30 :face success))
        (ivy-rich-switch-buffer-path
         (:width
          (lambda (x)
