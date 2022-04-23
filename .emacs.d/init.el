@@ -1581,6 +1581,10 @@
    :non-normal-prefix "M-m"
    "mp" 'markdown-preview))
 
+(use-package nsis-mode
+  :ensure t
+  :mode "\\.nsi\\'")
+
 (use-package pip-requirements :ensure t)
 
 (use-package python
