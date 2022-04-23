@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-screensaver" version="1.0">
+  <property name="saver" type="empty">
+    <property name="mode" type="int" value="0"/>
+    <property name="idle-activation" type="empty">
+      <property name="delay" type="int" value="20"/>
+      <property name="enabled" type="bool" value="true"/>
+    </property>
+    <property name="fullscreen-inhibit" type="bool" value="true"/>
+  </property>
+  <property name="screensavers" type="empty">
+    <property name="xfce-floaters" type="empty">
+      <property name="print-stats" type="bool" value="false"/>
+      <property name="arguments" type="string" value="-n 25"/>
+      <property name="do-rotations" type="bool" value="false"/>
+      <property name="show-paths" type="bool" value="false"/>
+      <property name="number-of-images" type="int" value="25"/>
+    </property>
+    <property name="xfce-blank" type="empty">
+      <property name="dpms-sleep-after" type="double" value="60.000000"/>
+      <property name="arguments" type="string" value=""/>
+      <property name="dpms-off-after" type="double" value="60.000000"/>
+    </property>
+  </property>
+  <property name="lock" type="empty">
+    <property name="user-switching" type="empty">
+      <property name="enabled" type="bool" value="false"/>
+    </property>
+    <property name="logout" type="empty">
+      <property name="enabled" type="bool" value="false"/>
+    </property>
+  </property>
+</channel>
