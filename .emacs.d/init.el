@@ -1317,16 +1317,18 @@
   (lisp-mode . (lambda () (setq-local counsel-dash-docsets '("Common Lisp"))))
   (clojure-mode . (lambda () (setq-local counsel-dash-docsets '("Clojure"))))
   (racket-mode . (lambda () (setq-local counsel-dash-docsets '("Racket"))))
-  (python-mode . (lambda () (setq-local counsel-dash-docsets '("Python 3" "Django"))))
+  (lua-mode . (lambda () (setq-local counsel-dash-docsets '("Lua"))))
+  (python-mode . (lambda () (setq-local counsel-dash-docsets '("Python 3" "Django" "Flask" "NumPy" "SQLAlchemy"))))
+  (sql-mode . (lambda () (setq-local counsel-dash-docsets '("PostgreSQL"))))
   (TeX-mode . (lambda () (setq-local counsel-dash-docsets '("LaTeX"))))
   (markdown-mode . (lambda () (setq-local counsel-dash-docsets '("Markdown"))))
-  (web-mode . (lambda () (setq-local counsel-dash-docsets '("HTML" "Jinja" "CSS"))))
+  (web-mode . (lambda () (setq-local counsel-dash-docsets '("HTML" "Jinja" "CSS" "jQuery"))))
   (css-mode . (lambda () (setq-local counsel-dash-docsets '("CSS"))))
   (dockerfile-mode . (lambda () (setq-local counsel-dash-docsets '("Docker" "Bash"))))
   (sh-mode . (lambda () (setq-local counsel-dash-docsets '("Bash"))))
   (cmake-mode . (lambda () (setq-local counsel-dash-docsets '("CMake"))))
-  (c-mode . (lambda () (setq-local counsel-dash-docsets '("C"))))
-  (c++-mode . (lambda () (setq-local counsel-dash-docsets '("C" "C++")))))
+  (c-mode . (lambda () (setq-local counsel-dash-docsets '("C" "GLib"))))
+  (c++-mode . (lambda () (setq-local counsel-dash-docsets '("C" "C++" "Qt")))))
 
 (use-package eglot
   :ensure t
