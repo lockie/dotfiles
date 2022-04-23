@@ -90,15 +90,15 @@ bindsym $mod+w workspace number "4:internets"; exec $browser
 bindsym $mod+grave exec dunstctl close
 bindsym $mod+e exec pcmanfm-qt  # or caja --no-default-window $HOME
 bindsym $mod+d exec deadbeef
-bindsym $mod+p exec ~/bin/pomotroid
+bindsym $mod+p exec $HOME/bin/pomotroid --no-sandbox
 bindsym $mod+u [urgent=latest] focus
 bindsym $mod+b exec --no-startup-id xfce4-screensaver-command --lock  # or mate-screensaver --lock
 bindsym $mod+Print exec --no-startup-id "scrot -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'"
 bindsym $mod+Shift+Print exec --no-startup-id "sleep 1; scrot -d 1 -s -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'"
 bindsym $mod+space layout toggle
 
-bindsym --whole-window button8 move left
-bindsym --whole-window button9 move right
+bindsym --whole-window button9 move left
+bindsym --whole-window button8 move right
 
 for_window [class="Tilda"] floating enable move absolute position 624 16
 for_window [class="Gtk-recordMyDesktop"] floating enable
