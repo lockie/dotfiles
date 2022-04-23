@@ -145,6 +145,8 @@
         0.4 nil 'delete-windows-on
         (get-buffer-create "*compilation*"))
        (message "No compilation errors"))))
+  (put 'erase-buffer 'disabled nil)
+  (put 'dired-find-alternate-file 'disabled nil)
   :hook
   (after-save . executable-make-buffer-file-executable-if-script-p)
   (ediff-load
@@ -507,7 +509,10 @@
                              :names '(("*sly-macroexpansion*" . popup)
                                       ("*cider-macroexpansion*" . popup)
                                       ("*cider-clojuredocs*" . popup)))
-  (purpose-mode))
+  (purpose-mode)
+  :init
+  ;; prevent breaking C-c in term mode
+  (setq purpose-mode-map (make-sparse-keymap)))
 
 (use-package window-purpose-x
   :ensure window-purpose
@@ -1620,6 +1625,7 @@
 
 (use-package auctex-latexmk
   :ensure t
+  :after auctex
   :defer 1
   :custom
   (auctex-latexmk-inherit-TeX-PDF-mode t)
