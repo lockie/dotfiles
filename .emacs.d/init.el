@@ -1367,13 +1367,21 @@
    :prefix "SPC"
    :non-normal-prefix "M-m"
    "msi" 'cider-jack-in
-   "mhc" 'cider-cheatsheet)
+   "mhc" 'cider-cheatsheet
+   "mfb" 'cider-format-buffer
+   "mfr" 'cider-format-region
+   "mfd" 'cider-format-defun)
   (:states '(motion)
    :keymaps 'clojure-mode-map
    "gd" 'cider-find-var)
   (:keymaps 'cider-repl-mode-map
    :prefix "C-c"
-   "M-o" 'cider-repl-clear-buffer))
+   "M-o" 'cider-repl-clear-buffer)
+  :init
+  (put 'cider-default-cljs-repl 'safe-local-variable #'symbolp)
+  (put 'cider-shadow-default-options 'safe-local-variable #'stringp)
+  (put 'cider-shadow-watched-builds 'safe-local-variable #'listp)
+  (put 'cider-preferred-build-tool 'safe-local-variable #'symbolp))
 
 (use-package cider-eval-sexp-fu
   :ensure t
@@ -1394,6 +1402,15 @@
   :ensure t
   :hook
   (clojure-mode . flymake-kondor-setup))
+
+(use-package re-jump
+  :quelpa (re-jump
+           :fetcher github
+           :repo "oliyh/re-jump.el")
+  :general
+  (:states '(motion)
+   :keymaps 'clojure-mode-map
+   "gr" 're-frame-jump-to-reg))
 
 ;; TODO : <https://github.com/nedap/formatting-stack>
 
