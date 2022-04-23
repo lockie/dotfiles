@@ -971,7 +971,7 @@
 (use-package lisp-extra-font-lock
   :ensure t
   :config
-  (nconc lisp-extra-font-lock-let-functions '("if-let" "when-let"))
+  (nconc lisp-extra-font-lock-let-functions '("if-let" "when-let" "mvlet" "mvlet*"))
   (lisp-extra-font-lock-global-mode t))
 
 (use-package evil-anzu
