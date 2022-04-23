@@ -7,6 +7,3 @@ if [ ! -f /tmp/gpg-agent.env ]; then
     killall gpg-agent; gpg-agent --daemon --enable-ssh-support > /tmp/gpg-agent.env
 fi
 . /tmp/gpg-agent.env
-
-
-$HOME/bin/lightsOn.sh &
