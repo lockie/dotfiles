@@ -96,11 +96,12 @@ bindsym $mod+b exec --no-startup-id "xfce4-screensaver; xfce4-screensaver-comman
 bindsym $mod+Print exec --no-startup-id "scrot -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'"
 bindsym $mod+Shift+Print exec --no-startup-id "sleep 1; scrot -d 1 -s -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'"
 bindsym $mod+space layout toggle
+bindsym $mod+Escape exec --no-startup-id $HOME/.local/bin/i3-quickterm
 
 bindsym --whole-window button9 move left
 bindsym --whole-window button8 move right
 
-for_window [class="Tilda"] floating enable move absolute position 624 16
+for_window [title="shell - i3-quickterm"] border none
 for_window [class="Gtk-recordMyDesktop"] floating enable
 for_window [class="Display"] floating enable
 for_window [class="GStreamer"] floating enable
@@ -127,6 +128,5 @@ exec --no-startup-id xset r rate 190 25
 exec --no-startup-id dex -a -e i3
 exec --no-startup-id alttab
 exec --no-startup-id xfce4-screensaver  # or mate-screensaver
-exec --no-startup-id while pgrep -xf i3; do tilda; done
 exec --no-startup-id zim --plugin trayicon
 exec --no-startup-id /opt/bin/dropbox
