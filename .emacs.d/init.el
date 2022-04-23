@@ -330,6 +330,7 @@
    "q"   '(:which-key "quit")
    "qQ"  'kill-emacs
    "qq"  '(my/prompt-kill-emacs :which-key "quit emacs")
+   "s"   '(evil-write :which-key "save")
    "t"   '(:which-key "toggles")
    "ta"  '(goto-address-mode :which-key "toggle clickable addresses")
    "td"  'toggle-debug-on-error
