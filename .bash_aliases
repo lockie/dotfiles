@@ -23,6 +23,10 @@ hash htop 2>/dev/null && {
 hash pbzip2 2>/dev/null && {
 	alias bzip2='pbzip2 -v -p4'
 }
+hash zoom 2>/dev/null && {
+	# fucking piece of proprietary shit
+	alias zoom='zoom --no-sandbox'
+}
 
 if [ -f /usr/bin/grc ]; then
 	alias ping="grc --colour=auto ping"

@@ -20,7 +20,7 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+c kill
 
 # start a program launcher
-bindsym $mod+r exec --no-startup-id zsh -c "rofi -show run -fuzzy -levenshtein-sort -cache-dir $HOME/.local/share/rofi"
+bindsym $mod+r exec --no-startup-id rofi -show run -run-list-command $HOME/.zsh/aliases.sh -run-command "/bin/zsh -i -c '{cmd}'" -fuzzy -levenshtein-sort -cache-dir $HOME/.local/share/rofi
 
 # change focus
 bindsym $mod+h focus left
