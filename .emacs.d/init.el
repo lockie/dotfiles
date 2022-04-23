@@ -76,13 +76,6 @@
   (ediff-window-setup-function 'ediff-setup-windows-plain)
   (ediff-split-window-function 'split-window-horizontally)
   (compilation-read-command nil)
-  (compilation-finish-function
-   (lambda (_ str)
-     (when (null (string-match ".*exited abnormally.*" str))
-       (run-at-time
-        0.4 nil 'delete-windows-on
-        (get-buffer-create "*compilation*"))
-       (message "No compilation errors"))))
   (save-place-file (my/cache-file "places"))
   (whitespace-style '(face trailing tab-mark))
   (whitespace-display-mappings '((tab-mark   ?\t   [?\x2192?\x2192] [?\\ ?\t])))
@@ -144,6 +137,14 @@
   (setcdr (assq 'empty-line fringe-indicator-alist) 'tilde)
   (set-fringe-bitmap-face 'tilde 'line-number)
   (put 'compile-command 'safe-local-variable #'stringp)
+  (add-to-list
+   'compilation-finish-functions
+   (lambda (_ str)
+     (when (null (string-match ".*exited abnormally.*" str))
+       (run-at-time
+        0.4 nil 'delete-windows-on
+        (get-buffer-create "*compilation*"))
+       (message "No compilation errors"))))
   :hook
   (after-save . executable-make-buffer-file-executable-if-script-p)
   (ediff-load
