@@ -315,10 +315,8 @@ source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # поиск по истории!
 source "$HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
 export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-bindkey -M vicmd '^[[A' history-substring-search-up
-bindkey -M vicmd '^[[B' history-substring-search-down
+bindkey '^R' history-substring-search-up
+bindkey '^S' history-substring-search-down
 
 # поддержка 256-цветного терминала (чтобы mc не ругался)
 source "$HOME/.zsh/zsh-256color/zsh-256color.plugin.zsh"

@@ -14,6 +14,9 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
+bind '"\C-r": history-search-backward'
+bind '"\C-s": history-search-forward'
+
 # Put your fun stuff here.
 if [ -f ~/.bash_aliases ]; then
  . ~/.bash_aliases
