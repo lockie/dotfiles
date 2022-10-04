@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: bash set e
+# key: 
+# --
+set -euxo pipefail
