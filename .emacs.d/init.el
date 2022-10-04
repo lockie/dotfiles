@@ -110,6 +110,22 @@
        (dired-directory
         (concat "(" dired-directory ") "))
        (t "")))))
+  (icon-title-format
+   '(:eval
+     (format
+      "%s%s %s- emacs"
+      (if (buffer-modified-p)
+          (cond
+           (buffer-file-truename "* ")
+           (t ""))
+        "- ")
+      (buffer-name)
+      (cond
+       (buffer-file-truename
+        (concat "(" default-directory ") "))
+       (dired-directory
+        (concat "(" dired-directory ") "))
+       (t "")))))
   :config
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
@@ -216,9 +232,19 @@
   :defer t
   :custom
   (org-ditaa-jar-path "/usr/share/ditaa/lib/ditaa.jar")
+  (org-hide-emphasis-markers t)
+  (org-startup-with-inline-images t)
   :config
   (org-babel-do-load-languages 'org-babel-load-languages
                                '((ditaa . t))))
+
+(use-package org-appear
+  :ensure t
+  :defer t
+  :custom
+  (org-appear-autolinks t)
+  :hook
+  (org-mode . org-appear-mode))
 
 (use-package which-key
   :ensure t
@@ -919,7 +945,7 @@
   :ensure t
   :diminish highlight-indent-guides-mode
   :custom
-  (highlight-indent-guides-method 'character)
+  (highlight-indent-guides-method 'bitmap)
   (highlight-indent-guides-responsive 'stack)
   (highlight-indent-guides-character ?\N{U+2506})
   :hook
@@ -1001,7 +1027,7 @@
   (ivy-rich-display-transformers-list
    '(ivy-switch-buffer
      (:columns
-      ((ivy-rich-candidate (:width 42))
+      ((ivy-rich-candidate (:width 55))
        (ivy-rich-switch-buffer-size (:width 7))
        (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
        (ivy-rich-switch-buffer-major-mode (:width 16 :face warning))
