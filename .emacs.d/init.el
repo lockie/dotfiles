@@ -980,6 +980,7 @@
   :hook
   (html-mode . rainbow-mode)
   (css-mode . rainbow-mode)
+  (sass-mode . rainbow-mode)
   (latex-mode . rainbow-mode))
 
 (use-package volatile-highlights
@@ -1668,6 +1669,11 @@
   :hook
   (racket-mode . (lambda () (setq evil-shift-width lisp-body-indent)))
   (racket-repl-mode . (lambda () (setq indicate-empty-lines nil))))
+
+(use-package sass-mode
+  :ensure t
+  :defer t
+  :mode ("\\.sass\\'" . sass-mode))
 
 (use-package sql-indent
   :ensure t
