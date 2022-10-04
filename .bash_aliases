@@ -16,16 +16,16 @@ alias gitg='git gui'
 alias gg='git gui'
 alias gk='gitk --all'
 alias dc='docker-compose'
-alias vg='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -- '
+alias vg='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --num-callers=30 -- '
 hash htop 2>/dev/null && {
 	alias top='htop'
 }
 hash pbzip2 2>/dev/null && {
 	alias bzip2='pbzip2 -v -p4'
 }
-hash zoom 2>/dev/null && {
-	# fucking piece of proprietary shit
-	alias zoom='zoom --no-sandbox'
+hash steam 2>/dev/null && {
+	# fucking piece of electron shit
+	alias steam='steam -no-cef-sandbox'
 }
 
 if [ -f /usr/bin/grc ]; then
