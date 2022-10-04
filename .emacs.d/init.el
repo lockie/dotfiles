@@ -94,6 +94,7 @@
   (winner-dont-bind-my-keys t)
   (hexl-bits 8)
   (dired-listing-switches "-val --group-directories-first")
+  (warning-minimum-level :error)
   (frame-title-format
    '(:eval
      (format
@@ -357,6 +358,7 @@
    "qQ"  'kill-emacs
    "qq"  '(my/prompt-kill-emacs :which-key "quit emacs")
    "s"   '(evil-write :which-key "save")
+   "S"   '(evil-write-all :which-key "save all")
    "t"   '(:which-key "toggles")
    "ta"  '(goto-address-mode :which-key "toggle clickable addresses")
    "td"  'toggle-debug-on-error
