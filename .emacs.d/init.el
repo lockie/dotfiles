@@ -532,7 +532,8 @@
                                       (sly-inspector-mode . popup)
                                       (sly-db-mode . terminal)
                                       (sly-xref-mode . popup)
-                                      (cider-repl-mode . terminal))
+                                      (cider-repl-mode . terminal)
+                                      (cider-test-report-mode . popup))
                              :names '(("*sly-macroexpansion*" . popup)
                                       ("*cider-macroexpansion*" . popup)
                                       ("*cider-clojuredocs*" . popup)))
@@ -1393,6 +1394,8 @@
    :prefix "SPC"
    :non-normal-prefix "M-m"
    "msi" 'cider-jack-in
+   "msI" 'cider-jack-in-clj&cljs
+   "mss" 'sesman-start
    "mhc" 'cider-cheatsheet
    "mfb" 'cider-format-buffer
    "mfr" 'cider-format-region
