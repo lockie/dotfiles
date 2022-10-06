@@ -1,0 +1,7 @@
+{
+    "term": "st",
+    "ratio": 0.36,
+    "shells": {
+        "shell": "{$SHELL}"
+    }
+}
