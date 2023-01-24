@@ -1376,6 +1376,7 @@
      :foldingRangeProvider :codeActionProvider :documentLinkProvider))
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+  (add-to-list 'eglot-server-programs '(fennel-mode "fennel-ls"))
   (general-define-key
    :states '(normal visual insert emacs)
    :keymap 'eglot-mode-map
@@ -1387,7 +1388,8 @@
   :hook
   (python-mode . eglot-ensure)
   (c-mode . eglot-ensure)
-  (c++-mode . eglot-ensure))
+  (c++-mode . eglot-ensure)
+  (fennel-mode . eglot-ensure))
 
 (use-package cider
   :ensure t
