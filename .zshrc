@@ -204,7 +204,7 @@ hash avconv 2>/dev/null && {
 alias git='nocorrect git'
 
 
-export LESS="$LESS -j2 -i -W"
+export LESS="$LESS -j2 -i -W -r"
 export LESSCHARSET=UTF-8
 
 function gitdiff {
