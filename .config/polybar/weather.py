@@ -3,7 +3,7 @@
 
 import requests
 
-CITY = "545673"
+CITY = "3193044" #"545673"
 API_KEY = "XXX OPENWEATHERMAP API KEY XXX"
 UNITS = "Metric"
 
