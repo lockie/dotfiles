@@ -896,6 +896,7 @@
   (racket-mode . paredit-mode)
   (ielm-mode . paredit-mode)
   (lisp-interaction-mode . paredit-mode)
+  (fennel-mode . paredit-mode)
   :bind
   ("M-[" . paredit-wrap-square)
   ("M-{" . paredit-wrap-curly)
