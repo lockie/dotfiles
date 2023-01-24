@@ -98,8 +98,8 @@ bindsym $mod+Shift+Print exec --no-startup-id "sleep 1; scrot -d 1 -s -e 'mv $f 
 bindsym $mod+space layout toggle
 bindsym $mod+Escape exec --no-startup-id $HOME/.local/bin/i3-quickterm
 
-bindsym --whole-window button9 move left
-bindsym --whole-window button8 move right
+bindsym --whole-window $mod+button9 move left
+bindsym --whole-window $mod+button8 move right
 
 for_window [title="shell - i3-quickterm"] border none
 for_window [class="Gtk-recordMyDesktop"] floating enable
