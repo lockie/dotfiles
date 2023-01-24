@@ -1165,6 +1165,9 @@
 
 (use-package sane-term
   :ensure t
+  :quelpa (sane-term
+           :fetcher github
+           :repo "adamrt/sane-term")
   :custom
   (term-char-mode-buffer-read-only nil)
   :general
