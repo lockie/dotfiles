@@ -45,6 +45,7 @@ autocmd BufNewFile,BufRead *.jinja2,*.j2,*.jinja set ft=jinja
 	else
 		set visualbell
 	endif
+	set belloff=all
 
 	set ruler		" всегда показывать курсор
 	set showcmd		" показывать недописанные команды
