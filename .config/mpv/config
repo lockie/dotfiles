@@ -1,5 +1,6 @@
 ao=alsa
 vo=gpu
+hwdec=vdpau
 profile=opengl-hq
 hwdec=vdpau
 hwdec-codecs=all
