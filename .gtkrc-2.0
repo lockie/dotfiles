@@ -3,7 +3,7 @@
 
 gtk-theme-name="Adwaita-dark"
 gtk-icon-theme-name="Vertex"
-gtk-font-name="FuturaBookC 13"
+gtk-font-name="Source Sans 3 12"
 gtk-cursor-theme-name="mate-black"
 gtk-cursor-theme-size=0
 gtk-toolbar-style=GTK_TOOLBAR_ICONS
