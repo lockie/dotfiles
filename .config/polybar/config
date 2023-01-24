@@ -446,7 +446,7 @@ format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-padding = 1
 exec = ~/.config/polybar/mail.sh
-click-left = xdg-open https://mail.google.com/mail/u/0/h/#inbox
+click-left = "xdg-open https://mail.google.com/mail/u/0/%3Fui=html#inbox"
 format-background = ${colors.background}
 
 ; vim:ft=dosini
