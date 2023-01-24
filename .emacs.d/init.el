@@ -237,7 +237,9 @@
   (org-startup-with-inline-images t)
   :config
   (org-babel-do-load-languages 'org-babel-load-languages
-                               '((ditaa . t))))
+                               '((C . t)
+                                 (python . t)
+                                 (ditaa . t))))
 
 (use-package org-appear
   :ensure t
