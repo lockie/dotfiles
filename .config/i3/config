@@ -111,6 +111,10 @@ for_window [class="kmag"] floating enable
 for_window [class="^Pidgin$" window_role="buddy_list"] layout splith, resize shrink width 0 px or 30 ppt, move right
 for_window [class="^Pidgin$" window_role="conversation"] resize grow width 0 px or 30 ppt, move left
 
+for_window [title="^zoom$" class="[zoom]*"] floating enable
+for_window [title="Zoom Meeting" class="[zoom]*"] floating disable
+
+for_window [class="Pavucontrol"] floating enable
 
 # Alien fruit salad
 # class                 border  backgr. text    indicator child_border
