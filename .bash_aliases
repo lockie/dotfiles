@@ -16,7 +16,7 @@ alias gitg='git gui'
 alias gg='git gui'
 alias gk='gitk --all'
 alias dc='docker-compose'
-alias vg='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --num-callers=30 -- '
+alias vg='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes --num-callers=30 -- '
 hash htop 2>/dev/null && {
 	alias top='htop'
 }
