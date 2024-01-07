@@ -30,7 +30,38 @@
       (custom-theme-set-faces
        'zenburn
        `(line-number ((t (:foreground ,zenburn-fg-05 :background ,zenburn-bg-05)))))))
-  (add-to-list 'default-frame-alist '(font . "Anonymous Pro-14")))
+  (add-to-list 'default-frame-alist '(font . "Fira Code Light-14")))
+
+(use-package ligature
+  :ensure t
+  :hook
+  ;; for lambda
+  (emacs-lisp-mode . prettify-symbols-mode)
+  (lisp-mode . prettify-symbols-mode)
+  (scheme-mode . prettify-symbols-mode)
+  :config
+  (ligature-set-ligatures 't '("www"))
+  (ligature-set-ligatures '(html-mode nxml-mode web-mode)
+                          '("<!--" "-->" "</>" "</" "/>" "://"))
+  (ligature-set-ligatures 'markdown-mode
+                          '(("=" (rx (+ "=") (? (| ">" "<"))))
+                            ("-" (rx (+ "-")))
+                            "##" "###" "####"))
+  (ligature-set-ligatures '(lisp-mode scheme-mode elisp-mode)
+                          '("lambda"))
+  (ligature-set-ligatures
+   'prog-mode
+   '("**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\" "{-" "[]" "::"
+     ":::" ":=" "!!" "!=" "!==" "-}" "--" "---" "-->" "->" "->>" "-<"
+     "-<<" "-~" "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_(" ".-"
+     ".=" ".." "..<" "..." "?=" "??" ";;" "/*" "/**" "/=" "/==" "/>"
+     "//" "///" "&&" "||" "||=" "|=" "|>" "^=" "$>" "++" "+++" "+>"
+     "=:=" "==" "===" "==>" "=>" "=>>" "<=" "=<<" "=/=" ">-" ">=" ">=>"
+     ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|" "<|>" "<$" "<$>" "<!--"
+     "<-" "<--" "<->" "<+" "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-"
+     "<<=" "<<<" "<~" "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>"
+     "%%" "0x"))
+  (global-ligature-mode t))
 
 (use-package bind-key :ensure t)
 (use-package diminish :ensure t)
@@ -760,10 +791,20 @@
   :config (exec-path-from-shell-initialize))
 
 (use-package dashboard
-  :ensure t
+  ;; newer version breaks about everything
+  :quelpa (dashboard
+           :fetcher github
+           :repo "emacs-dashboard/emacs-dashboard"
+           :commit "eeee96")
   :custom
-  (dashboard-startup-banner 'logo)
+  (dashboard-startup-banner
+   (concat
+    (if (boundp 'user-emacs-directory)
+        user-emacs-directory
+      "~/.emacs.d/")
+    "logo.png"))
   (dashboard-center-content t)
+  (dashboard-set-footer nil)
   (dashboard-items
    '((recents  . 7)
      (projects . 7)
