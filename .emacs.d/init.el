@@ -16,6 +16,13 @@
 (eval-when-compile
   (require 'use-package))
 
+(use-package server
+  :commands (server-running-p)
+  :if window-system
+  :init
+  (unless (server-running-p)
+    (server-start)))
+
 (use-package zenburn-theme
   :ensure t
   :custom
