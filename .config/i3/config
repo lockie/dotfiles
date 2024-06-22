@@ -92,7 +92,7 @@ bindsym $mod+e exec pcmanfm-qt  # or caja --no-default-window $HOME
 bindsym $mod+d exec deadbeef
 bindsym $mod+p exec $HOME/bin/pomotroid --no-sandbox
 bindsym $mod+u [urgent=latest] focus
-bindsym $mod+b exec --no-startup-id "xfce4-screensaver; xfce4-screensaver-command --lock"
+bindsym $mod+b exec --no-startup-id "/home/andrew/bin/block-screen.sh"
 bindsym $mod+Print exec --no-startup-id "scrot -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'"
 bindsym $mod+Shift+Print exec --no-startup-id "sleep 1; scrot -d 1 -s -e 'mv $f ~/Изображения/screenshots/ 2>/dev/null'"
 bindsym $mod+space layout toggle
