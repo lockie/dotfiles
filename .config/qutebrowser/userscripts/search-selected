@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+while getopts "sg" par; do
+    case "$par" in
+        "s")echo "open -t https://duckduckgo.com/?q=${QUTE_SELECTED_TEXT//$'\n'/%0A}" >> "$QUTE_FIFO";;
+        "g")echo "open -t https://www.google.com/search?q=${QUTE_SELECTED_TEXT//$'\n'/%0A}" >> "$QUTE_FIFO";;
+    esac
+done

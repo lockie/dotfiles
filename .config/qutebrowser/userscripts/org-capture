@@ -1,0 +1,10 @@
+#!/usr/bin/python3.11
+
+import os
+import urllib.parse
+
+url   = urllib.parse.quote(os.environ["QUTE_URL"])
+title = urllib.parse.quote(os.environ["QUTE_TITLE"])
+
+command = "xdg-open \"org-protocol://capture?template=l&url="+url+"&title="+title+"\""
+os.system(command)
