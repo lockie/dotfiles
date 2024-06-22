@@ -336,9 +336,6 @@ source "$HOME/.zsh/gibo/gibo-completion.zsh"
 export PATH="$HOME/.zsh/gibo:$PATH"
 alias gi=gibo
 
-# alias для transfer.sh
-source "$HOME/.zsh/transfer.sh"
-
 vterm_printf() {
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
         # Tell tmux to pass the escape sequences through
