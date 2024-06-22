@@ -17,7 +17,7 @@ Personal configuration files and scripts.
  - [pyenv](https://github.com/yyuu/pyenv) (additionally do `git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv`)
  - skins for mc ([zenburn](http://kippura.org/zenburnpage) and mine)
  - [tilda](https://github.com/lanoxx/tilda)
- - [i3 WM](https://i3wm.org) config
+ - [XMonad](https://xmonad.org) config
     * [polybar](https://github.com/jaagr/polybar) panel config
     * [dunst](https://dunst-project.org) notification daemon config
     * [gsimplecal](https://github.com/dmedvinsky/gsimplecal) calendar applet
