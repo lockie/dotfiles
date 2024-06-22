@@ -139,6 +139,7 @@
   (winner-dont-bind-my-keys t)
   (hexl-bits 8)
   (dired-listing-switches "-val --group-directories-first")
+  (dired-kill-when-opening-new-dired-buffer t)
   (warning-minimum-level :error)
   (frame-title-format
    '(:eval
@@ -272,6 +273,7 @@
    (lambda()
      (when (eq evil-state 'insert)
        (evil-normal-state))))
+  (evil-declare-not-repeat 'evil-insert)
   (evil-mode 1))
 
 (use-package org
@@ -411,6 +413,7 @@
    "ta"  '(goto-address-mode :which-key "toggle clickable addresses")
    "td"  'toggle-debug-on-error
    "tl"  'toggle-truncate-lines
+   "tL"  'page-break-lines-mode
    "tr"  `(,(lambda ()
               (interactive)
               (if (equal display-line-numbers-type 'relative)
@@ -724,7 +727,7 @@
   (evil-collection-company-use-tng nil)
   (evil-collection-key-blacklist '("SPC" "<escape>"))
   (evil-collection-mode-list
-   '(ag bookmark (buff-menu "buff-menu") calc calendar cmake-mode
+   '(ag bookmark (buff-menu "buff-menu") calc calendar cider cmake-mode
         comint company compile custom dashboard diff-mode dired doc-view ediff eww
         flymake geiser grep help ibuffer image imenu-list info ivy man magit
         minibuffer (occur replace) (package-menu package) profiler simple
@@ -853,6 +856,9 @@
   :custom
   (projectile-completion-system 'ivy)
   (projectile-enable-caching t)
+  (define-advice project-try-vc (:before-while (dir) ignore-quicklisp)
+    (let ((pred (apply-partially #'file-equal-p "~/.quicklisp/")))
+      (not (locate-dominating-file dir pred))))
   :general
   (:states '(normal visual insert emacs)
    :prefix "SPC"
@@ -904,13 +910,18 @@
   (advice-add 'recentf-save-list :around #'my/recentf-save-silently-advice)
   (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
   (add-to-list 'recentf-exclude "/usr/share/emacs/.*")
+  (add-to-list 'recentf-exclude "/usr/lib64/sbcl/.*")
+  (add-to-list 'recentf-exclude "/usr/lib64/sbcl/asdf/.*")
+  (add-to-list 'recentf-exclude (recentf-expand-file-name "~/.quicklisp/.*"))
   (add-to-list 'recentf-exclude "/tmp/.*")
   (let ((home (getenv "HOME")))
     (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/bookmarks" home))
     (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/recentf" home))
     (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/.cache/.*" home))
     (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/snippets/.*" home))
-    (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/elpa/.*" home))))
+    (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/elpa/.*" home))
+    (add-to-list 'recentf-exclude (format "%s/\\.m2/.*" home))
+    ))
 
 (use-package editorconfig
   :ensure t
@@ -1191,20 +1202,6 @@
   (anzu-cons-mode-line-p nil)
   :config (global-anzu-mode t))
 
-(use-package avy
-  :ensure t
-  :custom
-  (avy-style 'pre)
-  (avy-timeout-seconds 0.4)
-  (avy-all-windows nil)
-  (avy-background t)
-  :general
-  (:keymaps 'global
-   :states 'motion
-   "gc" 'evil-avy-goto-word-1
-   "gt" 'evil-avy-goto-char-timer
-   "gl" 'evil-avy-goto-line))
-
 (use-package company
   :ensure t
   :diminish company-mode
@@ -1429,6 +1426,9 @@
   (c-mode . (lambda () (setq-local counsel-dash-docsets '("C" "GLib"))))
   (c++-mode . (lambda () (setq-local counsel-dash-docsets '("C" "C++" "Qt")))))
 
+(use-package bison-mode
+  :ensure t)
+
 (use-package eglot
   :ensure t
   :commands (eglot eglot-ensure eglot-format)
@@ -1470,6 +1470,7 @@
    "msi" 'cider-jack-in
    "msI" 'cider-jack-in-clj&cljs
    "mss" 'sesman-start
+   "mst" 'cider-test-run-project-tests
    "mhc" 'cider-cheatsheet
    "mfb" 'cider-format-buffer
    "mfr" 'cider-format-region
@@ -1626,6 +1627,10 @@
   :config
   (put 'docker-image-name 'safe-local-variable 'stringp))
 
+(use-package terraform-mode
+  :ensure t
+  :custom (terraform-indent-level 2))
+
 (use-package elisp-mode
   :custom
   (lisp-indent-function 'lisp-indent-function)
@@ -1663,6 +1668,9 @@
   :ensure t
   :mode ("/.dockerignore\\'" . gitignore-mode))
 
+(use-package haskell-mode
+  :ensure t)
+
 (use-package lua-mode
   :ensure t)
 
@@ -1683,6 +1691,15 @@
    :prefix "SPC"
    :non-normal-prefix "M-m"
    "mp" 'markdown-preview))
+
+(use-package impatient-showdown
+  :ensure t
+  :general
+  (:states '(normal visual insert emacs)
+   :keymaps 'markdown-mode-map
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "mP" 'impatient-showdown-mode))
 
 (use-package nsis-mode
   :ensure t
@@ -1865,6 +1882,11 @@
   :defer t
   :general
   (:states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-m"
-   "xg" 'google-this))
+           :prefix "SPC"
+           :non-normal-prefix "M-m"
+           "xg"  `(,(lambda ()
+                      (interactive)
+                      (google-this nil t))
+                   :which-key "google this")))
+
+(put 'narrow-to-region 'disabled nil)
