@@ -1679,9 +1679,9 @@
 (use-package geiser
   :ensure t
   :custom
-  (geiser-active-implementations '(gambit chicken guile chez chibi mit))
-  (geiser-default-implementation 'mit)
-  (geiser-chicken-binary '("csi" "-R" "r7rs"))
+  (geiser-active-implementations '(guile chez chibi chicken gambit mit racket))
+  (geiser-default-implementation 'guile)
+  ;; (geiser-chicken-binary '("csi" "-R" "r7rs"))
   (geiser-autodoc-delay 0.4)
   (geiser-mode-smart-tab-p t)
   :hook (scheme-mode . geiser-mode)
@@ -1694,9 +1694,33 @@
    "msc" 'geiser-compile-current-buffer
    "msd" 'geiser-eval-definition
    "mse" 'geiser-eval-last-sexp
-   "msi" 'run-geiser
+   "msi" 'geiser
    "msr" 'geiser-eval-region
-  ))
+   ))
+
+(use-package geiser-chicken
+  :ensure t)
+
+(use-package geiser-gambit
+  :ensure t)
+
+(use-package geiser-guile
+  :ensure t
+  ;; :custom
+  ;; (geiser-guile-binary "guile-3")
+  )
+
+(use-package geiser-chez
+  :ensure t)
+
+(use-package geiser-mit
+  :ensure t)
+
+(use-package geiser-racket
+  :ensure t)
+
+(use-package geiser-chibi
+  :ensure t)
 
 (use-package sly
   :ensure t
@@ -1743,6 +1767,8 @@
         '((sbcl ("sbcl" "--dynamic-space-size" "4096"))
           (ccl ("ccl"))
           (ecl ("ecl"))
+          (abcl ("abcl"))
+          (clisp ("clisp"))
           (alisp ("alisp"))))
   (setq lisp-indent-function #'sly-common-lisp-indent-function)
   (defun my/sly-flex-completions (pattern)
@@ -1767,7 +1793,25 @@
                 (eq major-mode 'fennel-repl-mode))
       (apply f args)))
   (dolist (f '(sly-mode sly-editing-mode))
-    (advice-add f :around #'my/sly-ignore-fennel)))
+    (advice-add f :around #'my/sly-ignore-fennel))
+  (defun my/sly-run-lisp-unit-test-at-point (&optional raw-prefix-arg)
+    "See `sly-compile-defun' for RAW-PREFIX-ARG."
+    (interactive "P")
+    (call-interactively 'sly-compile-defun)
+    (let ((name `(quote ,(intern (sly-qualify-cl-symbol-name (sly-parse-toplevel-form))))))
+      (sly-eval-async
+          `(parachute:test ,name :report 'parachute:interactive)
+        (lambda (results)
+          ;; TODO : returning result not working
+          (message results)
+          (switch-to-buffer-other-window  (get-buffer-create "*Test Results*"))
+          (erase-buffer)
+          (insert results)))))
+  (define-key lisp-mode-map (kbd "C-c C-v")
+    #'my/sly-run-lisp-unit-test-at-point)
+  (load "~/.quicklisp/log4sly-setup.el")
+  (global-log4sly-mode 1))
+
 
 (use-package sly-quicklisp
   :ensure t
