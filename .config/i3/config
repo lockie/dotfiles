@@ -101,6 +101,8 @@ bindsym $mod+Escape exec --no-startup-id $HOME/.local/bin/i3-quickterm
 bindsym --whole-window $mod+button9 move left
 bindsym --whole-window $mod+button8 move right
 
+for_window [class="Emacs"] move container to workspace number "3:coding"
+for_window [class="obs"] move container to workspace number "4:internets"
 for_window [title="shell - i3-quickterm"] border none
 for_window [class="Gtk-recordMyDesktop"] floating enable
 for_window [class="Display"] floating enable
@@ -115,6 +117,7 @@ for_window [title="^zoom$" class="[zoom]*"] floating enable
 for_window [title="Zoom Meeting" class="[zoom]*"] floating disable
 
 for_window [class="Pavucontrol"] floating enable
+for_window [class="Yad"] floating enable
 
 # Alien fruit salad
 # class                 border  backgr. text    indicator child_border
