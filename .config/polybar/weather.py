@@ -13,8 +13,9 @@ try:
     if REQ.status_code == 200:
         CURRENT = REQ.json()["weather"][0]["main"].lower()
         TEMP = int(float(REQ.json()["main"]["temp"]))
+        HUM = int(float(REQ.json()["main"]["humidity"]))
         WIND = round(float(REQ.json()["wind"]["speed"]))
-        print("{} {}m/s {}°C".format(CURRENT, WIND, TEMP))
+        print("{} {}% {}m/s {}°C".format(CURRENT, HUM, WIND, TEMP))
     else:
         print("ERR " + str(REQ.status_code))
 except:

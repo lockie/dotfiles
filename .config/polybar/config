@@ -73,7 +73,9 @@ inherit = bar
 bottom = true
 modules-left = powermenu RightArrowAlt ewmh RightArrow xwindow RightArrowAlt
 modules-center =
-modules-right = LeftArrowAlt volume LeftArrow weather LeftArrowAlt keyboard LeftArrow date
+modules-right = LeftArrowAlt volume LeftArrow location weather LeftArrowAlt keyboard LeftArrow date
+locale = "ru_RU.UTF-8"
+
 [bar/bottom2]
 monitor = ${env:MONITOR:DP-3}
 inherit = bar
@@ -206,6 +208,15 @@ bar-volume-fill-background = ${colors.background-alt}
 bar-volume-empty-background = ${colors.background-alt}
 
 
+[module/location]
+type = custom/script
+interval = 61
+format = <label>
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-padding = 1
+exec = "curl -s https://ipinfo.io?token=TOKEN | jq -r .city"
+
 [module/weather]
 type = custom/script
 interval = 593
@@ -214,6 +225,7 @@ format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-padding = 1
 exec = ~/.config/polybar/weather.py
+click-left = xdg-open https://gismeteo.ru/weather-podgorica-3245
 
 
 [module/music]
@@ -251,12 +263,17 @@ bottom = false
 tray-position = right
 tray-detached = false
 tray-padding = 2
-modules-left = uname RightArrow uptime RightArrowAlt temperature fan nvidia cpu RightArrow procs RightArrowAlt mem swap membar RightArrow hddtemp io RightArrowAlt network RightArrow fslabel filesystem RightArrowAlt mail RightArrow
+modules-left = uname RightArrow uptime RightArrowAlt temperature fan nvidia cpu RightArrow procs RightArrowAlt mem swap membar RightArrow hddtemp io RightArrowAlt network RightArrow fslabel filesystem RightArrowAlt mail RightArrow empty
 modules-center =
-modules-right = LeftArrow
+modules-right = LeftArrowAlt
 background = ${colors.background-alt}
-tray-background = ${colors.background}
+tray-background = ${colors.background-alt}
 
+[module/empty]
+# HACK
+type = custom/text
+content = "                         "
+content-background = ${colors.background-alt}
 
 [module/uname]
 type = custom/script
