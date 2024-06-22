@@ -28,3 +28,5 @@
 	colormoved=default
 [core]
 	pager=diff-highlight | $PAGER
+[init]
+	defaultBranch = main
