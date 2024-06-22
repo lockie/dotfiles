@@ -271,7 +271,8 @@
   (run-with-idle-timer
    10 t
    (lambda()
-     (when (eq evil-state 'insert)
+     (when (and (eq evil-state 'insert)
+                (not (eq major-mode 'vterm-mode)))
        (evil-normal-state))))
   (evil-declare-not-repeat 'evil-insert)
   (evil-mode 1))
@@ -586,7 +587,8 @@
                                       (sly-db-mode . terminal)
                                       (sly-xref-mode . popup)
                                       (cider-repl-mode . terminal)
-                                      (cider-test-report-mode . popup))
+                                      (cider-test-report-mode . popup)
+                                      (vterm-mode . terminal))
                              :names '(("*sly-macroexpansion*" . popup)
                                       ("*cider-macroexpansion*" . popup)
                                       ("*cider-clojuredocs*" . popup)))
@@ -731,7 +733,7 @@
         comint company compile custom dashboard diff-mode dired doc-view ediff eww
         flymake geiser grep help ibuffer image imenu-list info ivy man magit
         minibuffer (occur replace) (package-menu package) profiler simple
-        sly wdired which-key woman xref))
+        sly vterm wdired which-key woman xref))
   (evil-collection-setup-minibuffer t)
   :config
   (evil-collection-init))
@@ -1226,53 +1228,33 @@
        (when company-fci-mode-on-p (fci-mode 1))))
   (after-init . global-company-mode))
 
-(use-package sane-term
+(use-package vterm
   :ensure t
-  :quelpa (sane-term
-           :fetcher github
-           :repo "adamrt/sane-term")
   :custom
-  (term-char-mode-buffer-read-only nil)
-  :general
-  (:states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-m"
-   "'"   'sane-term)
-  (:states '(normal visual insert emacs)
-   :keymaps 'term-raw-map
-   :prefix "SPC"
-   :non-normal-prefix "M-m"
-   "mc"  'sane-term-create
-   "mn"  'sane-term-prev)
-  (:states '(insert visual normal emacs)
-   :prefix "C-x"
-   "t"  `(,(lambda ()
-             (interactive)
-             (if (equal major-mode 'term-mode)
-                 (if (term-in-line-mode)
-                     (progn
-                       (evil-emacs-state)
-                       (term-char-mode))
-                   (progn
-                     (evil-normal-state)
-                     (term-line-mode)))
-               (user-error "Not in term mode")))
-          :which-key "toggle term state"))
-  (:keymaps 'term-raw-map
-   "C-c"      'term-send-raw
-   "<escape>" (lambda () (interactive) (term-send-raw-string "\e"))
-   "M-n"      'term-send-up
-   "M-p"      'term-send-down)
+  (vterm-max-scrollback 100000)
   :hook
-  (term-mode . (lambda () (setq indicate-empty-lines nil)))
-  (term-mode
+  (vterm-mode
+   . (lambda () (evil-insert-state)))
+  (vterm-mode
    . (lambda ()
-       (define-key evil-normal-state-local-map (kbd "C-g") nil)
+       (evil-define-key 'insert vterm-mode-map (kbd "C-c") #'vterm--self-insert)
        (dotimes (i 9)
          (let ((n (+ i 1)))
-           (define-key term-raw-map (kbd (format "M-%i" n)) nil)))))
-  :config
-  (evil-set-initial-state 'term-mode 'emacs))
+           (define-key vterm-mode-map (kbd (format "M-%i" n)) nil))))))
+
+(use-package multi-vterm
+  :ensure t
+  :general
+  (:states '(normal visual insert emacs)
+   :keymaps 'vterm-mode-map
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "mn"  'multi-vterm-next
+   "mp"  'multi-vterm-prev)
+  (:states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "'"   '(multi-vterm :which-key "term")))
 
 (use-package magit
   :ensure t
