@@ -1,4 +1,4 @@
-ao=alsa
+ao=pipewire
 vo=gpu
 hwdec=vdpau
 profile=opengl-hq
