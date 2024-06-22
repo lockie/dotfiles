@@ -71,7 +71,7 @@ enable-ipc = false
 [bar/bottom]
 inherit = bar
 bottom = true
-modules-left = powermenu RightArrowAlt i3 RightArrow xwindow RightArrowAlt
+modules-left = powermenu RightArrowAlt ewmh RightArrow xwindow RightArrowAlt
 modules-center =
 modules-right = LeftArrowAlt volume LeftArrow weather LeftArrowAlt keyboard LeftArrow date
 [bar/bottom2]
@@ -101,24 +101,28 @@ icon-1 = chat;
 icon-2 = coding;
 icon-3 = internets;
 icon-4 = todo;
-icon-default = 
 
 label-active = %icon%
 label-active-foreground = #5f7f5f
 label-active-background = ${colors.background}
 label-active-padding = 2
 
-#label-occupied = %icon%
-#label-occupied-foreground = #f5deb3
-#label-occupied-padding = 2
+label-occupied = %icon%
+label-occupied-foreground = #f5deb3
+label-occupied-padding = 2
 
 label-urgent = %icon%
+label-urgent-foreground = ${colors.foreground}
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
 label-empty = %icon%
 #label-empty-foreground = #55
 label-empty-padding = 2
+
+label-monitor = %icon%
+label-monitor-padding = 2
+
 
 
 [module/i3]
@@ -155,6 +159,12 @@ label-urgent-padding = 2
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:130:...%
+label-padding = 1
+label-background = ${colors.background-alt}
+
+[module/xwindow2]
+type = internal/xwindow
+label = %title:0:85:...%
 label-padding = 1
 label-background = ${colors.background-alt}
 
