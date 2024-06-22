@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
+# NOTE: this is to be called from user's crontab
 
 set -e
 
 mbsync -aq
-mu index -q
+MUHOME="$HOME/.cache/mu" mu index -q
