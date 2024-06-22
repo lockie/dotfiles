@@ -45,7 +45,7 @@ content-background = ${colors.background}
 
 
 [bar]
-monitor = ${env:MONITOR:VGA-0}
+monitor = ${env:MONITOR:HDMI-0}
 width = 100%
 height = 18
 radius = 0.0
@@ -74,6 +74,13 @@ bottom = true
 modules-left = powermenu RightArrowAlt i3 RightArrow xwindow RightArrowAlt
 modules-center =
 modules-right = LeftArrowAlt volume LeftArrow weather LeftArrowAlt keyboard LeftArrow date
+[bar/bottom2]
+monitor = ${env:MONITOR:DP-3}
+inherit = bar
+bottom = true
+modules-left = powermenu RightArrowAlt ewmh RightArrow xwindow2 RightArrowAlt
+modules-center =
+modules-right = LeftArrowAlt volume LeftArrow location weather LeftArrowAlt keyboard LeftArrow date
 locale = "ru_RU.UTF-8"
 
 
