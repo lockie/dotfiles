@@ -29,6 +29,12 @@ hash steam 2>/dev/null && {
 	# fucking piece of electron shit
 	alias steam='steam -no-cef-sandbox'
 }
+hash sbcl 2>/dev/null && {
+	alias sbcl='rlwrap sbcl'
+}
+hash ccl 2>/dev/null && {
+	alias ccl='rlwrap ccl'
+}
 
 if [ -f /usr/bin/grc ]; then
 	alias ping="grc --colour=auto ping"
