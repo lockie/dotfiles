@@ -70,6 +70,10 @@
   :hook
   (prog-mode . ligature-mode-turn-on))
 
+(use-package solaire-mode
+  :ensure t
+  :config (solaire-global-mode))
+
 (use-package bind-key :ensure t)
 (use-package diminish :ensure t)
 
@@ -87,7 +91,10 @@
   :custom
   (user-full-name   "Andrew Kravchuk")
   (user-mail-adress "awkravchuk@gmail.com")
+  (visible-bell t)
+  (ring-bell-function 'ignore)
   (truncate-lines nil)
+  (fill-column 79)
   (scroll-margin 7)
   (mouse-wheel-progressive-speed nil)
   (use-dialog-box nil)
@@ -305,7 +312,8 @@
    :prefix "SPC"
    :non-normal-prefix "M-m"
    "!"   'shell-command
-   ";"   'comment-or-uncomment-region
+   ";"   `(comment-or-uncomment-region
+           :which-key "(un)comment")
    "TAB" `(,(lambda ()
               (interactive)
               (switch-to-buffer (other-buffer (current-buffer))))
@@ -760,9 +768,9 @@
    '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-m"
-   "?"   'counsel-descbinds
-   "SPC" '(counsel-M-x :which-key "M-x")
-   "ac"  'counsel-unicode-char
+   "?"   '(counsel-descbinds :which-key "bindings")
+   "SPC" '(counsel-M-x :which-key "command")
+   "xc"  'counsel-unicode-char
    "f/"  'counsel-ag
    "ff"  'counsel-find-file
    "fr"  'counsel-recentf
@@ -787,7 +795,7 @@
   (:states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-m"
-   "/"   'swiper-all))
+   "/"   '(swiper-all :which-key "search")))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -953,6 +961,13 @@
   :config
   (eldoc-add-command 'paredit-backward-delete 'paredit-close-round))
 
+(use-package paren-face
+  :ensure t
+  :custom
+  (paren-face-regexp "[()]")
+  :config
+  (global-paren-face-mode))
+
 (use-package fill-column-indicator
   :ensure t
   :custom
@@ -1082,9 +1097,9 @@
   (ivy-rich-display-transformers-list
    '(ivy-switch-buffer
      (:columns
-      ((ivy-rich-candidate (:width 55))
+      ((ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+       (ivy-rich-candidate (:width 60))
        (ivy-rich-switch-buffer-size (:width 7))
-       (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
        (ivy-rich-switch-buffer-major-mode (:width 16 :face warning))
        (ivy-rich-switch-buffer-project (:width 30 :face success))
        (ivy-rich-switch-buffer-path
