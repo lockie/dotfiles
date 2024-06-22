@@ -199,6 +199,9 @@ hash emerge 2>/dev/null && {
 	alias updk='sudo sh -c "cd /usr/src/linux && zcat /proc/config.gz > .config && make oldconfig && time make -j13 && cp -v arch/x86_64/boot/bzImage /boot/efi/boot/bootx64.efi"'
 	alias updm='sudo mkdir -p /lib/modules/`uname -r` && sudo ln -sf /usr/src/linux-`uname -r` /lib/modules/`uname -r`/source && sudo ln -sf /usr/src/linux-`uname -r` /lib/modules/`uname -r`/build && sudo emerge -1vta --keep-going=y @module-rebuild'
 }
+hash guix 2>/dev/null && {
+	alias updg='guix pull && guix package -u && guix gc'
+}
 hash avconv 2>/dev/null && {
 	command -v ffmpeg >/dev/null 2>&1 || alias ffmpeg='avconv'
 }
