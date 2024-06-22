@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: django-sql-queries
+# key: 
+# --
+from django.db import connection; import pprint; pprint.pprint(connection.queries)
