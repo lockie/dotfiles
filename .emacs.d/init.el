@@ -277,26 +277,6 @@
   (evil-declare-not-repeat 'evil-insert)
   (evil-mode 1))
 
-(use-package org
-  :defer t
-  :custom
-  (org-ditaa-jar-path "/usr/share/ditaa/lib/ditaa.jar")
-  (org-hide-emphasis-markers t)
-  (org-startup-with-inline-images t)
-  :config
-  (org-babel-do-load-languages 'org-babel-load-languages
-                               '((C . t)
-                                 (python . t)
-                                 (ditaa . t))))
-
-(use-package org-appear
-  :ensure t
-  :defer t
-  :custom
-  (org-appear-autolinks t)
-  :hook
-  (org-mode . org-appear-mode))
-
 (use-package which-key
   :ensure t
   :diminish which-key-mode
@@ -341,6 +321,35 @@
               (interactive)
               (switch-to-buffer (get-buffer "*scratch*")))
            :which-key "switch to scratch")
+   "d"   '(:which-key "get things done")
+   "dc"  `(,(lambda ()
+              (interactive)
+              (org-capture nil "i"))
+           :which-key "capture")
+   "ds"  `(,(lambda ()
+              (interactive)
+              (org-capture nil "s"))
+           :which-key "schedule")
+   "dd"  `(,(lambda ()
+              (interactive)
+              (org-agenda nil "d"))
+           :which-key "agenda")
+   "dC"  `(,(lambda ()
+              (interactive)
+              (find-file org-default-notes-file))
+           :which-key "clarify")
+   "dA"  `(,(lambda ()
+              (interactive)
+              (find-file (concat org-directory "/tasks.org")))
+           :which-key "actions")
+   "dn"  `(,(lambda ()
+              (interactive)
+              (org-capture nil "n"))
+           :which-key "next-action")
+   "dS"  `(,(lambda ()
+              (interactive)
+              (org-capture nil "S"))
+           :which-key "shrink")
    "f"   '(:which-key "files")
    "fD"  `(,(lambda ()
               (interactive)
@@ -549,6 +558,153 @@
        :prefix "SPC"
        :non-normal-prefix "M-m"
        (format "b%i" n) (intern (format "buffer-to-window-%i" n))))))
+
+(use-package org
+  :defer t
+  :custom
+  (org-babel-lisp-eval-fn 'sly-eval)
+  (org-babel-lisp-dir-fmt "(progn %%s\n)")
+  (org-ditaa-jar-path "/usr/share/ditaa/lib/ditaa.jar")
+  (org-hide-emphasis-markers t)
+  (org-startup-with-inline-images t)
+  (org-enforce-todo-dependencies t)
+  (org-confirm-babel-evaluate nil)
+  (org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE")))
+  (org-refile-use-outline-path 'file)
+  (org-outline-path-complete-in-steps nil)
+  (org-agenda-window-setup 'current-window)
+  (org-agenda-start-day nil)
+  (org-reverse-note-order t)
+  (org-return-follows-link t)
+  (org-startup-truncated nil)
+  (calendar-week-start-day 1)
+  (calendar-set-date-style 'european)
+  (calendar-day-name-array ["Воскресенье" "Понедельник" "Вторник    "
+                            "Среда      " "Четверг    " "Пятница    "
+                            "Суббота    "])
+  (calendar-day-header-array ["Вc" "Пн" "Вт" "Ср" "Чт" "Пт" "Сб"])
+  (calendar-month-name-array ["Январь" "Февраль" "Март" "Апрель" "Май"
+                              "Июнь" "Июль" "Август" "Сентябрь"
+                              "Октябрь" "Ноябрь" "Декабрь"])
+  (org-agenda-block-separator "")
+  (org-agenda-prefix-format
+   '((agenda . "\t")
+     (todo . "\t")
+     (tags . "\t")
+     (search . "\t")))
+  ;; TODO https://github.com/sid-kurias/org-agenda-count ?
+  (org-agenda-custom-commands
+   `(("d" "Get things done"
+      ((agenda "" ((org-agenda-overriding-header "📆 Calendar")
+                   (org-agenda-span 14)))
+       (tags-todo "LEVEL=2"
+                  ((org-agenda-overriding-header "⚡ Next actions")
+                   (org-agenda-files '(,(concat org-directory "/tasks.org")))
+                   (org-agenda-sorting-strategy '(todo-state-down))
+                   (org-agenda-skip-function
+                    '(and
+                      (org-agenda-skip-entry-if 'todo '("TODO" "WAITING" "DONE"))))))
+       (tags-todo "LEVEL=2"
+                  ((org-agenda-overriding-header "⌛ Waiting")
+                   (org-agenda-files '(,(concat org-directory "/tasks.org")))
+                   (org-agenda-skip-function
+                    '(and
+                      (org-agenda-skip-entry-if
+                       'todo '("TODO" "NEXT" "DOING" "DONE"))))))
+       (tags "LEVEL=1"
+             ((org-agenda-overriding-header "🤔 Someday/Maybe")
+              (org-agenda-files '(,(concat org-directory "/someday-maybe.org")))))
+       ;; TODO references
+       ))))
+  :hook ((org-agenda-mode
+          . (lambda ()
+              (evil-set-initial-state 'org-agenda-mode 'normal)
+              (define-key evil-motion-state-local-map (kbd "RET")
+                'org-agenda-switch-to)
+              (define-key evil-normal-state-local-map (kbd "r")
+                'org-agenda-redo)))
+         (calendar-mode
+          . (lambda () (define-key evil-motion-state-local-map (kbd "RET")
+                    'org-calendar-select))))
+  :general
+  (:keymaps 'org-mode-map
+            "C-c t" 'counsel-org-tag
+            "C-c f" 'my/org-show-current-heading-tidily)
+  :config
+  (advice-add #'org-capture-place-template :after #'delete-other-windows)
+  (defun my/gtd-save-org-buffers (&rest _)
+    "Save `org-agenda-files' buffers without user confirmation."
+    (interactive)
+    (message "Saving org-agenda-files buffers...")
+    (save-some-buffers t (lambda () (member (buffer-file-name) org-agenda-files)))
+    (message "Saving org-agenda-files buffers... done"))
+  (advice-add #'org-refile :after #'my/gtd-save-org-buffers)
+  (advice-add #'org-refile :after #'org-refile-goto-last-stored)
+  (put 'org-reverse-note-order 'safe-local-variable #'booleanp)
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((C . t)
+                                 (python . t)
+                                 (ditaa . t)))
+  (defun my/org-show-current-heading-tidily ()
+    (interactive)
+    "Show next entry, keeping other entries closed."
+    (if (save-excursion (end-of-line) (outline-invisible-p))
+        (progn (org-show-entry) (show-children))
+      (outline-back-to-heading)
+      (unless (and (bolp) (org-on-heading-p))
+        (org-up-heading-safe)
+        (hide-subtree)
+        (error "Boundary reached"))
+      (org-display-inline-images)
+      (org-overview)
+      (org-reveal t)
+      (org-show-entry)
+      (show-children)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((lisp . t)))
+  :init
+  (setq
+   org-directory (expand-file-name "~/Dropbox/GTD")
+   org-agenda-files (directory-files-recursively org-directory "\\.org$")
+   org-default-notes-file (concat org-directory "/inbox.org")
+   org-capture-templates
+   `(("i" "Inbox" entry (file org-default-notes-file)
+      "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:"
+      :prepend t
+      :kill-buffer t)
+     ("l" "Link" entry (file org-default-notes-file)
+      "* TODO %:annotation\n:PROPERTIES:\n:CREATED: %U\n:END:"
+      :prepend t
+      :kill-buffer t)
+     ("n" "Next action" entry (file+headline ,(concat org-directory "/tasks.org") "⚡ Next actions")
+      "* TODO %?\n:PROPERTIES:\n:OUTCOME: %^{OUTCOME}\n:CREATED: %U\n:END:"
+      :prepend t
+      :kill-buffer t)
+     ("s" "Schedule" entry (file ,(concat org-directory "/calendar.org"))
+      "* TODO %?\nSCHEDULED: %^t"
+      :prepend t
+      :kill-buffer t)
+     ("S" "Shrink" entry (file+headline ,(concat org-directory "/someday-maybe.org") "💬 Shrink")
+      "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:"
+      :prepend t
+      :kill-buffer t))
+   org-refile-targets `((,(concat org-directory "/tasks.org") :maxlevel . 1)
+                        (,(concat org-directory "/someday-maybe.org") :level . 1)
+                        (,(concat org-directory "/someday-maybe.org") :tag . "ideas")
+                        (,(concat org-directory "/references.org") :level . 0)
+                        (,(concat org-directory "/archive.org") :level . 0)
+                        )))
+
+(use-package org-protocol)
+
+(use-package org-appear
+  :ensure t
+  :defer t
+  :custom
+  (org-appear-autolinks t)
+  :hook
+  (org-mode . org-appear-mode))
 
 (use-package winum
   :ensure t
@@ -825,10 +981,13 @@
     "logo.png"))
   (dashboard-center-content t)
   (dashboard-set-footer nil)
+  (dashboard-week-agenda nil)
+  (dashboard-agenda-sort-strategy '(time-up))
   (dashboard-items
    '((recents  . 7)
      (projects . 7)
-     (bookmarks . 5)))
+     (bookmarks . 5)
+     (agenda . 5)))
   :hook
   (dashboard-mode
    . (lambda ()
@@ -1371,7 +1530,24 @@
   :hook
   (prog-mode . yas-minor-mode))
 
-(use-package origami :ensure t)
+(use-package origami
+  :ensure t
+  :config
+  (defvar my/org-agenda-auto-show-groups
+    '("Calendar" "Next actions" "Waiting"))
+  (defun my/org-agenda-origami-fold-default ()
+    (unless (buffer-narrowed-p)
+      (save-excursion
+        (call-interactively 'origami-close-all-nodes)
+        (call-interactively 'origami-open-node)
+        (call-interactively 'origami-forward-fold)
+        (call-interactively 'origami-open-node))))
+  :hook
+  ((org-agenda-mode . origami-mode)
+   (org-agenda-finalize . my/org-agenda-origami-fold-default))
+  :general
+  (:keymaps 'org-agenda-mode-map
+            "<tab>" #'origami-toggle-node))
 
 (use-package cl)
 
