@@ -5,7 +5,6 @@
  `(,@package-archives
    ("melpa" . "https://melpa.org/packages/")
    ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-   ("org" . "https://orgmode.org/elpa/")
    ))
 (setq package-enable-at-startup nil)
 (package-initialize)
