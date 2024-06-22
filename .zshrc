@@ -194,8 +194,9 @@ hash emerge 2>/dev/null && {
 	alias cave='nocorrect cave'
 	alias eselect='nocorrect eselect'
 	alias equery='nocorrect equery'
-	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y --with-bdeps=y --backtrack=1000 --verbose-conflicts -uDNvat @world ; sudo emerge -vat --keep-going=y @preserved-rebuild ; sudo smart-live-rebuild -- -vat --keep-going=y ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -i -- -vat ; sudo env-update'
-	alias updk='sudo sh -c "cd /usr/src/linux && zcat /proc/config.gz > .config && make oldconfig && make -j13 && cp -v arch/x86_64/boot/bzImage /boot/efi/boot/bootx64.efi"'
+	alias upd='sudo eix-sync -C --quiet && sudo emerge --keep-going=y --with-bdeps=y --backtrack=1000 --verbose-conflicts -uDNvatg @world ; date ; sudo emerge -vatg --keep-going=y @preserved-rebuild ; sudo smart-live-rebuild -- -vatg --keep-going=y ; sudo emerge --depclean --with-bdeps=y -ag ; sudo revdep-rebuild -i -- -vatg ; sudo env-update'
+	alias upd-nosync='sudo emerge --keep-going=y --with-bdeps=y --backtrack=1000 --verbose-conflicts -uDNvatg @world ; sudo emerge -vatg --keep-going=y @preserved-rebuild ; sudo smart-live-rebuild -- -vatg --keep-going=y ; sudo emerge --depclean --with-bdeps=y -a ; sudo revdep-rebuild -i -- -vatg ; sudo env-update'
+	alias updk='sudo sh -c "cd /usr/src/linux && zcat /proc/config.gz > .config && make oldconfig && time make -j13 && cp -v arch/x86_64/boot/bzImage /boot/efi/boot/bootx64.efi"'
 	alias updm='sudo mkdir -p /lib/modules/`uname -r` && sudo ln -sf /usr/src/linux-`uname -r` /lib/modules/`uname -r`/source && sudo ln -sf /usr/src/linux-`uname -r` /lib/modules/`uname -r`/build && sudo emerge -1vta --keep-going=y @module-rebuild'
 }
 hash avconv 2>/dev/null && {
