@@ -1,0 +1,169 @@
+FSync no
+
+### awkravchuk
+
+IMAPAccount awkravchuk
+Host imap.gmail.com
+SSLType IMAPS
+AuthMechs LOGIN
+User awkravchuk@gmail.com
+PassCmd "perl -ne '/^machine imap\\.gmail\\.com .*?login awkravchuk\\@gmail\\.com .*?password (\\S+)/ && print \"$1\"' ~/.netrc"
+PipelineDepth 1
+
+IMAPStore awkravchuk-remote
+Account awkravchuk
+
+MaildirStore awkravchuk-local
+Path ~/.Mail/awkravchuk/
+Inbox ~/.Mail/awkravchuk/inbox
+Subfolders Verbatim
+
+Channel awkravchuk-inbox
+Far :awkravchuk-remote:INBOX
+Near :awkravchuk-local:inbox
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel awkravchuk-archive
+Far ":awkravchuk-remote:[Gmail]/All Mail"
+Near :awkravchuk-local:archive
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel awkravchuk-starred
+Far ":awkravchuk-remote:[Gmail]/Starred"
+Near :awkravchuk-local:starred
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel awkravchuk-sent
+Far ":awkravchuk-remote:[Gmail]/Sent Mail"
+Near :awkravchuk-local:sent
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel awkravchuk-drafts
+Far ":awkravchuk-remote:[Gmail]/Drafts"
+Near :awkravchuk-local:drafts
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel awkravchuk-junk
+Far ":awkravchuk-remote:[Gmail]/Spam"
+Near :awkravchuk-local:junk
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel awkravchuk-trash
+Far ":awkravchuk-remote:[Gmail]/Trash"
+Near :awkravchuk-local:trash
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Group awkravchuk
+Channel awkravchuk-inbox
+Channel awkravchuk-archive
+Channel awkravchuk-starred
+Channel awkravchuk-sent
+Channel awkravchuk-drafts
+Channel awkravchuk-junk
+Channel awkravchuk-trash
+
+
+### lockie666
+
+IMAPAccount lockie666
+Host imap.gmail.com
+SSLType IMAPS
+AuthMechs LOGIN
+User lockie666@gmail.com
+PassCmd "perl -ne '/^machine imap\\.gmail\\.com .*?login lockie666\\@gmail\\.com .*?password (\\S+)/ && print \"$1\"' ~/.netrc"
+PipelineDepth 1
+
+IMAPStore lockie666-remote
+Account lockie666
+
+MaildirStore lockie666-local
+Path ~/.Mail/lockie666/
+Inbox ~/.Mail/lockie666/inbox
+Subfolders Verbatim
+
+Channel lockie666-inbox
+Far :lockie666-remote:INBOX
+Near :lockie666-local:inbox
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel lockie666-archive
+Far ":lockie666-remote:[Gmail]/All Mail"
+Near :lockie666-local:archive
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel lockie666-starred
+Far ":lockie666-remote:[Gmail]/Starred"
+Near :lockie666-local:starred
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel lockie666-sent
+Far ":lockie666-remote:[Gmail]/Sent Mail"
+Near :lockie666-local:sent
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel lockie666-drafts
+Far ":lockie666-remote:[Gmail]/Drafts"
+Near :lockie666-local:drafts
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel lockie666-junk
+Far ":lockie666-remote:[Gmail]/Spam"
+Near :lockie666-local:junk
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Channel lockie666-trash
+Far ":lockie666-remote:[Gmail]/Trash"
+Near :lockie666-local:trash
+Create Near
+Expunge Both
+SyncState *
+CopyArrivalDate yes
+
+Group lockie666
+Channel lockie666-inbox
+Channel lockie666-archive
+Channel lockie666-starred
+Channel lockie666-sent
+Channel lockie666-drafts
+Channel lockie666-junk
+Channel lockie666-trash
+

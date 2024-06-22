@@ -90,7 +90,6 @@
   :diminish global-whitespace-mode
   :custom
   (user-full-name   "Andrew Kravchuk")
-  (user-mail-adress "awkravchuk@gmail.com")
   (visible-bell t)
   (ring-bell-function 'ignore)
   (truncate-lines nil)
@@ -304,6 +303,7 @@
    "a"   '(:which-key "applications")
    "ad"  'dired
    "ae"  'ediff-files
+   "am"  'mu4e
    "b"   '(:which-key "buffers")
    "bd"  '(my/kill-this-buffer :which-key "kill")
    "bD"  `(,(lambda ()
@@ -888,7 +888,7 @@
    '(ag bookmark (buff-menu "buff-menu") calc calendar cider cmake-mode
         comint company compile custom dashboard diff-mode dired doc-view ediff eww
         flymake geiser grep help ibuffer image imenu-list info ivy man magit
-        minibuffer (occur replace) (package-menu package) profiler simple
+        minibuffer mu4e (package-menu package) profiler simple
         sly vterm wdired which-key woman xref))
   (evil-collection-setup-minibuffer t)
   :config
@@ -1082,6 +1082,7 @@
     (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/snippets/.*" home))
     (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/elpa/.*" home))
     (add-to-list 'recentf-exclude (format "%s/\\.m2/.*" home))
+    (add-to-list 'recentf-exclude (format "%s/\\.Mail/.*" home))
     ))
 
 (use-package editorconfig
@@ -2090,5 +2091,112 @@
                       (interactive)
                       (google-this nil t))
                    :which-key "google this")))
+
+(use-package mu4e
+  :preface (setq-default mu-command (executable-find "mu"))
+  :if mu-command
+  :custom
+  (mail-user-agent 'mu4e-user-agent)
+  (read-mail-command 'mu4e)
+  (mu4e-confirm-quit nil)
+  (mu4e-mu-home (expand-file-name "~/.cache/mu"))
+  (mu4e-maildir (expand-file-name "~/.Mail"))
+  (mu4e-attachment-dir (expand-file-name "~/Downloads"))
+  (mu4e-get-mail-command "mbsync -a")
+  (mu4e-change-filenames-when-moving t)
+  (mu4e-use-fancy-chars t)
+  (mu4e-completing-read-function 'ivy-completing-read)
+  (mu4e-context-policy 'pick-first)
+  (mu4e-compose-context-policy 'ask)
+  (mu4e-headers-leave-behavior 'apply)
+  (mu4e-read-option-use-builtin nil)
+  (mu4e-bookmarks
+   `((:name "Unread"
+            :query ,(concat
+                     "flag:unread AND NOT flag:trashed AND ("
+                     "maildir:/awkravchuk/inbox"
+                     " OR maildir:/lockie666/inbox"
+                     ")")
+            :key ?u)
+     (:name "Today"
+            :query ,(concat "date:today..now AND NOT ("
+                            "maildir:/awkravchuk/junk"
+                            " OR maildir:/lockie666/junk"
+                            ")")
+            :key ?t)))
+  (mu4e-modeline-max-width 50)
+  (mu4e-headers-fields
+   '((:date . 10)
+     (:flags . 6)
+     (:mailing-list . 15)
+     (:from . 26)
+     (:subject)))
+
+  :config
+  (setf (alist-get 'trash mu4e-marks)
+        ;; https://github.com/danielfleischer/mu4easy ❤️
+        '(:char ("d" . "▼")
+                :prompt "dtrash"
+                :dyn-target (lambda (target msg) (mu4e-get-trash-folder msg))
+                :action (lambda (docid msg target)
+                          (mu4e--server-move docid
+                                             (mu4e--mark-check-target target)
+                                             "+S-u-N"))))
+  (setq
+   mu4e-headers-draft-mark     '("D" . "🔧")
+   mu4e-headers-flagged-mark   '("F" . "🚩")
+   mu4e-headers-new-mark       '("N" . "🔥")
+   mu4e-headers-passed-mark    '("P" . "🠞")
+   mu4e-headers-replied-mark   '("R" . "🠜")
+   mu4e-headers-seen-mark      '("S" . "☑")
+   mu4e-headers-trashed-mark   '("T" . "🗑️")
+   mu4e-headers-attach-mark    '("a" . "📎")
+   mu4e-headers-encrypted-mark '("x" . "🔒")
+   mu4e-headers-signed-mark    '("s" . "🔑")
+   mu4e-headers-unread-mark    '("u" . "☐")
+   mu4e-headers-list-mark      '("l" . "🔈")
+   mu4e-headers-personal-mark  '("p" . "👨")
+   mu4e-headers-calendar-mark  '("c" . "📅"))
+  (defun my/make-mu4e-context-matcher (match-str)
+    (lambda (msg)
+      (when msg
+        (message (mu4e-message-field msg :maildir))
+        (string-prefix-p match-str (mu4e-message-field msg :maildir)))))
+  (defun my/make-context (ctx)
+    (let ((name (plist-get ctx :name)))
+      (make-mu4e-context
+       :name name
+       :match-func (my/make-mu4e-context-matcher (format "/%s" name))
+       :vars `((mu4e-sent-folder . ,(format "/%s/sent" name))
+               (mu4e-drafts-folder . ,(format "/%s/drafts" name))
+               (mu4e-trash-folder . ,(format "/%s/trash" name))
+               (mu4e-refile-folder . ,(format "/%s/archive" name))
+               (user-mail-address . ,(plist-get ctx :address))
+               (mu4e-maildir-shortcuts . ((,(format "/%s/inbox" name). ?i)
+                                           (,(format "/%s/archive" name) . ?a)
+                                           (,(format "/%s/drafts" name) . ?d)
+                                           (,(format "/%s/sent" name) . ?S)
+                                           (,(format "/%s/junk" name) . ?j)
+                                           (,(format "/%s/starred" name) . ?s)
+                                           (,(format "/%s/trash" name) . ?t)))))))
+  (setf mu4e-contexts `(,(my/make-context '(:name "awkravchuk" :address "awkravchuk@gmail.com"))
+                        ,(my/make-context '(:name "lockie666" :address "lockie666@gmail.com"))
+                       )))
+
+(use-package smtpmail-multi
+  :ensure t
+  :custom
+  (message-signature nil)
+  (smtpmail-stream-type 'ssl)
+  (smtpmail-multi-accounts
+   '((awkravchuk . ("awkravchuk" "smtp.gmail.com" 587 "awkravchuk@gmail.com" nil nil nil nil))
+     (lockie666 . ("lockie666" "smtp.gmail.com" 587 "lockie666@gmail.com" nil nil nil nil))))
+  (smtpmail-multi-associations
+   '(("awkravchuk@gmail.com" awkravchuk)
+     ("lockie666@gmail.com" lockie666)))
+  (smtpmail-multi-default-account 'awkravchuk)
+  (message-send-mail-function 'smtpmail-multi-send-it)
+  (smtpmail-debug-info t)
+  (smtpmail-debug-verbose t))
 
 (put 'narrow-to-region 'disabled nil)
