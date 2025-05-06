@@ -1044,7 +1044,12 @@
    :prefix "SPC"
    :non-normal-prefix "M-m"
    "pt"  '(doom/ivy-tasks :which-key "todos"))
-  :hook (after-init . doom-todo-ivy))
+  :hook (after-init . doom-todo-ivy)
+  :config
+  (setq doom/ivy-task-tags
+        '(("TODO"  . warning)
+          ("XXX" . warning)
+          ("FIXME" . error))))
 
 (use-package counsel-projectile
   :ensure t
