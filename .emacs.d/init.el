@@ -36,7 +36,7 @@
       (custom-theme-set-faces
        'zenburn
        `(line-number ((t (:foreground ,zenburn-fg-05 :background ,zenburn-bg-05)))))))
-  (add-to-list 'default-frame-alist '(font . "Fira Code Light-14")))
+  (add-to-list 'default-frame-alist '(font . "Cascadia Code NF Light-15"")))
 
 (use-package ligature
   :ensure t
