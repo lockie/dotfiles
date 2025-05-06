@@ -984,6 +984,7 @@
         user-emacs-directory
       "~/.emacs.d/")
     "logo.png"))
+  (dashboard-projects-backend 'projectile)
   (dashboard-center-content t)
   (dashboard-set-footer nil)
   (dashboard-week-agenda nil)
@@ -996,7 +997,6 @@
   :hook
   (dashboard-mode
    . (lambda ()
-       (projectile-mode)
        (define-key evil-normal-state-local-map (kbd "m")
          (lookup-key dashboard-mode-map "m"))
        (define-key evil-normal-state-local-map (kbd "p")
