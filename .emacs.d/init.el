@@ -241,6 +241,7 @@
   ("<f7>"    . flymake-goto-next-error)
   ("<f8>"    . flymake-goto-prev-error)
   ("<f10>"   . my/prompt-kill-emacs)
+  ("<f11>"   . nil)
   ("<f12>"   . dired-jump)
   ("S-C-h"   . shrink-window-horizontally)
   ("S-C-l"   . enlarge-window-horizontally)
@@ -351,6 +352,7 @@
               (org-capture nil "S"))
            :which-key "shrink")
    "f"   '(:which-key "files")
+   "fc"  'copy-file
    "fD"  `(,(lambda ()
               (interactive)
               (let ((filename (buffer-file-name))
@@ -473,7 +475,9 @@
                     (goto-char beg)
                     (while (re-search-forward "^\\(.*\n\\)\\1+" end t)
                       (replace-match "\\1"))))))
-           :which-key "uniquify lines"))
+           :which-key "uniquify lines")
+   "xw"  'whitespace-cleanup-region
+   "xW"  'whitespace-cleanup)
   (general-define-key
    :states '(normal visual insert)
     "<left>"   (lambda () (interactive)
