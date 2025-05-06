@@ -894,7 +894,7 @@
         comint company compile custom dashboard diff-mode dired doc-view ediff eww
         flymake geiser grep help ibuffer image imenu-list info ivy man magit
         minibuffer mu4e (package-menu package) profiler simple
-        sly vterm wdired which-key woman xref))
+        sly wdired which-key woman xref))
   (evil-collection-setup-minibuffer t)
   :config
   (evil-collection-init))
@@ -1397,12 +1397,26 @@
   :ensure t
   :custom
   (vterm-max-scrollback 100000)
+  :config
+  (evil-set-initial-state 'vterm-mode 'insert)
+  (defun my/dummy-command () (interactive))
   :hook
-  (vterm-mode
-   . (lambda () (evil-insert-state)))
+  (vterm-copy-mode . (lambda () (if vterm-copy-mode
+                               (evil-normal-state)
+                             (evil-insert-state))))
+  (vterm-copy-mode
+   . (lambda ()
+       (dolist (key '("i" "I" "a" "A" "o" "O"))
+         (define-key evil-normal-state-local-map (kbd key) #'my/dummy-command))
+       (evil-define-key 'normal vterm-copy-mode-map (kbd "C-c C-n") #'multi-vterm-next)
+       (evil-define-key 'normal vterm-copy-mode-map (kbd "C-c C-p") #'multi-vterm-prev)))
+  (evil-insert-state-entry . (lambda () (when vterm-copy-mode (evil-normal-state))))
   (vterm-mode
    . (lambda ()
-       (evil-define-key 'insert vterm-mode-map (kbd "C-c") #'vterm--self-insert)
+       (evil-define-key 'insert vterm-mode-map (kbd "C-c C-d") #'term-send-eof)
+       (evil-define-key 'insert vterm-mode-map (kbd "C-c C-n") #'multi-vterm-next)
+       (evil-define-key 'insert vterm-mode-map (kbd "C-c C-p") #'multi-vterm-prev)
+       (evil-define-key 'insert vterm-mode-map (kbd "<escape>") #'vterm--self-insert)
        (dotimes (i 9)
          (let ((n (+ i 1)))
            (define-key vterm-mode-map (kbd (format "M-%i" n)) nil))))))
