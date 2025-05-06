@@ -697,7 +697,7 @@
    org-refile-targets `((,(concat org-directory "/tasks.org") :maxlevel . 1)
                         (,(concat org-directory "/someday-maybe.org") :level . 1)
                         (,(concat org-directory "/someday-maybe.org") :tag . "ideas")
-                        (,(concat org-directory "/references.org") :level . 0)
+                        (,(concat org-directory "/references.org") :level . 1)
                         (,(concat org-directory "/archive.org") :level . 0)
                         )))
 
