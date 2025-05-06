@@ -305,6 +305,7 @@
    "ad"  'dired
    "ae"  'ediff-files
    "am"  'mu4e
+   "as"  'sql-postgres
    "b"   '(:which-key "buffers")
    "bd"  '(my/kill-this-buffer :which-key "kill")
    "bD"  `(,(lambda ()
@@ -1971,6 +1972,11 @@
   :ensure t
   :defer t
   :mode ("\\.sass\\'" . sass-mode))
+
+(use-package sql
+  :custom
+  (sql-server "localhost")
+  (sql-user "postgres"))
 
 (use-package sql-indent
   :ensure t
