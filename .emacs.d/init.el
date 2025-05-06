@@ -1616,10 +1616,11 @@
   :ensure t
   :commands (eglot eglot-ensure eglot-format)
   :custom
-  (eglot-ignored-server-capabilites
+  (eglot-ignored-server-capabilities
    '(:documentOnTypeFormattingProvider
      :documentHighlightProvider :hoverProvider :colorProvider :codeLensProvider
-     :foldingRangeProvider :codeActionProvider :documentLinkProvider))
+     :foldingRangeProvider :codeActionProvider :documentLinkProvider
+     :inlayHintProvider))
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-to-list 'eglot-server-programs '(fennel-mode "fennel-ls"))
