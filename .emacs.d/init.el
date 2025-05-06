@@ -1922,6 +1922,8 @@
 
 (use-package impatient-showdown
   :ensure t
+  :custom
+  (impatient-showdown-flavor 'github)
   :general
   (:states '(normal visual insert emacs)
    :keymaps 'markdown-mode-map
