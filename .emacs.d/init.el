@@ -68,7 +68,8 @@
      "<<=" "<<<" "<~" "<~~" "</" "</>" "~@" "~-" "~=" "~>" "~~" "~~>"
      "%%" "0x"))
   :hook
-  (prog-mode . ligature-mode-turn-on))
+  (prog-mode . ligature-mode-turn-on)
+  (mu4e-thread-mode . ligature-mode-turn-on))
 
 (use-package solaire-mode
   :ensure t
