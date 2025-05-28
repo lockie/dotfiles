@@ -1814,6 +1814,12 @@
   :config
   (define-key sly-prefix-map (kbd "C-q") 'sly-quickload))
 
+(use-package poly-org
+  :quelpa (poly-org
+           :fetcher github
+           :repo "akater/poly-org"
+           :branch "lisp-inherit-package"))
+
 (use-package cmake-mode :ensure t)
 
 (use-package docker-compose-mode :ensure t :defer t)
