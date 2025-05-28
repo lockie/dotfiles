@@ -94,7 +94,7 @@
   (visible-bell t)
   (ring-bell-function 'ignore)
   (truncate-lines nil)
-  (fill-column 79)
+  (fill-column 80)
   (scroll-margin 7)
   (mouse-wheel-progressive-speed nil)
   (use-dialog-box nil)
@@ -196,6 +196,7 @@
   (global-hl-line-mode t)
   (winner-mode t)
   (minibuffer-depth-indicate-mode t)
+  (global-display-fill-column-indicator-mode t)
   (define-fringe-bitmap 'tilde [0 0 0 113 219 142 0 0] nil nil 'center)
   (setcdr (assq 'empty-line fringe-indicator-alist) 'tilde)
   (set-fringe-bitmap-face 'tilde 'line-number)
@@ -1151,39 +1152,6 @@
   (paren-face-regexp "[()]")
   :config
   (global-paren-face-mode))
-
-(use-package fill-column-indicator
-  :ensure t
-  :custom
-  (fci-rule-column 79)
-  (fci-handle-truncate-lines nil)
-  :hook
-  (prog-mode . fci-mode)
-  (window-configuration-change
-   . (lambda ()
-       (when (derived-mode-p 'prog-mode)
-         (if (> (window-width) (+ fci-rule-column 5))
-             (fci-mode 1)
-           (fci-mode 0))))))
-
-;; prevent fill-column-indicator from adding weird symbols to Org export
-;; see https://emacs.stackexchange.com/q/44361/16660
-(use-package htmlize
-  :defer t
-  :config
-  (progn
-    (with-eval-after-load 'fill-column-indicator
-      (defvar modi/htmlize-initial-fci-state nil
-        "Variable to store the state of `fci-mode' when `htmlize-buffer' is called.")
-      (defun modi/htmlize-before-hook-fci-disable ()
-        (setq modi/htmlize-initial-fci-state fci-mode)
-        (when fci-mode
-          (fci-mode -1)))
-      (defun modi/htmlize-after-hook-fci-enable-maybe ()
-        (when modi/htmlize-initial-fci-state
-          (fci-mode 1)))
-      (add-hook 'htmlize-before-hook #'modi/htmlize-before-hook-fci-disable)
-      (add-hook 'htmlize-after-hook #'modi/htmlize-after-hook-fci-enable-maybe))))
 
 (use-package page-break-lines
   :ensure t
