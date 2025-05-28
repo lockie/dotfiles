@@ -2044,21 +2044,6 @@
          ("\\.jinja2\\'" . web-mode)
          ("\\.jade\\'" . web-mode)))
 
-(use-package howdoi
-  :quelpa (howdoi
-           :fetcher github
-           :repo "lockie/emacs-howdoi")
-  :general
-  (:states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-m"
-   "hh" 'howdoi-query-insert-code-snippet-at-point
-   "hH" 'howdoi-show-current-question
-   "hn" 'howdoi-show-next-question
-   "hp" 'howdoi-show-previous-question)
-  :custom
-  (howdoi-display-question t))
-
 (use-package wakatime-mode
   :ensure t
   :diminish wakatime-mode
