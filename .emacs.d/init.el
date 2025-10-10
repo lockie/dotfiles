@@ -1168,7 +1168,7 @@
   :diminish highlight-indent-guides-mode
   :custom
   (highlight-indent-guides-method 'bitmap)
-  (highlight-indent-guides-responsive 'stack)
+  (highlight-indent-guides-responsive 'nil)
   (highlight-indent-guides-character ?\N{U+2506})
   :hook
   (prog-mode . highlight-indent-guides-mode))
