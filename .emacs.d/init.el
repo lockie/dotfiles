@@ -1760,7 +1760,7 @@
    "msr" 'sly-eval-region)
   :config
   (setq sly-lisp-implementations
-        '((sbcl ("sbcl" "--dynamic-space-size" "4096"))
+        '((sbcl ("sbcl" "--dynamic-space-size" "8192"))
           (ccl ("ccl"))
           (ecl ("ecl"))
           (abcl ("abcl"))
