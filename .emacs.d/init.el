@@ -1022,8 +1022,6 @@
 (use-package projectile
   :ensure t
   :diminish projectile-mode
-  :hook
-  (find-file . projectile-find-file-hook-function)
   :custom
   (projectile-completion-system 'ivy)
   (projectile-enable-caching t)
