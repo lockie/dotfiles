@@ -965,6 +965,9 @@
    :non-normal-prefix "M-m"
    "/"   '(swiper-all :which-key "search")))
 
+(use-package wgrep-ag
+  :ensure t)
+
 (use-package exec-path-from-shell
   :ensure t
   :defer 0.1
