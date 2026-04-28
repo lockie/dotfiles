@@ -86,6 +86,7 @@
 
 (use-package emacs
   :diminish global-whitespace-mode
+  :diminish whitespace-mode
   :custom
   (user-full-name   "Andrew Kravchuk")
   (visible-bell t)
@@ -885,6 +886,7 @@
   :ensure t
   :defer 0.1
   :after evil
+  :diminish evil-collection-unimpaired-mode
   :custom
   (evil-collection-company-use-tng nil)
   (evil-collection-key-blacklist '("SPC" "<escape>"))
