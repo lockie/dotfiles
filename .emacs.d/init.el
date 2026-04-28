@@ -1675,6 +1675,15 @@
   :hook
   (clojure-mode . flymake-kondor-setup))
 
+(use-package ivy-clojuredocs
+  :ensure t
+  :general
+  (:states
+   '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "hc" 'ivy-clojuredocs-at-point))
+
 (use-package re-jump
   :quelpa (re-jump
            :fetcher github
