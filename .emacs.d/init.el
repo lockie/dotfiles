@@ -576,6 +576,14 @@
   (org-enforce-todo-dependencies t)
   (org-confirm-babel-evaluate nil)
   (org-todo-keywords '((sequence "TODO" "DOING" "|" "DONE")))
+  (org-tag-alist
+   '(("@focus" . ?f)
+     ("@unfocused" . ?u)
+     ("@quick" . ?q)
+     ("@errand" . ?e)
+     ("@relationship" . ?r)
+     ("@people" . ?p)
+     ("@software" . ?s)))
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
   (org-agenda-window-setup 'current-window)
@@ -594,7 +602,7 @@
                               "Октябрь" "Ноябрь" "Декабрь"])
   (org-agenda-block-separator "")
   (org-agenda-prefix-format
-   '((agenda . "\t")
+   '((agenda . "\t%t ")
      (todo . "\t")
      (tags . "\t")
      (search . "\t")))
@@ -602,7 +610,8 @@
   (org-agenda-custom-commands
    `(("d" "Get things done"
       ((agenda "" ((org-agenda-overriding-header "📆 Calendar")
-                   (org-agenda-span 14)))
+                   (org-agenda-span 14)
+                   (org-agenda-time-grid nil)))
        (tags-todo "LEVEL=2"
                   ((org-agenda-overriding-header "⚡ Next actions")
                    (org-agenda-files '(,(concat org-directory "/tasks.org")))
@@ -628,7 +637,9 @@
               (define-key evil-motion-state-local-map (kbd "RET")
                 'org-agenda-switch-to)
               (define-key evil-normal-state-local-map (kbd "r")
-                'org-agenda-redo)))
+                'org-agenda-redo)
+              (define-key evil-normal-state-local-map (kbd "f")
+                'org-agenda-filter-by-tag)))
          (calendar-mode
           . (lambda () (define-key evil-motion-state-local-map (kbd "RET")
                     'org-calendar-select))))
@@ -684,7 +695,7 @@
       :prepend t
       :kill-buffer t)
      ("n" "Next action" entry (file+headline ,(concat org-directory "/tasks.org") "⚡ Next actions")
-      "* TODO %?\n:PROPERTIES:\n:OUTCOME: %^{OUTCOME}\n:CREATED: %U\n:END:"
+      "* TODO %? %^{Context|@focus|@unfocused|@quick|@errand|@relationship|@people|@software}\n:PROPERTIES:\n:CREATED: %U\n:END:"
       :prepend t
       :kill-buffer t)
      ("s" "Schedule" entry (file ,(concat org-directory "/calendar.org"))
@@ -1531,12 +1542,14 @@
   (defvar my/org-agenda-auto-show-groups
     '("Calendar" "Next actions" "Waiting"))
   (defun my/org-agenda-origami-fold-default ()
-    (unless (buffer-narrowed-p)
+    (unless (or (buffer-narrowed-p)
+                org-agenda-filter)
       (save-excursion
         (call-interactively 'origami-close-all-nodes)
         (call-interactively 'origami-open-node)
-        (call-interactively 'origami-forward-fold)
-        (call-interactively 'origami-open-node))))
+        (ignore-errors
+          (call-interactively 'origami-forward-fold)
+          (call-interactively 'origami-open-node)))))
   :hook
   ((org-agenda-mode . origami-mode)
    (org-agenda-finalize . my/org-agenda-origami-fold-default))
