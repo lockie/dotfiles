@@ -1383,6 +1383,7 @@
   :ensure t
   :custom
   (vterm-max-scrollback 100000)
+  (vterm-clear-scrollback-when-clearing 1)
   :config
   (evil-set-initial-state 'vterm-mode 'insert)
   (defun my/dummy-command () (interactive))
