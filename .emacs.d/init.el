@@ -2073,8 +2073,6 @@
 (use-package wakatime-mode
   :ensure t
   :diminish wakatime-mode
-  :custom
-  (wakatime-cli-path "~/.local/bin/wakatime")
   :general
   (:states '(normal visual insert emacs)
    :prefix "SPC"
