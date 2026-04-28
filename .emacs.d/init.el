@@ -2134,6 +2134,18 @@
                      " OR maildir:/lockie666/inbox"
                      ")")
             :key ?u)
+     (:name "Lists"
+            :query ,(concat "flag:lists AND NOT ("
+                            "maildir:/awkravchuk/junk"
+                            " OR maildir:/lockie666/junk"
+                            ")")
+            :key ?l)
+     (:name "Starred"
+            :query ,(concat
+                     "maildir:/awkravchuk/starred"
+                     " OR maildir:/lockie666/starred"
+                     )
+            :key ?s)
      (:name "Today"
             :query ,(concat "date:today..now AND NOT ("
                             "maildir:/awkravchuk/junk"
@@ -2176,7 +2188,6 @@
   (defun my/make-mu4e-context-matcher (match-str)
     (lambda (msg)
       (when msg
-        (message (mu4e-message-field msg :maildir))
         (string-prefix-p match-str (mu4e-message-field msg :maildir)))))
   (defun my/make-context (ctx)
     (let ((name (plist-get ctx :name)))
