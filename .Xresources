@@ -26,3 +26,44 @@ alttab.framecolor: #f0dfaf
 alttab.foreground: #dcdccc
 alttab.font: xft:Terminus
 alttab.tile.geometry: 300x64
+
+! ------------------------------------------------------------------------------
+! XTERM - Zenburn theme with large font
+! ------------------------------------------------------------------------------
+XTerm*termName: xterm-256color
+XTerm*faceName: Terminus
+XTerm*faceSize: 18
+XTerm*boldMode: true
+XTerm*renderFont: true
+XTerm*utf8: 2
+XTerm*metaSendsEscape: true
+XTerm*eightBitInput: true
+XTerm*scrollBar: false
+XTerm*cursorBlink: false
+XTerm*saveLines: 65535
+XTerm*dynamicColors: on
+XTerm*highlightSelection: true
+XTerm*reverseWrap: true
+
+! Zenburn colors
+XTerm*background: #3a3a3a
+XTerm*foreground: #dcdccc
+XTerm*cursorColor: #DCDCCC
+
+! Color palette
+XTerm*color0: #000000
+XTerm*color8: #222222
+XTerm*color1: #e89393
+XTerm*color9: #dca3a3
+XTerm*color2: #688060
+XTerm*color10: #7f9f7f
+XTerm*color3: #f0dfaf
+XTerm*color11: #efef8f
+XTerm*color4: #719181
+XTerm*color12: #6abeb1
+XTerm*color5: #bca3a3
+XTerm*color13: #c0bed1
+XTerm*color6: #93b3a3
+XTerm*color14: #8cd0d3
+XTerm*color7: #cccccc
+XTerm*color15: #ffffff
