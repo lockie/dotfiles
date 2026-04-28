@@ -1,0 +1,63 @@
+[buildPlans.IosevkaCustom]
+family = "Iosevka Custom"
+spacing = "term"
+serifs = "sans"
+noCvSs = false
+exportGlyphNames = true
+
+[buildPlans.IosevkaCustom.variants.design]
+one = "base"
+two = "straight-neck-serifed"
+three = "flat-top-serifed"
+four = "semi-open-serifed"
+five = "oblique-arched-serifed"
+six = "straight-bar"
+seven = "curly-serifed"
+eight = "crossing-asymmetric"
+nine = "straight-bar"
+zero = "oval-slashed"
+paren = "large-contour"
+number-sign = "upright-tall"
+percent = "rings-continuous-slash"
+question = "corner"
+lig-ltgteq = "slanted"
+lig-plus-chain = "with-notch"
+lig-equal-chain = "without-notch"
+
+  [buildPlans.IosevkaCustom.ligations]
+  inherits = "dlig"
+
+[buildPlans.IosevkaCustom.variants.italic]
+one = "base"
+two = "straight-neck-serifed"
+three = "flat-top-serifed"
+four = "semi-open-serifed"
+five = "oblique-arched-serifed"
+six = "straight-bar"
+seven = "curly-serifed"
+eight = "crossing-asymmetric"
+nine = "straight-bar"
+zero = "oval-slashed"
+paren = "large-contour"
+number-sign = "upright-tall"
+percent = "rings-continuous-slash"
+question = "corner"
+lig-ltgteq = "slanted"
+lig-plus-chain = "with-notch"
+lig-equal-chain = "without-notch"
+k = "straight-serifless"
+
+[buildPlans.IosevkaCustom.weights.Regular]
+shape = 400
+menu = 400
+css = 400
+
+[buildPlans.IosevkaCustom.weights.Bold]
+shape = 700
+menu = 700
+css = 700
+
+[buildPlans.IosevkaCustom.widths.Normal]
+shape = 600
+menu = 5
+css = "normal"
