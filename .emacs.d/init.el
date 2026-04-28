@@ -2066,7 +2066,9 @@
          ("\\.html\\'" . web-mode)
          ("\\.jinja\\'" . web-mode)
          ("\\.jinja2\\'" . web-mode)
-         ("\\.jade\\'" . web-mode)))
+         ("\\.jade\\'" . web-mode)
+         ("\\.ts\\'" . web-mode)
+         ("\\.tsx\\'" . web-mode)))
 
 (use-package wakatime-mode
   :ensure t
