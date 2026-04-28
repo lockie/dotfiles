@@ -246,7 +246,8 @@
   ("S-C-h"   . shrink-window-horizontally)
   ("S-C-l"   . enlarge-window-horizontally)
   ("S-C-j"   . shrink-window)
-  ("S-C-k"   . enlarge-window))
+  ("S-C-k"   . enlarge-window)
+  :mode ("\\.bats\\'" . sh-mode))
 
 (use-package quelpa
   :ensure t
