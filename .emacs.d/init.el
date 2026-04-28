@@ -2084,6 +2084,14 @@
   :config
   (global-wakatime-mode))
 
+(use-package eca
+  :ensure t
+  :general
+  (:states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "aa" 'eca))
+
 (use-package multitran
   :ensure t
   :custom
