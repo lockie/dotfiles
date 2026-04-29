@@ -482,6 +482,7 @@
    "xW"  'whitespace-cleanup)
   (general-define-key
    :states '(normal visual insert)
+   :predicate '(not (derived-mode-p 'vterm-mode))
     "<left>"   (lambda () (interactive)
                  (message
                   "Use Vim keys: <h> for Left, <b> for previous word"))
