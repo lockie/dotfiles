@@ -1832,7 +1832,6 @@
   (load "~/.quicklisp/log4sly-setup.el")
   (global-log4sly-mode 1))
 
-
 (use-package sly-quicklisp
   :ensure t
   :defer t
