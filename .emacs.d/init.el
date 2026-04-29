@@ -1081,7 +1081,9 @@
 (use-package autorevert
   :diminish auto-revert-mode
   :defer 0.1
-  :config (global-auto-revert-mode))
+  :config
+  (setq auto-revert-interval 1)
+  (global-auto-revert-mode))
 
 (use-package recentf
   :defer 0.1
