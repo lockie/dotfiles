@@ -1448,11 +1448,11 @@
   :hook
   (magit-diff-mode . (lambda () (setq truncate-lines nil)))
   :config
-  (defadvice magit-status (around magit-fullscreen activate)
+  (define-advice magit-status (:around (fn &rest args) magit-fullscreen)
     (window-configuration-to-register :magit-fullscreen)
-    ad-do-it
+    (apply fn args)
     (delete-other-windows))
-  (defadvice magit-mode-quit-window (after magit-restore-screen activate)
+  (define-advice magit-mode-quit-window (:after (_) magit-restore-screen)
     (jump-to-register :magit-fullscreen))
   (defun my/close-magit ()
     (interactive)
