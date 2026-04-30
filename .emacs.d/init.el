@@ -96,7 +96,7 @@
   (scroll-margin 7)
   (mouse-wheel-progressive-speed nil)
   (use-dialog-box nil)
-  (custom-file (make-temp-name "emacs-custom"))
+  (custom-file (make-temp-file "emacs-custom"))
   (bidi-display-reordering nil)
   (jit-lock-defer-time 0)
   (jit-lock-stealth-time 0.1)
