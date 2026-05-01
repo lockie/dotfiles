@@ -27,7 +27,7 @@
           "actions": [
               {
                   "type": "shell",
-                  "shell": "canberra-gtk-play -i complete"
+                  "shell": "canberra-gtk-play -i message"
               }
           ]
       },
@@ -37,7 +37,7 @@
           "actions": [
               {
                   "type": "shell",
-                  "shell": "jq -e '.approval == \"ask\"' > /dev/null && canberra-gtk-play -i message"
+                  "shell": "jq -e '.approval == \"ask\"' > /dev/null && canberra-gtk-play -i message-new-instant"
               }
           ]
       }
