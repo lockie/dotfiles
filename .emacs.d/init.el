@@ -213,6 +213,9 @@
   (after-save . executable-make-buffer-file-executable-if-script-p)
   (ediff-load
    . (lambda ()
+       (define-advice ediff-quit (:around (orig-fun &rest args) disable-y-or-n-p)
+         (cl-letf (((symbol-function 'y-or-n-p) (lambda (_) t)))
+           (apply orig-fun args)))
        (add-hook 'ediff-before-setup-hook
                  (lambda ()
                    (setq ediff-saved-window-configuration
