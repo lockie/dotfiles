@@ -1,6 +1,9 @@
 {
     "$schema": "https://eca.dev/config.json",
     "defaultModel": "z-ai/glm-5.1",
+    "completion": {
+        "model": "z-ai/glm-5"
+    },
     "providers": {
         "z-ai": {
             "api": "anthropic",
