@@ -992,18 +992,17 @@
   :config (exec-path-from-shell-initialize))
 
 (use-package dashboard
-  ;; newer version breaks about everything
-  :quelpa (dashboard
-           :fetcher github
-           :repo "emacs-dashboard/emacs-dashboard"
-           :commit "eeee96")
   :custom
-  (dashboard-startup-banner
-   (concat
-    (if (boundp 'user-emacs-directory)
-        user-emacs-directory
-      "~/.emacs.d/")
-    "logo.png"))
+  (dashboard-startupify-list '(dashboard-insert-newline
+                               dashboard-insert-banner-title
+                               dashboard-insert-newline
+                               dashboard-insert-init-info
+                               dashboard-insert-items))
+  (dashboard-banner-logo-title (format "Emacs %s" emacs-version))
+  (dashboard-init-info (lambda ()
+                         (format "%d packages installed. Started in %s."
+                                 (dashboard-init--packages-count)
+                                 (dashboard-init--time))))
   (dashboard-projects-backend 'projectile)
   (dashboard-center-content t)
   (dashboard-set-footer nil)
