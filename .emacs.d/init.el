@@ -992,6 +992,7 @@
   :config (exec-path-from-shell-initialize))
 
 (use-package dashboard
+  :ensure t
   :custom
   (dashboard-startupify-list '(dashboard-insert-newline
                                dashboard-insert-banner-title
