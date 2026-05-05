@@ -55,6 +55,10 @@
         }
     },
     "mcpServers": {
+        "gitnexus": {
+            "command": "npx",
+            "args": ["-y", "gitnexus@latest", "mcp"]
+        },
         "web-search": {
             "command": "npx",
             "args": ["-y", "@zhafron/mcp-web-search"],
