@@ -727,6 +727,31 @@
   :hook
   (org-mode . org-appear-mode))
 
+(use-package org-present
+  :ensure t
+  :quelpa (org-present
+           :fetcher github
+           :repo "rlister/org-present")
+  :general
+  (:states '(normal visual insert emacs)
+   :keymaps 'org-mode-map
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "mp" 'org-present)
+  :hook
+  (org-present-mode . (lambda ()
+                         (org-present-big)
+                         (org-display-inline-images)
+                         (org-present-hide-cursor)
+                         (org-present-read-only)
+                         (evil-normalize-keymaps)))
+  (org-present-mode-quit . (lambda ()
+                              (org-present-small)
+                              (org-remove-inline-images)
+                              (org-present-show-cursor)
+                              (org-present-read-write)
+                              (evil-normalize-keymaps))))
+
 (use-package winum
   :ensure t
   :config
@@ -910,7 +935,7 @@
    '(ag bookmark (buff-menu "buff-menu") calc calendar cider cmake-mode
         comint company compile custom dashboard diff-mode dired doc-view ediff eww
         flymake geiser grep help ibuffer image imenu-list info ivy man magit
-        minibuffer mu4e (package-menu package) profiler simple
+        minibuffer mu4e org-present (package-menu package) profiler simple
         sly wdired which-key woman xref))
   (evil-collection-setup-minibuffer t)
   :config
