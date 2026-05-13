@@ -1114,31 +1114,29 @@
   (global-auto-revert-mode))
 
 (use-package recentf
-  :defer 0.1
   :custom
   (recentf-auto-cleanup 'never)
   (recentf-max-saved-items 1000)
   (recentf-auto-save-timer (run-with-idle-timer 60 t 'recentf-save-list))
   :config
+  (dolist (pattern '("COMMIT_EDITMSG\\'"
+                      "^/usr/include/"
+                      "^/usr/lib64/"
+                      "^/usr/share/emacs/"
+                      "^/tmp/"
+                      "/\\.quicklisp/"
+                      "/\\.emacs\\.d/bookmarks\\'"
+                      "/\\.emacs\\.d/recentf\\'"
+                      "/\\.emacs\\.d/\\.cache/"
+                      "/\\.emacs\\.d/snippets/"
+                      "/\\.emacs\\.d/elpa/"
+                      "/\\.m2/"
+                      "/\\.Mail/"))
+    (add-to-list 'recentf-exclude pattern))
   (defun my/recentf-save-silently-advice (original &rest args)
     (let ((inhibit-message t))
       (apply original args)))
-  (advice-add 'recentf-save-list :around #'my/recentf-save-silently-advice)
-  (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
-  (add-to-list 'recentf-exclude "/usr/share/emacs/.*")
-  (add-to-list 'recentf-exclude "/usr/lib64/sbcl/.*")
-  (add-to-list 'recentf-exclude "/usr/lib64/sbcl/asdf/.*")
-  (add-to-list 'recentf-exclude (recentf-expand-file-name "~/.quicklisp/.*"))
-  (add-to-list 'recentf-exclude "/tmp/.*")
-  (let ((home (getenv "HOME")))
-    (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/bookmarks" home))
-    (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/recentf" home))
-    (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/.cache/.*" home))
-    (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/snippets/.*" home))
-    (add-to-list 'recentf-exclude (format "%s/\\.emacs\\.d/elpa/.*" home))
-    (add-to-list 'recentf-exclude (format "%s/\\.m2/.*" home))
-    (add-to-list 'recentf-exclude (format "%s/\\.Mail/.*" home))
-    ))
+  (advice-add 'recentf-save-list :around #'my/recentf-save-silently-advice))
 
 (use-package editorconfig
   :ensure t
