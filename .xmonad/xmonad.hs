@@ -180,6 +180,7 @@ myStartupHook = do
   spawn "xset r rate 190 25"
   spawn "xsetroot -cursor_name left_ptr"
   spawnOnce "polybar top"
+  spawnOnce "snixembed"
   spawnOnce "dex -a -e xmonad"
   spawnOnce "xfce4-screensaver"
   spawnOnce "sleep 1; polybar bottom"
