@@ -177,7 +177,7 @@ myStartupHook = do
   windows (greedyViewOnScreen 0 "coding")
   windows (greedyViewOnScreen 1 "internets")
   spawn "~/.fehbg"
-  spawn "xset r rate 190 25"
+  spawn "xset r rate 210 25"
   spawn "xsetroot -cursor_name left_ptr"
   spawnOnce "polybar top"
   spawnOnce "snixembed"
