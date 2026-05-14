@@ -401,8 +401,8 @@ format-background = ${colors.background}
 
 [module/hddtemp]
 type = custom/script
-exec = echo | curl --connect-timeout 1 -fsm 3 telnet://127.0.0.1:7634 | cut -d'|' -f4
-label = %output:3%°C
+exec = sudo hddtemp /dev/sda 2>/dev/null | /bin/grep -oP '\d+°C' || echo "NA°C"
+label = %output:4%
 tail = false
 interval = 7
 format-background = ${colors.background-alt}
