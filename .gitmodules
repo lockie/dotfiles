@@ -61,3 +61,6 @@
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
+[submodule ".config/polybar/polypomo"]
+	path = .config/polybar/polypomo
+	url = https://github.com/unode/polypomo

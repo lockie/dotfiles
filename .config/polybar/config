@@ -74,7 +74,7 @@ inherit = bar
 bottom = true
 modules-left = powermenu RightArrowAlt ewmh RightArrow xwindow RightArrowAlt
 modules-center =
-modules-right = LeftArrowAlt volume LeftArrow location weather LeftArrowAlt keyboard LeftArrow date
+modules-right = LeftArrowAlt volume LeftArrow location weather LeftArrowAlt keyboard LeftArrow polypomo LeftArrowAlt date1
 locale = "ru_RU.UTF-8"
 
 [bar/bottom2]
@@ -85,6 +85,23 @@ modules-left = powermenu RightArrowAlt ewmh RightArrow xwindow2 RightArrowAlt
 modules-center =
 modules-right = LeftArrowAlt volume LeftArrow location weather LeftArrowAlt keyboard LeftArrow date
 locale = "ru_RU.UTF-8"
+
+
+[module/polypomo]
+type = custom/script
+
+exec = ~/.config/polybar/polypomo/polypomo --breaktime=300
+tail = true
+
+label-padding = 1
+format-background = ${colors.background}
+
+label = %output%
+click-left = ~/.config/polybar/polypomo/polypomo toggle
+click-right = ~/.config/polybar/polypomo/polypomo end
+#click-middle = ~/.config/polybar/polypomo/polypomo lock
+#scroll-up = ~/.config/polybar/polypomo/polypomo time +60
+#scroll-down = ~/.config/polybar/polypomo/polypomo time -60
 
 
 [module/powermenu]
@@ -245,6 +262,14 @@ format = <label-layout>
 format-background = ${colors.background-alt}
 format-padding = 1
 
+[module/date1]
+type = internal/date
+interval = 1
+date = "%A %e %b"
+time = %H:%M:%S
+label = %{A1:gsimplecal&:}%date% %time% %{A}
+label-padding = 1
+format-background = ${colors.background-alt}
 
 [module/date]
 type = internal/date
