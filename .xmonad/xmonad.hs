@@ -53,6 +53,7 @@ myKeys conf@(XConfig {modMask = modKey}) = M.fromList $
     , ((modKey,               xK_b     ), spawn "~/bin/block-screen.sh")
     , ((modKey,               xK_comma ), sendMessage (IncMasterN 1))
     , ((modKey,               xK_e     ), spawn "pcmanfm-qt")
+    , ((modKey,               xK_f     ), toggleFull)
     , ((modKey,               xK_h     ), sendMessage Shrink)
     , ((modKey,               xK_j     ), windows W.focusDown)
     , ((modKey,               xK_k     ), windows W.focusUp)
