@@ -6,7 +6,7 @@ Personal configuration files and scripts.
 
  - nice GTK2 dark [theme](https://github.com/mate-desktop/mate-themes/tree/master/desktop-themes/BlackMATE) (GTK3-compatible)
  - [rofi](https://github.com/DaveDavenport/rofi)
- - [zsh](http://zsh.org) (optionally install grc, [the\_silver\_searcher aka ag](https://github.com/ggreer/the_silver_searcher), ipython, htop, unrar/unzip/7z, imagemagick, fortune)
+ - [zsh](http://zsh.org) (optionally install grc, [the\_silver\_searcher aka ag](https://github.com/ggreer/the_silver_searcher), ipython, htop, unrar/unzip/7z, imagemagick, fortune, ngpt)
  - zsh plugins:
     * [gibo](https://github.com/simonwhitaker/gibo)
     * [warhol](https://github.com/unixorn/warhol.plugin.zsh)

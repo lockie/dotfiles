@@ -167,7 +167,6 @@ alias sudo='nocorrect sudo'  # ... или не натворить делов
 alias kill='nocorrect kill'
 alias killall='nocorrect killall'
 alias pkill='nocorrect pkill'
-alias howdoi='nocorrect howdoi'
 alias xlaunch='nocorrect xlaunch'
 hash pacman 2>/dev/null && {
 	alias pacman='nocorrect pacman'
@@ -206,6 +205,14 @@ hash avconv 2>/dev/null && {
 	command -v ffmpeg >/dev/null 2>&1 || alias ffmpeg='avconv'
 }
 alias git='nocorrect git'
+
+hash ngpt 2>/dev/null && {
+	_how() {
+		ngpt --shell "$*"
+	}
+	alias how='nocorrect _how'
+	alias howdoi=how
+}
 
 
 export LESS="$LESS -j2 -i -W -r"
