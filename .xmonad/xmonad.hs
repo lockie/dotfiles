@@ -126,6 +126,7 @@ myPlacement = fixed (0.5, 0.5)
 myManageHook = composeAll
     [ checkDialog                   --> doCenterFloat
     , className =? "Xmessage"       --> doFloat
+    , className =? "zenity"         --> doCenterFloat
     , className =? "Display"        --> doFloat
     , className =? "mpv"            --> doFloat
     , className =? "vlc"            --> doFloat
