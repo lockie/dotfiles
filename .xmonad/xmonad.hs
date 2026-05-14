@@ -18,8 +18,12 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.ToggleLayouts (ToggleLayout(..), toggleLayouts)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.SpawnOnce
+import Graphics.X11.Xlib.Extras (Event(..))
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
+
+import Data.Monoid (All(..))
+import Control.Monad (when, unless)
 
 main :: IO ()
 main = xmonad $ withUrgencyHookC BorderUrgencyHook { urgencyBorderColor = myUrgentColor } def { suppressWhen = Focused } $ ewmhFullscreen . ewmh $ docks $ def
@@ -173,7 +177,27 @@ myManageHook = composeAll
       doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
 
 myEventHook = mconcat
-    [ fixSteamFlicker ]
+    [ fixSteamFlicker
+    , panelFocusHook
+    ]
+
+-- | When the mouse enters a non-client window (e.g. polybar), re-assert
+-- focus on the currently focused XMonad window so it doesn't lose keyboard
+-- focus due to focus-follows-mouse.
+panelFocusHook :: Event -> X All
+panelFocusHook (CrossingEvent { ev_event_type = t, ev_window = w }) = do
+    when (t == enterNotify) $ do
+        ws <- gets windowset
+        let focused = W.peek ws
+        whenJust focused $ \fw -> do
+            client <- isClient w
+            unless client $ do
+                io $ do
+                    d <- openDisplay ""
+                    setInputFocus d fw revertToPointerRoot 0
+                    closeDisplay d
+    return (All True)
+panelFocusHook _ = return (All True)
 
 myLogHook = whenX (gets windowset >>=
                    \ws -> pure $ (maybe 0 W.focus . W.stack . W.workspace . W.current) ws
