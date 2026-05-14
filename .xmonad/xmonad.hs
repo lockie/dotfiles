@@ -2,6 +2,7 @@ import Data.List
 import Foreign.C.Types (CLong)
 import System.Exit (exitSuccess)
 import XMonad
+import XMonad.Actions.NoBorders
 import XMonad.Actions.OnScreen
 import XMonad.Actions.UpdatePointer
 import XMonad.Config.Desktop (desktopLayoutModifiers)
@@ -15,6 +16,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ToggleLayouts (ToggleLayout(..), toggleLayouts)
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.SpawnOnce
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
@@ -33,11 +35,27 @@ main = xmonad $ withUrgencyHookC BorderUrgencyHook { urgencyBorderColor = myUrge
                            (avoidStruts $ smartBorders $
                              onWorkspaces ["chat", "internets"] (myTabsLayout ||| myTiledLayout) $
                              (myTiledLayout ||| myTabsLayout))
-    , manageHook         = myManageHook <+> placeHook myPlacement <> manageDocks
+    , manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads <+> placeHook myPlacement <> manageDocks
     , handleEventHook    = myEventHook
     , logHook            = myLogHook
     , startupHook        = myStartupHook
     }
+
+myScratchpads = [
+  NS "term" "st -c st-scratch" (className =? "st-scratch")
+    (customFloating $ W.RationalRect 0 0 1 0.38)
+  ]
+
+toggleFull = withFocused (\windowId -> do
+{
+   floats <- gets (W.floating . windowset);
+   if windowId `M.member` floats
+   then do
+       withFocused $ toggleBorder
+       withFocused $ windows . W.sink
+   else do
+       withFocused $ toggleBorder
+       withFocused $ windows . (flip W.float $ W.RationalRect 0 0 1 1)})
 
 myKeys conf@(XConfig {modMask = modKey}) = M.fromList $
     [ ((modKey .|. shiftMask, xK_Print ), spawn "sleep 1; scrot -d 1 -s -e 'mv $f ~/Images/screenshots/ 2>/dev/null'")
@@ -50,6 +68,7 @@ myKeys conf@(XConfig {modMask = modKey}) = M.fromList $
     , ((modKey,               xK_Escape), spawn "dunstctl close")
     , ((modKey,               xK_Print ), spawn "scrot -e 'mv $f ~/Images/screenshots/ 2>/dev/null'")
     , ((modKey,               xK_Return), spawn $ XMonad.terminal conf)
+    , ((modKey,               xK_apostrophe), namedScratchpadAction myScratchpads "term")
     , ((modKey,               xK_b     ), spawn "~/bin/block-screen.sh")
     , ((modKey,               xK_comma ), sendMessage (IncMasterN 1))
     , ((modKey,               xK_e     ), spawn "pcmanfm-qt")
