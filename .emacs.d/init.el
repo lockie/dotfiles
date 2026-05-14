@@ -1461,6 +1461,7 @@
   (magit-save-repository-buffers nil)
   (magit-refs-show-commit-count 'all)
   (magit-log-margin '(t "%Y-%m-%d %H:%M" magit-log-margin-width t 18))
+  (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   :general
   (:states '(normal visual insert emacs)
    :prefix "SPC"
@@ -1475,21 +1476,7 @@
    "gs"  'magit-status)
   :hook
   (magit-diff-mode . (lambda () (setq truncate-lines nil)))
-  :config
-  (define-advice magit-status (:around (fn &rest args) magit-fullscreen)
-    (window-configuration-to-register :magit-fullscreen)
-    (apply fn args)
-    (delete-other-windows))
-  (define-advice magit-mode-quit-window (:after (_) magit-restore-screen)
-    (jump-to-register :magit-fullscreen))
-  (defun my/close-magit ()
-    (interactive)
-    (kill-buffer)
-    (jump-to-register :magit-fullscreen))
   :bind
-  (:map magit-status-mode-map
-        ("q" . my/close-magit)
-        ("<escape>" . my/close-magit))
   (:map magit-diff-mode-map
         ("M-1" . nil)
         ("M-2" . nil)
