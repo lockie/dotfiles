@@ -13,3 +13,6 @@ eval "$(pyenv virtualenv-init -)"
 eval "$(luarocks path --bin)"
 
 eval "$(direnv hook zsh)"
+
+export OPENCODE_ENABLE_EXA=true
+export OPENCODE_EXPERIMENTAL_LSP_TOOL=true
