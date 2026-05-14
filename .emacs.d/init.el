@@ -231,7 +231,8 @@
   (prog-mode
    . (lambda ()
         (modify-syntax-entry ?_ "w")
-        (unless (derived-mode-p 'lua-mode)
+        (unless (or (derived-mode-p 'lua-mode)
+                    (derived-mode-p 'haskell-mode))
           (modify-syntax-entry ?- "w"))))
   :bind
   ("C-x C-c" . nil)
