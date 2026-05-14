@@ -230,7 +230,9 @@
   (prog-mode . display-line-numbers-mode)
   (prog-mode
    . (lambda ()
-       (modify-syntax-entry ?_ "w") (modify-syntax-entry ?- "w")))
+        (modify-syntax-entry ?_ "w")
+        (unless (derived-mode-p 'lua-mode)
+          (modify-syntax-entry ?- "w"))))
   :bind
   ("C-x C-c" . nil)
   ("C-z"     . nil)
