@@ -20,7 +20,7 @@ import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 
 main :: IO ()
-main = xmonad $ withUrgencyHookC BorderUrgencyHook { urgencyBorderColor = "#cc9393" } def { suppressWhen = Focused } $ ewmhFullscreen . ewmh $ docks $ def
+main = xmonad $ withUrgencyHookC BorderUrgencyHook { urgencyBorderColor = myUrgentColor } def { suppressWhen = Focused } $ ewmhFullscreen . ewmh $ docks $ def
     { modMask            = mod4Mask
     , terminal           = "st"
     , keys               = myKeys
@@ -98,6 +98,7 @@ button15    = 15 :: Button
 
 myNormalBorderColor  = "#3f3f3f"
 myFocusedBorderColor = "#f5deb3"
+myUrgentColor = "#cc9393"
 
 myWorkspaces = ["default", "chat", "coding", "internets", "todo"]
 
@@ -108,7 +109,16 @@ myTiledLayout = Tall nmaster delta ratio
     delta   = 1/100
 
 myTabsLayout = tabbed shrinkText def
-    { fontName = "xft:FuturaBookC Regular:size=12"
+    { fontName = "xft:Terminus:pixelsize=18"
+    , activeColor = "#6f6f6f"
+    , activeBorderColor = myFocusedBorderColor
+    , activeTextColor = "#dcdccc"
+    , inactiveColor = myNormalBorderColor
+    , inactiveBorderColor = myNormalBorderColor
+    , inactiveTextColor = "#9fafaf"
+    , urgentColor = myUrgentColor
+    , urgentBorderColor = myUrgentColor
+    , urgentTextColor = "#dcdccc"
     }
 
 myPlacement = fixed (0.5, 0.5)
