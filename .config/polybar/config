@@ -161,7 +161,7 @@ label-urgent-padding = 2
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:130:...%
+label = %title:0:120:...%
 label-padding = 1
 label-background = ${colors.background-alt}
 
