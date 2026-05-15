@@ -24,6 +24,7 @@ import qualified XMonad.StackSet as W
 
 import Data.Monoid (All(..))
 import Control.Monad (when, unless)
+import Graphics.X11.Xlib (queryPointer)
 
 main :: IO ()
 main = xmonad $ withUrgencyHookC BorderUrgencyHook { urgencyBorderColor = myUrgentColor } def { suppressWhen = Focused } $ ewmhFullscreen . ewmh $ docks $ def
@@ -39,7 +40,7 @@ main = xmonad $ withUrgencyHookC BorderUrgencyHook { urgencyBorderColor = myUrge
                            (avoidStruts $ smartBorders $
                              onWorkspaces ["chat", "internets"] (myTabsLayout ||| myTiledLayout) $
                              (myTiledLayout ||| myTabsLayout))
-    , manageHook         = myManageHook <+> namedScratchpadManageHook myScratchpads <+> placeHook myPlacement <> manageDocks
+    , manageHook         = manageOnPointerScreen <+> myManageHook <+> namedScratchpadManageHook myScratchpads <+> placeHook myPlacement <> manageDocks
     , handleEventHook    = myEventHook
     , logHook            = myLogHook
     , startupHook        = myStartupHook
@@ -146,6 +147,29 @@ myTabsLayout = tabbed shrinkText def
     }
 
 myPlacement = fixed (0.5, 0.5)
+
+-- | Shift new windows to the workspace of the screen the mouse pointer is on.
+manageOnPointerScreen :: ManageHook
+manageOnPointerScreen = do
+    ws <- liftX pointerScreenWorkspace
+    case ws of
+        Just w  -> doShift w
+        Nothing -> idHook
+  where
+    pointerScreenWorkspace :: X (Maybe WorkspaceId)
+    pointerScreenWorkspace = withDisplay $ \dpy -> do
+        root <- asks theRoot
+        (_, _, _, px, py, _, _, _) <- io $ queryPointer dpy root
+        let px' = fromIntegral px :: Position
+            py' = fromIntegral py :: Position
+        screens <- gets (W.screens . windowset)
+        let match = find (\s -> pointInRect px' py' (screenRect (W.screenDetail s))) screens
+        return $ W.tag . W.workspace <$> match
+
+    pointInRect :: Position -> Position -> Rectangle -> Bool
+    pointInRect px py (Rectangle x y w h) =
+        px >= fromIntegral x && px < fromIntegral x + fromIntegral w &&
+        py >= fromIntegral y && py < fromIntegral y + fromIntegral h
 
 myManageHook = composeAll
     [ checkDialog                   --> doCenterFloat
