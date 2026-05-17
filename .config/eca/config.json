@@ -94,7 +94,8 @@
             "args": [],
             "env": {
                 "GMAIL_OAUTH_PATH": "/home/andrew/.gmail-mcp/gcp-oauth.keys.json",
-                "GMAIL_CREDENTIALS_PATH": "/home/andrew/.gmail-mcp/credentials.json"
+                "GMAIL_CREDENTIALS_PATH": "/home/andrew/.gmail-mcp/credentials.json",
+                "TELEMETRY_ENABLED": "false"
             }
         }
     }
