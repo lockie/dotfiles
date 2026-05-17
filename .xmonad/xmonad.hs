@@ -16,6 +16,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ToggleLayouts (ToggleLayout(..), toggleLayouts)
+import XMonad.Layout.FocusTracking (focusTracking)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.SpawnOnce
 import Graphics.X11.Xlib.Extras (Event(..))
@@ -37,7 +38,7 @@ main = xmonad $ withUrgencyHookC BorderUrgencyHook { urgencyBorderColor = myUrge
     , focusedBorderColor = myFocusedBorderColor
     , workspaces         = myWorkspaces
     , layoutHook         = desktopLayoutModifiers
-                           (avoidStruts $ smartBorders $
+                           (avoidStruts $ smartBorders $ focusTracking $
                              onWorkspaces ["chat", "internets"] (myTabsLayout ||| myTiledLayout) $
                              (myTiledLayout ||| myTabsLayout))
     , manageHook         = manageOnPointerScreen <+> myManageHook <+> namedScratchpadManageHook myScratchpads <+> placeHook myPlacement <> manageDocks
