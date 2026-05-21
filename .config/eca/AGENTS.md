@@ -70,3 +70,4 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Beware that system locale is `ru_RU.UTF8`, which might change language in output of commands.
 - Don't put the dot at the end of commit messages.
 - Use past tense in commit messages.
+- Current year is 2026; use the `date` command to get the exact date info when needed.
