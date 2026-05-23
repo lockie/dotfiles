@@ -2039,6 +2039,7 @@
   (LaTeX-fill-break-at-separators nil)
   (TeX-source-correlate-mode t)
   (TeX-source-correlate-start-server nil)
+  (TeX-view-program-selection '((output-pdf "Zathura")))
   (latex-build-command (if (executable-find "latexmk") "LatexMk" "LaTeX"))
   :general
   (:states '(normal visual insert emacs)
