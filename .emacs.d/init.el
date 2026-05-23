@@ -937,7 +937,7 @@
   (evil-collection-mode-list
    '(ag bookmark (buff-menu "buff-menu") calc calendar cider cmake-mode
         comint company compile custom dashboard diff-mode dired doc-view ediff eww
-        flymake geiser grep help ibuffer image imenu-list info ivy man magit
+        flymake geiser go-mode grep help ibuffer image imenu-list info ivy man magit
         minibuffer mu4e org-present (package-menu package) profiler simple
         sly wdired which-key woman xref))
   (evil-collection-setup-minibuffer t)
@@ -1615,6 +1615,12 @@
 (use-package bison-mode
   :ensure t)
 
+(use-package go-mode
+  :ensure t
+  :hook
+  (go-mode . (lambda ()
+               (setq-local whitespace-style (remove 'tab-mark whitespace-style)))))
+
 (use-package eglot
   :ensure t
   :commands (eglot eglot-ensure eglot-format)
@@ -1639,7 +1645,8 @@
   (python-mode . eglot-ensure)
   (c-mode . eglot-ensure)
   (c++-mode . eglot-ensure)
-  (fennel-mode . eglot-ensure))
+  (fennel-mode . eglot-ensure)
+  (go-mode . eglot-ensure))
 
 (use-package cider
   :ensure t
