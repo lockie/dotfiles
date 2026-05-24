@@ -26,9 +26,22 @@
     "toolCall": {
         "approval": {
             "allow": {
+                "eca__bg_job": {
+                    "argsMatchers": {"action": ["list", "read_output"]}
+                },
+                "eca__shell_command": {
+                    "argsMatchers": {"command": ["^grep\\b.*", "^/bin/grep\\b.*", "^rg\\b.*", "^ag\\b.*"]}
+                },
                 "git": {
                     "argsMatchers": {"operation": ["status", "diff", "log"]}
-                }
+                },
+                "github__get_file_contents": {},
+                "github__search_code": {},
+                "gitlab__get_file_contents": {},
+                "gitlab__search_repositories": {},
+                "semble__find_related": {},
+                "semble__search": {},
+                "web-search__search_web": {}
             }
         }
     },
