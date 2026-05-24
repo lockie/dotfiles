@@ -116,6 +116,10 @@
                 "GMAIL_CREDENTIALS_PATH": "/home/andrew/.gmail-mcp/credentials.json",
                 "TELEMETRY_ENABLED": "false"
             }
+        },
+        "semble": {
+            "command": "uvx",
+            "args": ["--from", "semble[mcp]", "semble"]
         }
     }
 }
