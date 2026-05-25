@@ -109,8 +109,8 @@
             "args": ["linkedin-scraper-mcp@latest"]
         },
         "gmail": {
-            "command": "/home/andrew/.config/eca/gmail-mcp-wrapper.sh",
-            "args": [],
+            "command": "python3",
+            "args": ["/home/andrew/.config/eca/gmail-mcp-wrapper.py"],
             "env": {
                 "GMAIL_OAUTH_PATH": "/home/andrew/.gmail-mcp/gcp-oauth.keys.json",
                 "GMAIL_CREDENTIALS_PATH": "/home/andrew/.gmail-mcp/credentials.json",
