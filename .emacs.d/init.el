@@ -2110,6 +2110,13 @@
   :config
   (global-wakatime-mode))
 
+(use-package leetcode
+  :ensure t
+  :custom
+  (leetcode-save-solutions t)
+  (leetcode-directory "~/Progs/leetcode")
+  (leetcode-prefer-language "cpp"))
+
 (use-package eca
   :ensure t
   :general
