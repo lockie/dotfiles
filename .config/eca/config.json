@@ -30,7 +30,7 @@
                     "argsMatchers": {"action": ["list", "read_output"]}
                 },
                 "eca__shell_command": {
-                    "argsMatchers": {"command": ["^grep\\b.*", "^/bin/grep\\b.*", "^rg\\b.*", "^ag\\b.*"]}
+                    "argsMatchers": {"command": ["^grep\\b.*", "^/bin/grep\\b.*", "^rg\\b.*", "^ag\\b.*", "^ls\\b.*", "^find\\b.*"]}
                 },
                 "git": {
                     "argsMatchers": {"operation": ["status", "diff", "log"]}
