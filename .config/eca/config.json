@@ -46,6 +46,7 @@
     "hooks": {
         "clj-parens": {
             "type":"postToolCall",
+            "visible": false,
             "matcher": "eca__write_file|eca__edit_file",
             "actions": [{"type": "shell",
                          "file": "/home/andrew/.config/eca/hooks/clj_check_parens.sh"}]
