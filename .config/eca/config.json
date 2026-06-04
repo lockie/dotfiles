@@ -39,8 +39,6 @@
                 "github__search_code": {},
                 "gitlab__get_file_contents": {},
                 "gitlab__search_repositories": {},
-                "semble__find_related": {},
-                "semble__search": {},
                 "web-search__search_web": {}
             }
         }
@@ -117,9 +115,7 @@
                 "TELEMETRY_ENABLED": "false"
             }
         },
-        "semble": {
             "command": "uvx",
-            "args": ["--from", "semble[mcp]", "semble"]
         }
     }
 }
