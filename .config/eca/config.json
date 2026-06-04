@@ -1,8 +1,8 @@
 {
     "$schema": "https://eca.dev/config.json",
-    "defaultModel": "zai-coding-plan/glm-5.1",
+    "defaultModel": "zai-coding-plan/glm-4.7",
     "completion": {
-        "model": "zai-coding-plan/glm-5"
+        "model": "zai-coding-plan/glm-4.7-flash"
     },
     "providers": {
         "zai-coding-plan": {
