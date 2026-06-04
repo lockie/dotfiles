@@ -1767,6 +1767,9 @@
 (use-package geiser-chibi
   :ensure t)
 
+(use-package rmsbolt
+  :ensure t)
+
 (use-package sly
   :ensure t
   :after (evil zenburn-theme)
