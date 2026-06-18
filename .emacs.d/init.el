@@ -1067,7 +1067,9 @@
   :diminish projectile-mode
   :custom
   (projectile-completion-system 'ivy)
-  (projectile-enable-caching t)
+  (projectile-enable-caching 'persistent)
+  (projectile-cache-file (my/cache-file "projectile.cache"))
+  (projectile-known-projects-file (my/cache-file "projectile-bookmarks.eld"))
   (define-advice project-try-vc (:before-while (dir) ignore-quicklisp)
     (let ((pred (apply-partially #'file-equal-p "~/.quicklisp/")))
       (not (locate-dominating-file dir pred))))
@@ -1105,9 +1107,18 @@
    :non-normal-prefix "M-m"
    "pf"  'counsel-projectile-find-file
    "pF"  'counsel-projectile-find-file-dwim
-   "pp"  'counsel-projectile)
+   "pp"  'my/counsel-fzf-with-project-name)
   :config
-  (counsel-projectile-mode))
+  (counsel-projectile-mode)
+  (defun my/counsel-fzf-with-project-name ()
+    "Call counsel-fzf with project name in prompt like counsel-projectile."
+    (interactive)
+    (let* ((project-root (projectile-project-p))
+           (project-name (if project-root
+                             (projectile-project-name)
+                           (file-name-nondirectory (directory-file-name default-directory))))
+           (fzf-prompt (format "[%s] " project-name)))
+      (counsel-fzf nil project-root fzf-prompt))))
 
 (use-package autorevert
   :diminish auto-revert-mode
