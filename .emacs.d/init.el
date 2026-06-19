@@ -1142,6 +1142,7 @@
   (dolist (pattern '("COMMIT_EDITMSG\\'"
                       "^/usr/include/"
                       "^/usr/lib64/"
+                      "^/usr/lib/gcc"
                       "^/usr/share/emacs/"
                       "^/tmp/"
                       "/\\.quicklisp/"
