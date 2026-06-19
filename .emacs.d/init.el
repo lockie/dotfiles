@@ -2145,6 +2145,8 @@
 
 (use-package eca
   :ensure t
+  :custom
+  (eca-chat-auto-add-cursor nil)
   :general
   (:states '(normal visual insert emacs)
    :prefix "SPC"
