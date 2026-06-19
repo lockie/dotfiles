@@ -1070,6 +1070,7 @@
   (projectile-enable-caching 'persistent)
   (projectile-cache-file (my/cache-file "projectile.cache"))
   (projectile-known-projects-file (my/cache-file "projectile-bookmarks.eld"))
+  (projectile-switch-project-action 'my/counsel-fzf-with-project-name)
   (define-advice project-try-vc (:before-while (dir) ignore-quicklisp)
     (let ((pred (apply-partially #'file-equal-p "~/.quicklisp/")))
       (not (locate-dominating-file dir pred))))
@@ -1108,17 +1109,22 @@
    "pf"  'counsel-projectile-find-file
    "pF"  'counsel-projectile-find-file-dwim
    "pp"  'my/counsel-fzf-with-project-name)
-  :config
-  (counsel-projectile-mode)
-  (defun my/counsel-fzf-with-project-name ()
-    "Call counsel-fzf with project name in prompt like counsel-projectile."
-    (interactive)
-    (let* ((project-root (projectile-project-p))
-           (project-name (if project-root
-                             (projectile-project-name)
-                           (file-name-nondirectory (directory-file-name default-directory))))
-           (fzf-prompt (format "[%s] " project-name)))
-      (counsel-fzf nil project-root fzf-prompt))))
+   :config
+    (counsel-projectile-mode)
+    (defun my/counsel-fzf-with-project-name ()
+      "Call counsel-fzf with project name in prompt like counsel-projectile."
+      (interactive)
+      (let* ((project-root (projectile-project-p))
+             (project-name (if project-root
+                               (projectile-project-name)
+                             (file-name-nondirectory (directory-file-name default-directory))))
+             (fzf-prompt (format "[%s] " project-name))
+             (use-git-ignore (and project-root
+                                 (file-exists-p (expand-file-name ".git" project-root)))))
+        (if use-git-ignore
+            (let ((counsel-fzf-cmd "git ls-files -co --exclude-standard | fzf -f \"%s\""))
+              (counsel-fzf nil project-root fzf-prompt))
+           (counsel-fzf nil project-root fzf-prompt)))))
 
 (use-package autorevert
   :diminish auto-revert-mode
