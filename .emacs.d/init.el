@@ -2136,7 +2136,12 @@
   :custom
   (leetcode-save-solutions t)
   (leetcode-directory "~/Progs/leetcode")
-  (leetcode-prefer-language "cpp"))
+  (leetcode-prefer-language "cpp")
+  :general
+  (:states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-m"
+   "al"  'leetcode))
 
 (use-package eca
   :ensure t
