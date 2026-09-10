@@ -160,6 +160,7 @@ fi
 alias mv='nocorrect mv'  # чтобы случайно не удалить чего-нибудь
 alias rm='nocorrect rm'  # чтобы случайно не удалить чего-нибудь
 alias ln='nocorrect ln'
+alias ssh='nocorrect ssh'
 alias make='nocorrect make'
 alias cp='nocorrect cp'  # ... или не скопировать
 alias mkdir='nocorrect mkdir'  # ... или не сделать лишний каталог
@@ -205,6 +206,7 @@ hash avconv 2>/dev/null && {
 	command -v ffmpeg >/dev/null 2>&1 || alias ffmpeg='avconv'
 }
 alias git='nocorrect git'
+alias lein='nocorrect lein'
 
 hash ngpt 2>/dev/null && {
 	_how() {
