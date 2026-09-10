@@ -9,6 +9,8 @@
             "api": "anthropic",
             "url": "https://api.z.ai/api/anthropic",
             "models": {
+                "glm-5.3": {},
+                "glm-5.2": {},
                 "glm-5.1": {},
                 "glm-5": {},
                 "glm-4.7": {},
@@ -26,11 +28,12 @@
     "toolCall": {
         "approval": {
             "allow": {
+                "context-mode__ctx_search": {},
                 "eca__bg_job": {
                     "argsMatchers": {"action": ["list", "read_output"]}
                 },
                 "eca__shell_command": {
-                    "argsMatchers": {"command": ["^grep\\b.*", "^/bin/grep\\b.*", "^rg\\b.*", "^ag\\b.*", "^ls\\b.*", "^find\\b.*", "^date\\b.*"]}
+                    "argsMatchers": {"command": ["^grep\\b.*", "^/bin/grep\\b.*", "^rg\\b.*", "^ag\\b.*", "^ls\\b.*", "^find\\b.*", "^date\\b.*", "^sleep\\b.*"]}
                 },
                 "git": {
                     "argsMatchers": {"operation": ["status", "diff", "log"]}
@@ -87,7 +90,7 @@
         },
         "linkedin": {
             "command": "uvx",
-            "args": ["linkedin-scraper-mcp@latest"]
+            "args": ["mcp-server-linkedin@latest"]
         },
         "gmail": {
             "command": "python3",
