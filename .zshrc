@@ -366,3 +366,7 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     autoload -Uz add-zsh-hook
     add-zsh-hook precmd vterm_prompt_end
 fi
+
+if [ -f /usr/share/fzf/key-bindings.zsh ]; then
+	source /usr/share/fzf/key-bindings.zsh
+fi
