@@ -66,8 +66,12 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## 5. Stylistic and environmental considerations
 
+- You're running on Gentoo GNU/Linux system.
+- **NEVER** use `pip install` to install Python or other packages. Use `uv` or `uvx` tools instead.
+- **NEVER** run `shell_command` tool with `&` and `sleep`, it will timeout. Use background jobs instead.
+- When using `sleep`, provide an adequate timeout to `shell_command` — that is, greater than the sleep duration.
 - When using `grep`, call it as `/bin/grep` since this command is aliased to `ag`, "the silver searcher".
 - Beware that system locale is `ru_RU.UTF8`, which might change language in output of commands.
 - Don't put the dot at the end of commit messages.
 - Use past tense in commit messages.
-- Current year is 2026; use the `date` command to get the exact date info when needed.
+- Current year is 2026. **NEVER** assume current date, use the `date` command to get the exact date info when needed.
