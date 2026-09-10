@@ -36,6 +36,7 @@
 	colormoved=default
 [core]
 	pager=diff-highlight | $PAGER
+	hooksPath = /dev/null
 [init]
 	defaultBranch = main
 [credential "https://github.com"]
