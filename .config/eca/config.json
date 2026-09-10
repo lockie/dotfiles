@@ -110,10 +110,14 @@
         "gmail__create_label", "gmail__delete_label", "gmail__get_label", "gmail__list_labels", "gmail__patch_label", "gmail__batch_delete_messages", "gmail__batch_modify_messages", "gmail__delete_message", "gmail__modify_message", "gmail__create_label", "gmail__delete_thread", "gmail__modify_thread", "gmail__get_auto_forwarding", "gmail__get_imap", "gmail__get_language", "gmail__get_pop", "gmail__get_vacation", "gmail__update_auto_forwarding", "gmail__update_imap", "gmail__update_language", "gmail__update_pop", "gmail__update_vacation", "gmail__add_delegate", "gmail__remove_delegate", "gmail__get_delegate", "gmail__list_delegates", "gmail__create_filter", "gmail__delete_filter", "gmail__get_filter", "gmail__list_filters", "gmail__create_forwarding_address", "gmail__delete_forwarding_address", "gmail__get_forwarding_address", "gmail__list_forwarding_addresses", "gmail__create_send_as", "gmail__delete_send_as", "gmail__get_send_as", "gmail__list_send_as", "gmail__patch_send_as", "gmail__update_send_as", "gmail__verify_send_as", "gmail__delete_smime_info", "gmail__get_smime_info", "gmail__insert_smime_info", "gmail__list_smime_info", "gmail__set_default_smime_info", "gmail__watch_mailbox", "gmail__stop_mail_watch"
     ],
     "plugins": {
+      "superpowers-source": {
+        "source": "https://github.com/lockie/superpowers.git"
+      },
       "install": [
         "adr",
         "caveman",
-        "context-mode"
+        "context-mode",
+        "superpowers"
       ]
     }
 }
