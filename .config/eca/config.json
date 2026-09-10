@@ -101,9 +101,6 @@
                 "TELEMETRY_ENABLED": "false"
             }
         },
-        "org": {
-            "command": "org-mcp-server"
-        },
         "context7": {
             "command": "npx",
             "args": ["-y", "@upstash/context7-mcp"]
