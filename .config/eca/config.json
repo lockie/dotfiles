@@ -28,6 +28,7 @@
     "toolCall": {
         "approval": {
             "allow": {
+                "exa__web_search_exa": {},
                 "context-mode__ctx_search": {},
                 "eca__bg_job": {
                     "argsMatchers": {"action": ["list", "read_output"]}
@@ -76,13 +77,8 @@
         }
     },
     "mcpServers": {
-        "web-search": {
-            "command": "npx",
-            "args": ["-y", "@zhafron/mcp-web-search"],
-            "env": {
-                "DEFAULT_SEARCH_PROVIDER": "searxng",
-                "SEARXNG_URL": "https://searx.rhscz.eu"
-            }
+        "exa": {
+            "url": "https://mcp.exa.ai/mcp"
         },
         "chrome-devtools": {
             "command": "npx",
