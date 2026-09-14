@@ -175,6 +175,10 @@ hash pacman 2>/dev/null && {
 hash yaourt 2>/dev/null && {
 	alias yaourt='nocorrect yaourt'
 }
+hash yay 2>/dev/null && {
+	alias yay='nocorrect yay'
+	alias upd='yay -Suy'
+}
 hash clyde 2>/dev/null && {
 	alias clyde='nocorrect sudo clyde'
 	alias upd='clyde -Suy --aur'
