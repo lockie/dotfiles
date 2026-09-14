@@ -113,10 +113,13 @@
       "superpowers-source": {
         "source": "https://github.com/lockie/superpowers.git"
       },
+      "ponytail-source": {
+        "source": "https://github.com/lockie/ponytail.git"
+      },
       "install": [
         "adr",
-        "caveman",
         "context-mode",
+        "ponytail",
         "superpowers"
       ]
     }
