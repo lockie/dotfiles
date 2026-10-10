@@ -1,0 +1,15 @@
+{
+  "plugins": {
+    "superpowers": {
+      "version": "6.4.2",
+      "enabledFeatures": null,
+      "enabled": true
+    },
+    "@dietrichgebert/ponytail": {
+      "version": "4.10.0",
+      "enabledFeatures": null,
+      "enabled": true
+    }
+  },
+  "settings": {}
+}

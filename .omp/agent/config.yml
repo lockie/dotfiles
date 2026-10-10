@@ -1,0 +1,129 @@
+setupVersion: 2
+tools:
+  approvalMode: always-ask
+bash:
+  allowCompoundCommands: true
+  patterns:
+    - match: rg *--pre*
+      approval: prompt
+    - match: git * --ou*
+      approval: prompt
+    - match: date
+      approval: allow
+    - match: date *
+      approval: allow
+    - match: git status
+      approval: allow
+    - match: git status *
+      approval: allow
+    - match: git diff
+      approval: allow
+    - match: git diff *
+      approval: allow
+    - match: git log
+      approval: allow
+    - match: git log *
+      approval: allow
+    - match: git show
+      approval: allow
+    - match: git show *
+      approval: allow
+    - match: grep
+      approval: allow
+    - match: grep *
+      approval: allow
+    - match: ag
+      approval: allow
+    - match: ag *
+      approval: allow
+    - match: rg
+      approval: allow
+    - match: rg *
+      approval: allow
+    - match: ls
+      approval: allow
+    - match: ls *
+      approval: allow
+    - match: echo
+      approval: allow
+    - match: echo *
+      approval: allow
+    - match: ffprobe
+      approval: allow
+    - match: ffprobe *
+      approval: allow
+    - match: /bin/grep
+      approval: allow
+    - match: /bin/grep *
+      approval: allow
+    - match: head
+      approval: allow
+    - match: head *
+      approval: allow
+    - match: tail
+      approval: allow
+    - match: tail *
+      approval: allow
+    - match: pgrep
+      approval: allow
+    - match: pgrep *
+      approval: allow
+    - match: ffmpeg
+      approval: allow
+    - match: ffmpeg *
+      approval: allow
+    - match: stat
+      approval: allow
+    - match: stat *
+      approval: allow
+modelRoles:
+  advisor: anthropic/claude-sonnet-5-5:high
+  smol: minimax-code/MiniMax-M3.1-Flash-Preview
+  web: web/exa
+  slow: zai/glm-5.3
+  default: minimax-code/MiniMax-M3
+retry:
+  fallbackChains:
+    web:
+      - web/zai
+      - web/perplexity
+      - web/duckduckgo
+      - web/startpage
+      - anthropic/claude-haiku-4-5
+      - web/firecrawl
+      - web/parallel
+      - web/ecosia
+      - web/mojeek
+      - web/public
+composer:
+  shape: box
+  tokenRate: false
+dev:
+  autoqaConsent: granted
+theme:
+  dark: dark-twilight
+advisor:
+  enabled: true
+personality: pragmatic
+hideThinkingBlock: true
+tui:
+  vimMode: true
+symbolPreset: nerd
+display:
+  showTurnTime: true
+  showTokenUsage: true
+  cacheMissMarker: true
+statusLine:
+  sessionAccent: false
+browser:
+  relay: true
+error:
+  notify: "on"
+memory:
+  backend: mnemopi
+compaction:
+  methodOrder:
+    - remote
+    - handoff
+    - shake
+    - soft

@@ -1,0 +1,7 @@
+{
+  "name": "omp-plugins",
+  "private": true,
+  "dependencies": {
+    "superpowers": "https://github.com/obra/superpowers"
+  }
+}

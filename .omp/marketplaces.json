@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "marketplaces": [
+    {
+      "name": "ponytail",
+      "sourceType": "github",
+      "sourceUri": "DietrichGebert/ponytail",
+      "catalogPath": "/home/andrew/.omp/plugins/cache/marketplaces/ponytail/marketplace.json",
+      "addedAt": "2026-09-30T15:20:10.045Z",
+      "updatedAt": "2026-10-10T06:45:01.006Z"
+    }
+  ]
+}
